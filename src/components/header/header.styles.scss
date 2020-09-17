@@ -5,7 +5,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 4rem 2rem;
-  background-color: #313131;
+  background-color: #0b0730;
   color: #fff;
   font-size: 2.2rem;
 
@@ -18,5 +18,10 @@
   &__option {
     margin: 0 2rem;
     color: #f8f8f8;
+
+    &.primary {
+      color: #ee4343;
+      font-weight: 700;
+    }
   }
 }

@@ -12,7 +12,7 @@ const Header = () => (
       <Link className="header__option" to="/">
         Home
       </Link>
-      <Link className="header__option" to="/add">
+      <Link className="header__option primary" to="/add">
         Dodaj ogłoszenie
       </Link>
       <Link className="header__option" to="login">
