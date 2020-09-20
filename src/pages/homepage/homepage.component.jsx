@@ -1,5 +1,7 @@
 import React from 'react';
 
+import AdsPreview from '../../components/ads-preview/ads-preview.component';
+
 import './homepage.styles.scss';
 
 const HomePage = () => (
@@ -11,7 +13,7 @@ const HomePage = () => (
       </h1>
       <h2>Praca w logistyce</h2>
     </div>
-    <div className="filters"></div>
+    <AdsPreview />
   </div>
 );
 

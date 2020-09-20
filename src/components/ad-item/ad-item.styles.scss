@@ -1,0 +1,43 @@
+.ad-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background-color: #ececec;
+  width: 75%;
+  border-radius: 7px;
+  padding: 1rem 2.5rem;
+  margin: 2.5rem;
+  box-shadow: 1rem 1rem 0 orange;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 3rem;
+    width: 100%;
+  }
+
+  &__title {
+    font-size: 3rem;
+  }
+
+  &__salary {
+    font-size: 3rem;
+    font-weight: 700;
+    color: #206ada;
+    align-self: flex-end;
+  }
+
+  &__data {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 3rem;
+  }
+
+  &__license,
+  &__system,
+  &__region {
+    font-size: 1.7rem;
+    font-weight: 700;
+  }
+}
