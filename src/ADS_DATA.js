@@ -34,6 +34,39 @@ const ADS_DATA = {
       info:
         'Praca na magazynie centralnym dużej sieci sklepów spożywczych. Wymagana książeczka sanepidowoska, uprawnienia do prowadzenia wózków widłowych, dobry stan zdrowia, dyspozycyjność również w weekendy',
     },
+    {
+      id: 4,
+      category: 'forklift',
+      title: 'Operator wózka',
+      region: 'Chorzów',
+      system: '6-14',
+      salary: '2400',
+      currency: 'PLN',
+      info:
+        'Praca na magazynie centralnym dużej sieci sklepów spożywczych. Wymagana książeczka sanepidowoska, uprawnienia do prowadzenia wózków widłowych, dobry stan zdrowia, dyspozycyjność również w weekendy',
+    },
+    {
+      id: 5,
+      category: 'forklift',
+      title: 'Operator wózka widłowego',
+      region: 'Sosnowiec',
+      system: '2 zmiany',
+      salary: '3200',
+      currency: 'PLN',
+      info:
+        'Praca na magazynie centralnym dużej sieci sklepów spożywczych. Wymagana książeczka sanepidowoska, uprawnienia do prowadzenia wózków widłowych, dobry stan zdrowia, dyspozycyjność również w weekendy',
+    },
+    {
+      id: 6,
+      category: 'warehouse',
+      title: 'Magazynier',
+      region: 'Katowice',
+      system: '3 zmiany',
+      salary: '2850',
+      currency: 'PLN',
+      info:
+        'Praca na magazynie centralnym dużej sieci sklepów spożywczych. Wymagana książeczka sanepidowoska, uprawnienia do prowadzenia wózków widłowych, dobry stan zdrowia, dyspozycyjność również w weekendy',
+    },
   ],
 };
 

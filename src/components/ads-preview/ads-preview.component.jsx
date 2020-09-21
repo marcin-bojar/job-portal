@@ -11,9 +11,11 @@ const AdsPreview = () => {
 
   return (
     <div className="ads-preview">
-      {ads.map(ad => (
-        <AdItem key={ad.id} {...ad} />
-      ))}
+      {ads
+        .filter((ad, i) => i < 4)
+        .map(ad => (
+          <AdItem key={ad.id} {...ad} />
+        ))}
     </div>
   );
 };

@@ -20,9 +20,9 @@ const AdItem = ({
       </p>
     </div>
     <div className="ad-item__data">
-      <p className="ad-item__license">
-        {category === 'driver' ? 'Prawo jazdy: ' : null} {license}{' '}
-      </p>
+      {category === 'driver' ? (
+        <p className="ad-item__license">Prawo jazdy: {license}</p>
+      ) : null}
       <p className="ad-item__system">System pracy: {system}</p>
       <p className="ad-item__region">
         {category === 'driver'
@@ -31,7 +31,6 @@ const AdItem = ({
         {region.toUpperCase()}
       </p>
     </div>
-    <div className="ad-item__info">{info}</div>
   </div>
 );
 
