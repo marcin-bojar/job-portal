@@ -13,7 +13,12 @@ const HomePage = () => (
       </h1>
       <h2>Praca w logistyce</h2>
     </div>
-    <AdsPreview />
+    <div className="data-container">
+      <div className="data-container__ads">
+        <AdsPreview />
+      </div>
+      <div className="data-container__search"></div>
+    </div>
   </div>
 );
 

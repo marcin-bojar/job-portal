@@ -5,4 +5,10 @@
   min-height: 45vh;
   background-color: #fff;
   padding: 2rem;
+
+  &__title {
+    font-size: 2.25rem;
+    align-self: flex-start;
+    margin-bottom: 2rem;
+  }
 }
