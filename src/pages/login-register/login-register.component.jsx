@@ -8,7 +8,9 @@ import './login-register.styles.scss';
 const LoginPage = () => (
   <div className="login-page">
     <SignIn />
-    <p className="login-page__or">lub</p>
+    <div className="login-page__or">
+      <p>lub</p>
+    </div>
     <SignUp />
   </div>
 );

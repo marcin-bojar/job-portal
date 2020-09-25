@@ -3,19 +3,31 @@
   padding: 1.5rem 3em;
   background-color: #206ada;
   color: #fff;
+  border: 1px solid #206ada;
   text-transform: uppercase;
   font-family: inherit;
   font-size: inherit;
   letter-spacing: 1px;
-  border: none;
   cursor: pointer;
   transition: background-color 0.2s;
+
+  &.google {
+    border: 1px solid #db4437;
+    background-color: #db4437;
+    color: #fff;
+
+    &:hover {
+      color: #db4437;
+      background-color: #fff;
+    }
+  }
 
   &:focus {
     outline: none;
   }
 
   &:hover {
-    background-color: #1960ca;
+    background-color: #fff;
+    color: #206ada;
   }
 }
