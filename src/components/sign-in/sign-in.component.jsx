@@ -51,9 +51,9 @@ class SignIn extends React.Component {
             required
           />
           <div className="button-wrapper">
-            <CustomButton handleClick={this.handleSubmit}>Sign in</CustomButton>
+            <CustomButton handleClick={this.handleSubmit}>Zaloguj</CustomButton>
             <CustomButton isGoogleSignIn handleClick={signInWithGoogle}>
-              Sign in with Google
+              Zaloguj z Google
             </CustomButton>
           </div>
         </form>

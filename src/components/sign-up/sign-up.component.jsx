@@ -66,7 +66,9 @@ class SignUp extends React.Component {
             required
           />
           <div className="button-wrapper">
-            <CustomButton handleClick={this.handleSubmit}>Sign up</CustomButton>
+            <CustomButton handleClick={this.handleSubmit}>
+              Zarejestruj
+            </CustomButton>
           </div>
         </form>
       </div>
