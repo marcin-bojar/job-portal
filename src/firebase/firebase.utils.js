@@ -16,7 +16,7 @@ const config = {
 };
 
 firebase.initializeApp(config);
-const db = firebase.firestore();
+export const db = firebase.firestore();
 
 // const analytics = firebase.analytics();
 // analytics.logEvent();
@@ -79,5 +79,3 @@ export const registerNewUser = (displayName, email, password) => {
       });
   });
 };
-
-export const signInWithEmailAndPassword = () => {};
