@@ -51,11 +51,33 @@ export const signInWithGoogle = async () => {
   try {
     const res = await auth.signInWithPopup(provider);
     const userAuth = res.user;
-
     createUserDocumentFromUserAuth(userAuth);
   } catch (error) {
     console.log(error.message);
   }
 };
 
-export const signInWithEmailAndPassword = {};
+export const registerNewUser = (displayName, email, password) => {
+  return new Promise((resolve, reject) => {
+    auth
+      .createUserWithEmailAndPassword(email, password)
+      .then(res => {
+        const userAuth = res.user;
+        userAuth
+          .updateProfile({
+            displayName,
+          })
+          .then(() => {
+            alert(`Gratulacje ${displayName}, Twoje konto zostało utworzone`);
+            createUserDocumentFromUserAuth(userAuth);
+            resolve(userAuth);
+          });
+      })
+      .catch(error => {
+        alert(error.message);
+        reject(error.message);
+      });
+  });
+};
+
+export const signInWithEmailAndPassword = () => {};
