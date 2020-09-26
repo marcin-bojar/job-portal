@@ -16,24 +16,46 @@ const config = {
 };
 
 firebase.initializeApp(config);
+const db = firebase.firestore();
+
 // const analytics = firebase.analytics();
 // analytics.logEvent();
 
-export const auth = firebase.auth();
 const provider = new firebase.auth.GoogleAuthProvider();
 provider.setCustomParameters({
   prompt: 'select_account',
 });
 
+const createUserDocumentFromUserAuth = userAuth => {
+  const userRef = db.collection('users').doc(userAuth.uid);
+  const { displayName, email } = userAuth;
+
+  userRef
+    .get()
+    .then(user => {
+      if (!user.exists) {
+        userRef.set({
+          displayName,
+          email,
+          createdAt: new Date(),
+        });
+      }
+    })
+    .catch(error => console.log(error));
+};
+
+export const auth = firebase.auth();
 auth.useDeviceLanguage();
 
 export const signInWithGoogle = async () => {
   try {
     const res = await auth.signInWithPopup(provider);
-    const userRef = res.user;
-    console.log(userRef);
-    return userRef;
+    const userAuth = res.user;
+
+    createUserDocumentFromUserAuth(userAuth);
   } catch (error) {
     console.log(error.message);
   }
 };
+
+export const signInWithEmailAndPassword = {};
