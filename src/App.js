@@ -12,6 +12,8 @@ import { currentUserSelector } from './redux/user/user.selectors';
 import HomePage from './pages/homepage/homepage.component';
 import LoginPage from './pages/login-register/login-register.component';
 import Header from './components/header/header.component';
+import LoginFirst from './pages/login-first/login-first.component';
+import AddAd from './pages/add-ad/add-ad.component';
 
 import './App.css';
 
@@ -49,6 +51,11 @@ class App extends React.Component {
             exact
             path="/login"
             render={() => (currentUser ? <Redirect to="/" /> : <LoginPage />)}
+          />
+          <Route
+            exact
+            path="/add"
+            render={() => (currentUser ? <AddAd /> : <LoginFirst />)}
           />
         </Switch>
       </div>
