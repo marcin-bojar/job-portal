@@ -25,13 +25,13 @@ class App extends React.Component {
 
     this.unsubscribe = auth.onAuthStateChanged(async user => {
       if (user) {
-        const userRef = await db.collection('users').doc(user.uid).get();
-        if (userRef.exists) {
-          const userSnapshot = userRef.data();
-          setCurrentUser(userSnapshot);
+        const userRef = db.collection('users').doc(user.uid);
+        const userSnapshot = await userRef.get();
+
+        if (userSnapshot.exists) {
+          const userData = userSnapshot.data();
+          setCurrentUser(userData);
         }
-      } else {
-        setCurrentUser(user);
       }
     });
   }

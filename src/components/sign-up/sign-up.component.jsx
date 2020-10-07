@@ -3,7 +3,10 @@ import React from 'react';
 import FormInput from '../form-input/form-input.component';
 import CustomButton from '../custom-button/custom-button.component';
 
-import { registerNewUser } from '../../firebase/firebase.utils';
+import {
+  auth,
+  createUserDocumentFromUserAuth,
+} from '../../firebase/firebase.utils';
 
 import './sign-up.styles.scss';
 
@@ -24,7 +27,7 @@ class SignUp extends React.Component {
     this.setState({ [name]: value });
   };
 
-  handleSubmit = e => {
+  handleSubmit = async e => {
     e.preventDefault();
 
     const { displayName, email, password, confirmPassword } = this.state;
@@ -32,16 +35,22 @@ class SignUp extends React.Component {
     if (password !== confirmPassword) {
       alert('Hasła nie są takie same! Spróbuj ponownie.');
     } else {
-      registerNewUser(displayName, email, password)
-        .then(() => {
-          this.setState({
-            displayName: '',
-            email: '',
-            password: '',
-            confirmPassword: '',
-          });
-        })
-        .catch(error => console.log(error));
+      try {
+        const { user } = await auth.createUserWithEmailAndPassword(
+          email,
+          password
+        );
+        alert(`Gratulacje ${displayName}, Twoje konto zostało utworzone`);
+        createUserDocumentFromUserAuth(user, { displayName });
+        this.setState({
+          displayName: '',
+          email: '',
+          password: '',
+          confirmPassword: '',
+        });
+      } catch (error) {
+        alert(error.message);
+      }
     }
   };
 

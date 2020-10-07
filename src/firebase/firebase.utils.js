@@ -26,22 +26,26 @@ provider.setCustomParameters({
   prompt: 'select_account',
 });
 
-const createUserDocumentFromUserAuth = userAuth => {
+export const createUserDocumentFromUserAuth = (userAuth, additionalData) => {
   const userRef = db.collection('users').doc(userAuth.uid);
   const { displayName, email } = userAuth;
+  const createdAt = new Date();
 
   userRef
     .get()
-    .then(user => {
-      if (!user.exists) {
+    .then(userSnapshot => {
+      if (!userSnapshot.exists) {
         userRef.set({
           displayName,
           email,
-          createdAt: new Date(),
+          createdAt,
+          ...additionalData,
         });
       }
     })
     .catch(error => console.log(error));
+
+  return userRef;
 };
 
 export const auth = firebase.auth();
@@ -55,27 +59,4 @@ export const signInWithGoogle = async () => {
   } catch (error) {
     console.log(error.message);
   }
-};
-
-export const registerNewUser = (displayName, email, password) => {
-  return new Promise((resolve, reject) => {
-    auth
-      .createUserWithEmailAndPassword(email, password)
-      .then(res => {
-        const userAuth = res.user;
-        userAuth
-          .updateProfile({
-            displayName,
-          })
-          .then(() => {
-            alert(`Gratulacje ${displayName}, Twoje konto zostało utworzone`);
-            createUserDocumentFromUserAuth(userAuth);
-            resolve(userAuth);
-          });
-      })
-      .catch(error => {
-        alert(error.message);
-        reject(error.message);
-      });
-  });
 };
