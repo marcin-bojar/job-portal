@@ -4,7 +4,10 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { setCurrentUser } from './redux/user/user.actions';
 
-import { auth, db } from './firebase/firebase.utils';
+import {
+  auth,
+  createUserDocumentFromUserAuth,
+} from './firebase/firebase.utils';
 
 import { createStructuredSelector } from 'reselect';
 import { currentUserSelector } from './redux/user/user.selectors';
@@ -23,15 +26,15 @@ class App extends React.Component {
   componentDidMount() {
     const { setCurrentUser } = this.props;
 
-    this.unsubscribe = auth.onAuthStateChanged(async user => {
-      if (user) {
-        const userRef = db.collection('users').doc(user.uid);
-        const userSnapshot = await userRef.get();
+    this.unsubscribe = auth.onAuthStateChanged(async userAuth => {
+      if (userAuth) {
+        const userRef = await createUserDocumentFromUserAuth(userAuth);
 
-        if (userSnapshot.exists) {
-          const userData = userSnapshot.data();
-          setCurrentUser(userData);
-        }
+        userRef.onSnapshot(snapshot => {
+          setCurrentUser({ id: snapshot.id, ...snapshot.data() });
+        });
+      } else {
+        setCurrentUser(userAuth);
       }
     });
   }

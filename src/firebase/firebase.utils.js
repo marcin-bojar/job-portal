@@ -26,25 +26,30 @@ provider.setCustomParameters({
   prompt: 'select_account',
 });
 
-export const createUserDocumentFromUserAuth = (userAuth, additionalData) => {
+export const createUserDocumentFromUserAuth = async (
+  userAuth,
+  additionalData
+) => {
+  if (!userAuth) return;
+
   const userRef = db.collection('users').doc(userAuth.uid);
-  const { displayName, email } = userAuth;
-  const createdAt = new Date();
+  const snapShot = await userRef.get();
 
-  userRef
-    .get()
-    .then(userSnapshot => {
-      if (!userSnapshot.exists) {
-        userRef.set({
-          displayName,
-          email,
-          createdAt,
-          ...additionalData,
-        });
-      }
-    })
-    .catch(error => console.log(error));
+  if (!snapShot.exists) {
+    const { displayName, email } = userAuth;
+    const createdAt = new Date();
 
+    try {
+      await userRef.set({
+        displayName,
+        email,
+        createdAt,
+        ...additionalData,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
   return userRef;
 };
 
