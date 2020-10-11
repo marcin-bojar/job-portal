@@ -51,7 +51,7 @@ export const createUserDocumentFromUserAuth = async (
 export const auth = firebase.auth();
 auth.useDeviceLanguage();
 
-const googleProvider = new firebase.auth.GoogleAuthProvider();
+export const googleProvider = new firebase.auth.GoogleAuthProvider();
 googleProvider.setCustomParameters({
   prompt: 'select_account',
 });
