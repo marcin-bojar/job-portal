@@ -4,13 +4,13 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { createStructuredSelector } from 'reselect';
-import { currentUserSelector } from '../../redux/user/user.selectors';
 
-import { auth } from '../../firebase/firebase.utils';
+import { currentUserSelector } from '../../redux/user/user.selectors';
+import { signOutStart } from '../../redux/user/user.actions';
 
 import './header.styles.scss';
 
-const Header = ({ currentUser }) => (
+const Header = ({ currentUser, signOut }) => (
   <div className="header">
     <Link to="/" className="header__logo">
       Logo
@@ -27,7 +27,7 @@ const Header = ({ currentUser }) => (
           Zaloguj się
         </Link>
       ) : (
-        <div className="header__option" onClick={() => auth.signOut()}>
+        <div className="header__option" onClick={signOut}>
           Wyloguj
         </div>
       )}
@@ -39,4 +39,8 @@ const mapStateToProps = createStructuredSelector({
   currentUser: currentUserSelector,
 });
 
-export default connect(mapStateToProps)(Header);
+const mapDispatchToProps = dispatch => ({
+  signOut: () => dispatch(signOutStart()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

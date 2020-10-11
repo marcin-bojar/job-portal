@@ -20,6 +20,11 @@ export const signUpFailure = error => ({
   payload: error,
 });
 
+export const emailSignInStart = userData => ({
+  type: UserActionTypes.EMAIL_SIGN_IN_START,
+  payload: userData,
+});
+
 export const signInSuccess = user => ({
   type: UserActionTypes.SIGN_IN_SUCCESS,
   payload: user,
@@ -32,4 +37,17 @@ export const signInFailure = error => ({
 
 export const checkCurrentUser = () => ({
   type: UserActionTypes.CHECK_CURRENT_USER,
+});
+
+export const signOutStart = () => ({
+  type: UserActionTypes.SIGN_OUT_START,
+});
+
+export const signOutSuccess = () => ({
+  type: UserActionTypes.SIGN_OUT_SUCCESS,
+});
+
+export const signOutFailure = error => ({
+  type: UserActionTypes.SIGN_OUT_FAILURE,
+  payload: error,
 });
