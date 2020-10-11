@@ -12,7 +12,22 @@ import {
 import {
   auth,
   createUserDocumentFromUserAuth,
+  getCurrentUser,
 } from '../../firebase/firebase.utils';
+
+function* getUserSnapshotAndSignIn(userAuth, additionalData) {
+  try {
+    const userRef = yield call(
+      createUserDocumentFromUserAuth,
+      userAuth,
+      additionalData
+    );
+    const userSnapshot = yield userRef.get();
+    yield put(signInSuccess({ id: userSnapshot.id, ...userSnapshot.data() }));
+  } catch (error) {
+    yield put(signInFailure(error));
+  }
+}
 
 function* signUp({ payload: { email, password, displayName } }) {
   try {
@@ -24,16 +39,16 @@ function* signUp({ payload: { email, password, displayName } }) {
 }
 
 function* signInOnSignUp({ payload: { user, additionalData } }) {
+  yield call(getUserSnapshotAndSignIn, user, additionalData);
+}
+
+function* isUserLoggedIn() {
   try {
-    const userRef = yield call(
-      createUserDocumentFromUserAuth,
-      user,
-      additionalData
-    );
-    const userSnapshot = yield userRef.get();
-    yield put(signInSuccess({ id: userSnapshot.id, ...userSnapshot.data() }));
+    const userAuth = yield getCurrentUser();
+    if (!userAuth) return;
+    yield getUserSnapshotAndSignIn(userAuth);
   } catch (error) {
-    yield put(signInFailure(error));
+    put(signInFailure(error));
   }
 }
 
@@ -44,7 +59,14 @@ export function* onSignUpStart() {
 export function* onSignUpSuccess() {
   yield takeLatest(UserActionTypes.SIGN_UP_SUCCESS, signInOnSignUp);
 }
+export function* onCheckCurrentUSer() {
+  yield takeLatest(UserActionTypes.CHECK_CURRENT_USER, isUserLoggedIn);
+}
 
 export function* userSagas() {
-  yield all([call(onSignUpStart), call(onSignUpSuccess)]);
+  yield all([
+    call(onSignUpStart),
+    call(onSignUpSuccess),
+    call(onCheckCurrentUSer),
+  ]);
 }

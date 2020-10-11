@@ -21,11 +21,6 @@ export const db = firebase.firestore();
 // const analytics = firebase.analytics();
 // analytics.logEvent();
 
-const provider = new firebase.auth.GoogleAuthProvider();
-provider.setCustomParameters({
-  prompt: 'select_account',
-});
-
 export const createUserDocumentFromUserAuth = async (
   userAuth,
   additionalData
@@ -56,12 +51,17 @@ export const createUserDocumentFromUserAuth = async (
 export const auth = firebase.auth();
 auth.useDeviceLanguage();
 
-export const signInWithGoogle = async () => {
-  try {
-    const res = await auth.signInWithPopup(provider);
-    const userAuth = res.user;
-    createUserDocumentFromUserAuth(userAuth);
-  } catch (error) {
-    console.log(error.message);
-  }
+const googleProvider = new firebase.auth.GoogleAuthProvider();
+googleProvider.setCustomParameters({
+  prompt: 'select_account',
+});
+export const signInWithGoogle = () => auth.signInWithPopup(googleProvider);
+
+export const getCurrentUser = () => {
+  return new Promise((resolve, reject) => {
+    const unsubscribe = auth.onAuthStateChanged(userAuth => {
+      unsubscribe();
+      resolve(userAuth);
+    }, reject);
+  });
 };

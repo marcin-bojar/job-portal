@@ -2,12 +2,13 @@ import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 
 import { connect } from 'react-redux';
-import { setCurrentUser } from './redux/user/user.actions';
+import { checkCurrentUser } from './redux/user/user.actions';
 
-import {
-  auth,
-  createUserDocumentFromUserAuth,
-} from './firebase/firebase.utils';
+// import {
+//   auth,
+//   createUserDocumentFromUserAuth,
+//   getCurrentUser,
+// } from './firebase/firebase.utils';
 
 import { createStructuredSelector } from 'reselect';
 import { currentUserSelector } from './redux/user/user.selectors';
@@ -24,19 +25,8 @@ class App extends React.Component {
   unsubscribe = null;
 
   componentDidMount() {
-    const { setCurrentUser } = this.props;
-
-    this.unsubscribe = auth.onAuthStateChanged(async userAuth => {
-      if (userAuth) {
-        const userRef = await createUserDocumentFromUserAuth(userAuth);
-
-        userRef.onSnapshot(snapshot => {
-          setCurrentUser({ id: snapshot.id, ...snapshot.data() });
-        });
-      } else {
-        setCurrentUser(userAuth);
-      }
-    });
+    const { checkCurrentUser } = this.props;
+    checkCurrentUser();
   }
 
   componentWillUnmount() {
@@ -71,7 +61,7 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = dispatch => ({
-  setCurrentUser: user => dispatch(setCurrentUser(user)),
+  checkCurrentUser: () => dispatch(checkCurrentUser()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
