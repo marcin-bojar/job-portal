@@ -78,7 +78,7 @@ function* isUserLoggedIn() {
     if (!userAuth) return;
     yield getUserSnapshotAndSignIn(userAuth);
   } catch (error) {
-    put(signInFailure(error));
+    yield put(signInFailure(error));
   }
 }
 

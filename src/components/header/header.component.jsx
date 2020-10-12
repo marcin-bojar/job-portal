@@ -5,12 +5,17 @@ import { connect } from 'react-redux';
 
 import { createStructuredSelector } from 'reselect';
 
-import { currentUserSelector } from '../../redux/user/user.selectors';
-import { signOutStart } from '../../redux/user/user.actions';
+import UserMenu from '../user-menu/user-menu.component';
+
+import {
+  currentUserSelector,
+  userMenuHiddenSelector,
+} from '../../redux/user/user.selectors';
+import { toggleUserMenu } from '../../redux/user/user.actions';
 
 import './header.styles.scss';
 
-const Header = ({ currentUser, signOut }) => (
+const Header = ({ currentUser, toggleUserMenu, userMenuHidden }) => (
   <div className="header">
     <Link to="/" className="header__logo">
       Logo
@@ -27,20 +32,22 @@ const Header = ({ currentUser, signOut }) => (
           Zaloguj się
         </Link>
       ) : (
-        <div className="header__option" onClick={signOut}>
-          Wyloguj
+        <div className="header__option" onClick={toggleUserMenu}>
+          {currentUser.displayName}
         </div>
       )}
+      {userMenuHidden ? null : <UserMenu />}
     </div>
   </div>
 );
 
 const mapStateToProps = createStructuredSelector({
   currentUser: currentUserSelector,
+  userMenuHidden: userMenuHiddenSelector,
 });
 
 const mapDispatchToProps = dispatch => ({
-  signOut: () => dispatch(signOutStart()),
+  toggleUserMenu: () => dispatch(toggleUserMenu()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);

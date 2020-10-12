@@ -4,12 +4,6 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { checkCurrentUser } from './redux/user/user.actions';
 
-// import {
-//   auth,
-//   createUserDocumentFromUserAuth,
-//   getCurrentUser,
-// } from './firebase/firebase.utils';
-
 import { createStructuredSelector } from 'reselect';
 import { currentUserSelector } from './redux/user/user.selectors';
 

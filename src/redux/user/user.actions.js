@@ -1,5 +1,13 @@
 import UserActionTypes from './user.types';
 
+export const toggleUserMenu = () => ({
+  type: UserActionTypes.TOGGLE_USER_MENU,
+});
+
+export const checkCurrentUser = () => ({
+  type: UserActionTypes.CHECK_CURRENT_USER,
+});
+
 export const setCurrentUser = user => ({
   type: UserActionTypes.SET_CURRENT_USER,
   payload: user,
@@ -37,10 +45,6 @@ export const signInSuccess = user => ({
 export const signInFailure = error => ({
   type: UserActionTypes.SIGN_IN_FAILURE,
   payload: error,
-});
-
-export const checkCurrentUser = () => ({
-  type: UserActionTypes.CHECK_CURRENT_USER,
 });
 
 export const signOutStart = () => ({

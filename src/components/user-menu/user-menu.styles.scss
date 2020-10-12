@@ -1,0 +1,38 @@
+.user-menu {
+  position: absolute;
+  top: 8rem;
+  right: 1rem;
+  width: 20rem;
+  height: 40rem;
+  background-color: #fff;
+  border: 1px solid #000;
+  z-index: 9000;
+  transform-origin: top;
+  animation: rollout 0.3s ease-in-out;
+
+  &__item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1.25rem;
+    border-bottom: 1px solid #777;
+    cursor: pointer;
+    font-size: 1.7rem;
+
+    &--logout {
+      color: #ff1d1d;
+      font-weight: 700;
+      font-size: 1.9rem;
+    }
+  }
+}
+
+@keyframes rollout {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
