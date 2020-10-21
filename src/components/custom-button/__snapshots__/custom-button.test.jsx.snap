@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CustomButton component renders CustomButton correctly 1`] = `
+<button
+  className=" custom-button"
+>
+  Zaloguj
+</button>
+`;
