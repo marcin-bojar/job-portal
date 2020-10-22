@@ -10,6 +10,9 @@ describe('CustomButton component', () => {
     };
 
     expect(shallow(<CustomButton {...mockProps} />)).toMatchSnapshot();
+    expect(
+      shallow(<CustomButton {...mockProps} />).find('.custom-button')
+    ).toHaveLength(1);
     expect(shallow(<CustomButton {...mockProps} />).props().children).toEqual(
       'Zaloguj'
     );
@@ -18,7 +21,6 @@ describe('CustomButton component', () => {
   it('handles click event', () => {
     const mockCallback = jest.fn();
     const mockProps = {
-      children: 'Zaloguj',
       onClick: mockCallback,
     };
 
@@ -35,7 +37,7 @@ describe('CustomButton component', () => {
     };
 
     expect(
-      shallow(<CustomButton {...mockProps} />).hasClass('google custom-button')
-    );
+      shallow(<CustomButton {...mockProps} />).find('.google.custom-button')
+    ).toHaveLength(1);
   });
 });
