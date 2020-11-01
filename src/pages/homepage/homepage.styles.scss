@@ -25,7 +25,8 @@
   width: 100%;
   height: 40vh;
 
-  &__ads {
+  &__ads,
+  &__search {
     width: 50%;
     overflow-y: scroll;
   }

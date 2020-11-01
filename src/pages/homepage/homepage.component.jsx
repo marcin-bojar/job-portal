@@ -1,6 +1,7 @@
 import React from 'react';
 
 import AdsPreview from '../../components/ads-preview/ads-preview.component';
+import Search from '../../components/search/search.component';
 
 import './homepage.styles.scss';
 
@@ -17,7 +18,9 @@ const HomePage = () => (
       <div className="data-container__ads">
         <AdsPreview />
       </div>
-      <div className="data-container__search"></div>
+      <div className="data-container__search">
+        <Search />
+      </div>
     </div>
   </div>
 );

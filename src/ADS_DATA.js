@@ -68,6 +68,8 @@ const ADS_DATA = {
         'Praca na magazynie centralnym dużej sieci sklepów spożywczych. Wymagana książeczka sanepidowoska, uprawnienia do prowadzenia wózków widłowych, dobry stan zdrowia, dyspozycyjność również w weekendy',
     },
   ],
+
+  filteredAds: [],
 };
 
 export default ADS_DATA;
