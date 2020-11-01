@@ -4,16 +4,11 @@ import { connect } from 'react-redux';
 import FormInput from '../form-input/form-input.component';
 import CustomButton from '../custom-button/custom-button.component';
 
-// import {
-//   auth,
-//   createUserDocumentFromUserAuth,
-// } from '../../firebase/firebase.utils';
-
 import { signUpStart } from '../../redux/user/user.actions';
 
 import './sign-up.styles.scss';
 
-class SignUp extends React.Component {
+export class SignUp extends React.Component {
   constructor() {
     super();
 

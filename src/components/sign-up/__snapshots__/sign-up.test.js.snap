@@ -1,0 +1,56 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SignUp component connected to redux store renders SignUp component correctly 1`] = `
+<div
+  className="sign-up"
+>
+  <h2
+    className="sign-up__title"
+  >
+    Zarejestruj się
+  </h2>
+  <form>
+    <FormInput
+      label="Nazwa"
+      name="displayName"
+      onChange={[Function]}
+      required={true}
+      type="text"
+      value=""
+    />
+    <FormInput
+      label="Email"
+      name="email"
+      onChange={[Function]}
+      required={true}
+      type="email"
+      value=""
+    />
+    <FormInput
+      label="Hasło"
+      name="password"
+      onChange={[Function]}
+      required={true}
+      type="password"
+      value=""
+    />
+    <FormInput
+      label="Potwierdź hasło"
+      name="confirmPassword"
+      onChange={[Function]}
+      required={true}
+      type="password"
+      value=""
+    />
+    <div
+      className="button-wrapper"
+    >
+      <CustomButton
+        handleClick={[Function]}
+      >
+        Zarejestruj
+      </CustomButton>
+    </div>
+  </form>
+</div>
+`;
