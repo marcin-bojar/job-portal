@@ -69,6 +69,7 @@ const ADS_DATA = {
     },
   ],
 
+  searchInput: '',
   filteredAds: [],
 };
 

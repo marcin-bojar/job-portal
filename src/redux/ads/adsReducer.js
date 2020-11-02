@@ -12,7 +12,11 @@ const adsReducer = (state = INITIAL_STATE, action) => {
         ...state,
         filteredAds: filterAds(state, action.payload),
       };
-
+    case AdsActionTypes.SET_ADS_FILTER:
+      return {
+        ...state,
+        searchInput: action.payload,
+      };
     default:
       return state;
   }
