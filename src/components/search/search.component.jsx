@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
+import FormInput from '../form-input/form-input.component';
+
 import { searchInputSelector } from '../../redux/ads/ads.selectors';
 
 import { filterAds, setAdsFilter } from '../../redux/ads/ads.actions';
@@ -28,12 +30,11 @@ class Search extends React.Component {
     return (
       <div className="search">
         <h2 className="search__title">Wyszukaj ogłoszenia</h2>
-        <input
-          className="search__input"
+        <FormInput
           value={searchInput}
           onChange={this.handleChange}
-          onBlur={setAdsFilter}
-        ></input>
+          width={60}
+        ></FormInput>
       </div>
     );
   }
