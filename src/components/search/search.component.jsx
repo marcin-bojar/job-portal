@@ -22,7 +22,8 @@ class Search extends React.Component {
   };
 
   render() {
-    const { searchInput } = this.props;
+    let { searchInput, setAdsFilter } = this.props;
+    setAdsFilter = setAdsFilter.bind(null, '');
 
     return (
       <div className="search">
@@ -31,6 +32,7 @@ class Search extends React.Component {
           className="search__input"
           value={searchInput}
           onChange={this.handleChange}
+          onBlur={setAdsFilter}
         ></input>
       </div>
     );
