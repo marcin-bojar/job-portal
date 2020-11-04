@@ -16,6 +16,11 @@ class Search extends React.Component {
     filterAds(searchInput);
   }
 
+  componentWillUnmount() {
+    const { setAdsFilter } = this.props;
+    setAdsFilter('');
+  }
+
   handleChange = e => {
     const { value } = e.target;
     const { setAdsFilter } = this.props;

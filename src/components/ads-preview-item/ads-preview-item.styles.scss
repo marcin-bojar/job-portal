@@ -2,19 +2,19 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  background-color: #ececec;
+  background-color: var(--color-white-cream);
   width: 100%;
   border-radius: 7px;
   padding: 1rem 2.5rem;
   margin-bottom: 2rem;
-  border: 1px solid #000;
+  border: 1px solid var(--color-black);
   box-shadow: 0 1rem 1rem rgba(0, 0, 0, 0.2);
   cursor: pointer;
   transition: all 0.2s;
 
   &:hover {
     transform: translateY(-3px);
-    border: 1px solid #206ada;
+    border: 1px solid var(--color-primary);
   }
 
   &__header {
@@ -31,7 +31,7 @@
   &__salary {
     font-size: 3rem;
     font-weight: 700;
-    color: #206ada;
+    color: var(--color-primary);
     align-self: flex-end;
   }
 

@@ -1,9 +1,9 @@
 .custom-button {
   display: block;
   padding: 1.5rem 3em;
-  background-color: #206ada;
-  color: #fff;
-  border: 1px solid #206ada;
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  border: 1px solidvar(--color-primary);
   text-transform: uppercase;
   font-family: inherit;
   font-size: inherit;
@@ -12,13 +12,13 @@
   transition: background-color 0.2s;
 
   &.google {
-    border: 1px solid #db4437;
-    background-color: #db4437;
-    color: #fff;
+    border: 1px solid var(--color-red-google);
+    background-color: var(--color-red-google);
+    color: var(--color-white);
 
     &:hover {
-      color: #db4437;
-      background-color: #fff;
+      color: var(--color-red-google);
+      background-color: var(--color-white);
     }
   }
 
@@ -27,7 +27,7 @@
   }
 
   &:hover {
-    background-color: #fff;
-    color: #206ada;
+    background-color: var(--color-white);
+    color: var(--color-primary);
   }
 }

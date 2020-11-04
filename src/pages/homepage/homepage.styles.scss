@@ -29,7 +29,7 @@
   transition: all 0.5s 0.2s;
 
   &__color-letter {
-    color: #206ada;
+    color: var(--color-primary);
   }
 }
 
