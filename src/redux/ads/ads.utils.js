@@ -3,3 +3,9 @@ export const filterAds = (ads, filter) => {
     ad.title.toLowerCase().includes(filter.toLowerCase().trim())
   );
 };
+
+export const filterAdsByCategory = (ads, category) =>
+  ads.ads.filter(ad => ad.category === category);
+
+export const removeCategoryFilter = (filteredAds, category) =>
+  filteredAds.filter(ad => ad.category !== category);

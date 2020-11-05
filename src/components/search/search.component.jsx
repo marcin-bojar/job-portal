@@ -6,16 +6,17 @@ import FormInput from '../form-input/form-input.component';
 
 import { searchInputSelector } from '../../redux/ads/ads.selectors';
 
-import { filterAds, setAdsFilter } from '../../redux/ads/ads.actions';
+import {
+  filterAds,
+  filterAdsByCategory,
+  setAdsFilter,
+  removeCategoryFilter,
+  noFilter,
+} from '../../redux/ads/ads.actions';
 
 import './search.styles.scss';
 
 class Search extends React.Component {
-  componentDidUpdate() {
-    const { filterAds, searchInput } = this.props;
-    filterAds(searchInput);
-  }
-
   componentWillUnmount() {
     const { setAdsFilter } = this.props;
     setAdsFilter('');
@@ -23,14 +24,30 @@ class Search extends React.Component {
 
   handleChange = e => {
     const { value } = e.target;
-    const { setAdsFilter } = this.props;
+    const { setAdsFilter, filterAds, noFilter } = this.props;
 
-    setAdsFilter(value);
+    if (value) {
+      setAdsFilter(value);
+      filterAds(value);
+    } else {
+      noFilter();
+    }
+  };
+
+  handleCheckboxChange = e => {
+    const { filterAdsByCategory, removeCategoryFilter } = this.props;
+    const isChecked = e.target.checked;
+    const category = e.target.name;
+
+    if (isChecked) {
+      filterAdsByCategory(category);
+    } else {
+      removeCategoryFilter(category);
+    }
   };
 
   render() {
-    let { searchInput, setAdsFilter } = this.props;
-    setAdsFilter = setAdsFilter.bind(null, '');
+    let { searchInput } = this.props;
 
     return (
       <div className="search">
@@ -40,6 +57,26 @@ class Search extends React.Component {
           onChange={this.handleChange}
           width={60}
         ></FormInput>
+        <div className="search__filters">
+          <label>
+            kierowca{' '}
+            <input
+              className="search__filter"
+              type="checkbox"
+              name="driver"
+              onChange={this.handleCheckboxChange}
+            ></input>
+          </label>
+          <label>
+            wózek{' '}
+            <input
+              className="search__filter"
+              type="checkbox"
+              name="forklift"
+              onChange={this.handleCheckboxChange}
+            ></input>
+          </label>
+        </div>
       </div>
     );
   }
@@ -51,7 +88,10 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = dispatch => ({
   filterAds: filter => dispatch(filterAds(filter)),
+  filterAdsByCategory: category => dispatch(filterAdsByCategory(category)),
   setAdsFilter: newFilter => dispatch(setAdsFilter(newFilter)),
+  removeCategoryFilter: category => dispatch(removeCategoryFilter(category)),
+  noFilter: () => dispatch(noFilter()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Search);

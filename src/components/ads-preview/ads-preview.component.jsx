@@ -40,7 +40,7 @@ const AdsPreview = ({ allAds, filteredAds, searchInputSelector }) => {
         isFiltered ? 'Wynik wyszukiwania:' : 'Najnowsze:'
       }`}</h3>
 
-      {isFiltered
+      {isFiltered || !noResults
         ? filteredAds.map(ad => <AdsPreviewItem key={ad.id} {...ad} />)
         : allAds.map(ad => <AdsPreviewItem key={ad.id} {...ad} />)}
     </div>
