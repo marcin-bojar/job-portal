@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
 import FormInput from '../form-input/form-input.component';
+import SearchFilter from '../search-filter/search-filter.component';
 
 import { searchInputSelector } from '../../redux/ads/ads.selectors';
 
@@ -57,25 +58,18 @@ class Search extends React.Component {
           onChange={this.handleChange}
           width={60}
         ></FormInput>
+
         <div className="search__filters">
-          <label>
-            kierowca{' '}
-            <input
-              className="search__filter"
-              type="checkbox"
-              name="driver"
-              onChange={this.handleCheckboxChange}
-            ></input>
-          </label>
-          <label>
-            wózek{' '}
-            <input
-              className="search__filter"
-              type="checkbox"
-              name="forklift"
-              onChange={this.handleCheckboxChange}
-            ></input>
-          </label>
+          <SearchFilter
+            category="driver"
+            handleChange={this.handleCheckboxChange}
+            label="kierowca"
+          />
+          <SearchFilter
+            category="forklift"
+            handleChange={this.handleCheckboxChange}
+            label="wózek"
+          />
         </div>
       </div>
     );
