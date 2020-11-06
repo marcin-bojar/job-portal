@@ -9,7 +9,7 @@ const SearchFilter = ({ category, handleChange, label }) => (
       <input
         className="search-filter__input"
         type="checkbox"
-        name={category}
+        value={category}
         onChange={handleChange}
       ></input>
     </label>

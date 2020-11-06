@@ -3,17 +3,11 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
 import FormInput from '../form-input/form-input.component';
-import SearchFilter from '../search-filter/search-filter.component';
+import SearchFilterController from '../search-filters-controller/search-filters-controller.component';
 
 import { searchInputSelector } from '../../redux/ads/ads.selectors';
 
-import {
-  filterAds,
-  filterAdsByCategory,
-  setAdsFilter,
-  removeCategoryFilter,
-  noFilter,
-} from '../../redux/ads/ads.actions';
+import { filterAds, setAdsFilter, noFilter } from '../../redux/ads/ads.actions';
 
 import './search.styles.scss';
 
@@ -35,18 +29,6 @@ class Search extends React.Component {
     }
   };
 
-  handleCheckboxChange = e => {
-    const { filterAdsByCategory, removeCategoryFilter } = this.props;
-    const isChecked = e.target.checked;
-    const category = e.target.name;
-
-    if (isChecked) {
-      filterAdsByCategory(category);
-    } else {
-      removeCategoryFilter(category);
-    }
-  };
-
   render() {
     let { searchInput } = this.props;
 
@@ -60,16 +42,7 @@ class Search extends React.Component {
         ></FormInput>
 
         <div className="search__filters">
-          <SearchFilter
-            category="driver"
-            handleChange={this.handleCheckboxChange}
-            label="kierowca"
-          />
-          <SearchFilter
-            category="forklift"
-            handleChange={this.handleCheckboxChange}
-            label="wózek"
-          />
+          <SearchFilterController />
         </div>
       </div>
     );
@@ -82,9 +55,7 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = dispatch => ({
   filterAds: filter => dispatch(filterAds(filter)),
-  filterAdsByCategory: category => dispatch(filterAdsByCategory(category)),
   setAdsFilter: newFilter => dispatch(setAdsFilter(newFilter)),
-  removeCategoryFilter: category => dispatch(removeCategoryFilter(category)),
   noFilter: () => dispatch(noFilter()),
 });
 
