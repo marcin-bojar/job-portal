@@ -10,16 +10,17 @@ export const filterAdsByCategory = category => ({
   payload: category,
 });
 
-export const setAdsFilter = newFilter => ({
-  type: AdsActionTypes.SET_ADS_FILTER,
-  payload: newFilter,
-});
-
 export const removeCategoryFilter = category => ({
   type: AdsActionTypes.REMOVE_CATEGORY_FILTER,
   payload: category,
 });
 
-export const noFilter = () => ({
-  type: AdsActionTypes.NO_FILTER,
+export const setAdsFilter = newFilter => ({
+  type: AdsActionTypes.SET_ADS_FILTER,
+  payload: newFilter,
+});
+
+export const updateFiltersStatus = areFiltersApplied => ({
+  type: AdsActionTypes.UPDATE_FILTERS_STATUS,
+  payload: areFiltersApplied,
 });

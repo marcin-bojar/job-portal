@@ -7,7 +7,12 @@ import {
   removeCategoryFilter,
 } from './ads.utils';
 
-const INITIAL_STATE = ADS_DATA;
+const INITIAL_STATE = {
+  ads: ADS_DATA,
+  searchInput: '',
+  filteredAds: [],
+  filtersApplied: false,
+};
 
 const adsReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
@@ -16,6 +21,13 @@ const adsReducer = (state = INITIAL_STATE, action) => {
         ...state,
         filteredAds: filterAds(state, action.payload),
       };
+
+    case AdsActionTypes.SET_ADS_FILTER:
+      return {
+        ...state,
+        searchInput: action.payload,
+      };
+
     case AdsActionTypes.FILTER_ADS_BY_CATEGORY:
       return {
         ...state,
@@ -23,22 +35,19 @@ const adsReducer = (state = INITIAL_STATE, action) => {
           filterAdsByCategory(state, action.payload)
         ),
       };
-    case AdsActionTypes.SET_ADS_FILTER:
-      return {
-        ...state,
-        searchInput: action.payload,
-      };
+
     case AdsActionTypes.REMOVE_CATEGORY_FILTER:
       return {
         ...state,
         filteredAds: removeCategoryFilter(state.filteredAds, action.payload),
       };
-    case AdsActionTypes.NO_FILTER:
+
+    case AdsActionTypes.UPDATE_FILTERS_STATUS:
       return {
         ...state,
-        filteredAds: [],
-        searchInput: '',
+        filtersApplied: action.payload,
       };
+
     default:
       return state;
   }

@@ -13,3 +13,8 @@ export const searchInputSelector = createSelector(
   adsSelector,
   ads => ads.searchInput
 );
+
+export const filtersAppliedSelector = createSelector(
+  adsSelector,
+  ads => ads.filtersApplied
+);

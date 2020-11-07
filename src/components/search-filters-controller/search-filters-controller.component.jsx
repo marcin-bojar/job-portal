@@ -8,6 +8,8 @@ import {
   removeCategoryFilter,
 } from '../../redux/ads/ads.actions';
 
+import { updateFiltersStatus } from '../../redux/ads/ads.actions';
+
 import './search-filter-controller.styles.scss';
 
 class SearchFiltersController extends React.Component {
@@ -15,7 +17,6 @@ class SearchFiltersController extends React.Component {
     super();
 
     this.state = {
-      filtersApplied: false,
       filters: [
         { id: 1, category: 'driver', label: 'kierowca', checked: false },
         { id: 2, category: 'forklift', label: 'wózek', checked: false },
@@ -24,42 +25,37 @@ class SearchFiltersController extends React.Component {
     };
   }
 
+  componentDidUpdate() {
+    this.checkFiltersStatus();
+  }
+
   handleFilterChange = e => {
     const { filterAdsByCategory, removeCategoryFilter } = this.props;
     const isChecked = e.target.checked;
     const category = e.target.value;
 
+    const stateUpdater = state =>
+      (state.filters = state.filters.map(filter =>
+        filter.category === category
+          ? { ...filter, checked: isChecked }
+          : filter
+      ));
+
     if (isChecked) {
       filterAdsByCategory(category);
-      this.setState(
-        state =>
-          (state.filters = state.filters.map(filter =>
-            filter.category === category
-              ? { ...filter, checked: isChecked }
-              : filter
-          )),
-        () => this.checkFiltersStatus()
-      );
+      this.setState(stateUpdater);
     } else {
       removeCategoryFilter(category);
-      this.setState(
-        state =>
-          (state.filters = state.filters.map(filter =>
-            filter.category === category
-              ? { ...filter, checked: isChecked }
-              : filter
-          )),
-        () => this.checkFiltersStatus()
-      );
+      this.setState(stateUpdater);
     }
   };
 
   checkFiltersStatus = () => {
     const { filters } = this.state;
+    const { updateFiltersStatus } = this.props;
     const isFiltered = filters.some(filter => filter.checked === true);
 
-    if (isFiltered) this.setState({ filtersApplied: true });
-    else this.setState({ filtersApplied: false });
+    updateFiltersStatus(isFiltered);
   };
 
   render() {
@@ -69,9 +65,8 @@ class SearchFiltersController extends React.Component {
         {filters.map(filter => (
           <SearchFilter
             key={filter.id}
-            category={filter.category}
             handleChange={this.handleFilterChange}
-            label={filter.label}
+            {...filter}
           />
         ))}
       </div>
@@ -82,6 +77,8 @@ class SearchFiltersController extends React.Component {
 const mapDispatchToProps = dispatch => ({
   filterAdsByCategory: category => dispatch(filterAdsByCategory(category)),
   removeCategoryFilter: category => dispatch(removeCategoryFilter(category)),
+  updateFiltersStatus: areFiltersApplied =>
+    dispatch(updateFiltersStatus(areFiltersApplied)),
 });
 
 export default connect(null, mapDispatchToProps)(SearchFiltersController);
