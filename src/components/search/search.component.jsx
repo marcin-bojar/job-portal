@@ -37,6 +37,16 @@ class Search extends React.Component {
     }
   };
 
+  handleKeyPress = e => {
+    const { setAdsFilter, clearFilteredAds } = this.props;
+
+    // Deleting whole input with one backspace hit
+    if (e.keyCode === 8) {
+      setAdsFilter('');
+      clearFilteredAds();
+    }
+  };
+
   render() {
     let { searchInput } = this.props;
 
@@ -47,6 +57,7 @@ class Search extends React.Component {
           value={searchInput}
           onChange={this.handleChange}
           width={60}
+          handleKeyPress={this.handleKeyPress}
         ></FormInput>
 
         <div className="search__filters">
