@@ -6,41 +6,40 @@ import {
   allAdsSelector,
   filteredAdsSelector,
   searchInputSelector,
+  filtersAppliedSelector,
 } from '../../redux/ads/ads.selectors';
 
 import AdsPreviewItem from '../ads-preview-item/ads-preview-item.component';
 
 import './ads-preview.styles.scss';
 
-const AdsPreview = ({ allAds, filteredAds, searchInputSelector }) => {
-  const isFiltered = searchInputSelector.length > 0;
+const AdsPreview = ({
+  allAds,
+  filteredAds,
+  searchInputSelector,
+  filtersApplied,
+}) => {
+  const isFiltered = searchInputSelector.length || filtersApplied;
   const noResults = filteredAds.length === 0;
-
-  let noResultsMessage = (
-    <div className="ads-preview__no-results">
-      <p>Brak wyników dla Twojego wyszukiwania :(</p>
-    </div>
-  );
+  const filteredWithResults = isFiltered && !noResults;
+  let noResultsMessage;
 
   if (isFiltered && noResults) {
-    return (
-      <div className="ads-preview">
-        {noResultsMessage}
-        <h3 className="ads-preview__title">Najnowsze: </h3>
-        {allAds.map(ad => (
-          <AdsPreviewItem key={ad.id} {...ad} />
-        ))}
+    noResultsMessage = (
+      <div className="ads-preview__no-results">
+        <p>Brak wyników dla Twojego wyszukiwania :(</p>
       </div>
     );
   }
 
   return (
     <div className="ads-preview">
+      {noResultsMessage && noResultsMessage}
       <h3 className="ads-preview__title">{` ${
-        isFiltered ? 'Wynik wyszukiwania:' : 'Najnowsze:'
+        filteredWithResults ? 'Wynik wyszukiwania:' : 'Najnowsze:'
       }`}</h3>
 
-      {isFiltered || !noResults
+      {filteredWithResults
         ? filteredAds.map(ad => <AdsPreviewItem key={ad.id} {...ad} />)
         : allAds.map(ad => <AdsPreviewItem key={ad.id} {...ad} />)}
     </div>
@@ -51,6 +50,7 @@ const mapStateToProps = createStructuredSelector({
   allAds: allAdsSelector,
   filteredAds: filteredAdsSelector,
   searchInputSelector: searchInputSelector,
+  filtersApplied: filtersAppliedSelector,
 });
 
 export default connect(mapStateToProps)(AdsPreview);

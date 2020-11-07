@@ -6,9 +6,8 @@ import SearchFilter from '../search-filter/search-filter.component';
 import {
   filterAdsByCategory,
   removeCategoryFilter,
+  updateFiltersStatus,
 } from '../../redux/ads/ads.actions';
-
-import { updateFiltersStatus } from '../../redux/ads/ads.actions';
 
 import './search-filter-controller.styles.scss';
 

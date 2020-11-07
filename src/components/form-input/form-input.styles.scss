@@ -33,6 +33,11 @@
   &[type='password'] {
     letter-spacing: 0.5rem;
   }
+
+  &:disabled {
+    border-bottom: 1px solid var(--color-grey-light-1);
+    background-color: inherit;
+  }
 }
 
 .form-input-label {

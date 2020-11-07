@@ -24,3 +24,7 @@ export const updateFiltersStatus = areFiltersApplied => ({
   type: AdsActionTypes.UPDATE_FILTERS_STATUS,
   payload: areFiltersApplied,
 });
+
+export const clearFilteredAds = () => ({
+  type: AdsActionTypes.CLEAR_FILTERED_ADS,
+});

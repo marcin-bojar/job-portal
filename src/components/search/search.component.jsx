@@ -13,7 +13,7 @@ import {
 import {
   filterAds,
   setAdsFilter,
-  updateFiltersStatus,
+  clearFilteredAds,
 } from '../../redux/ads/ads.actions';
 
 import './search.styles.scss';
@@ -26,14 +26,14 @@ class Search extends React.Component {
 
   handleChange = e => {
     const { value } = e.target;
-    const { setAdsFilter, filterAds } = this.props;
+    const { setAdsFilter, filterAds, clearFilteredAds } = this.props;
 
     if (value) {
       setAdsFilter(value);
       filterAds(value);
     } else {
       setAdsFilter(value);
-      filterAds(value);
+      clearFilteredAds();
     }
   };
 
@@ -65,7 +65,7 @@ const mapStateToProps = createStructuredSelector({
 const mapDispatchToProps = dispatch => ({
   filterAds: filter => dispatch(filterAds(filter)),
   setAdsFilter: newFilter => dispatch(setAdsFilter(newFilter)),
-  updateFiltersStatus: areFiltersApplied => dispatch(updateFiltersStatus(areFiltersApplied)),
+  clearFilteredAds: () => dispatch(clearFilteredAds()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Search);

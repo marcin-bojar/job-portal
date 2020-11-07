@@ -2,7 +2,7 @@ import React from 'react';
 
 import './form-input.styles.scss';
 
-const FormInput = ({ handleChange, label, ...otherProps }) => {
+const FormInput = ({ handleChange, label, disabled, ...otherProps }) => {
   const { value, width } = otherProps;
 
   return (
@@ -12,6 +12,7 @@ const FormInput = ({ handleChange, label, ...otherProps }) => {
         onChange={handleChange}
         {...otherProps}
         style={{ width: `${width}%` }}
+        disabled={disabled}
       />
       {label ? (
         <label
