@@ -17,9 +17,10 @@ class SearchFiltersController extends React.Component {
 
     this.state = {
       filters: [
-        { id: 1, category: 'driver', label: 'kierowca', checked: false },
-        { id: 2, category: 'forklift', label: 'wózek', checked: false },
-        { id: 3, category: 'warehouse', label: 'magazyn', checked: false },
+        { id: 1, category: 'office', checked: false },
+        { id: 2, category: 'driver', checked: false },
+        { id: 3, category: 'forklift', checked: false },
+        { id: 4, category: 'warehouse', checked: false },
       ],
     };
   }
@@ -65,6 +66,7 @@ class SearchFiltersController extends React.Component {
           <SearchFilter
             key={filter.id}
             handleChange={this.handleFilterChange}
+            icon={filter.category}
             {...filter}
           />
         ))}

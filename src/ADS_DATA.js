@@ -66,6 +66,28 @@ const ADS_DATA = [
     info:
       'Praca na magazynie centralnym dużej sieci sklepów spożywczych. Wymagana książeczka sanepidowoska, uprawnienia do prowadzenia wózków widłowych, dobry stan zdrowia, dyspozycyjność również w weekendy',
   },
+  {
+    id: 7,
+    category: 'office',
+    title: 'Samodzielny spedytor międzynarodowy',
+    region: 'Mikołów',
+    system: 'zdalnie',
+    salary: '4000 - 11000',
+    currency: 'PLN',
+    info:
+      'Poszukujemy spedytorów z doświadczeniem oraz własną bazą kontrahentów oraz przewoźników. Gwarantujemy wysoką prowizję!',
+  },
+  {
+    id: 8,
+    category: 'office',
+    title: 'Kierownik działu spedycji',
+    region: 'Mikołów',
+    system: '8-16',
+    salary: '',
+    currency: 'PLN',
+    info:
+      'Wymagane doświadczenie na podobnym stanowisku minimum 3 lata, dobra organizajca pracy, umiejętność zarządzania zespołem. Oferujemy konkurencyjne wynagrodzenie, kartę Multisport, możliwość awansu, ciekawe projekty',
+  },
 ];
 
 export default ADS_DATA;

@@ -16,7 +16,7 @@ const AdsPreviewItem = ({
     <div className="ads-preview-item__header">
       <h3 className="ads-preview-item__title">{title}</h3>
       <p className="ads-preview-item__salary">
-        {salary} {currency}
+        {salary ? `${salary} ${currency}` : null}
       </p>
     </div>
     <div className="ads-preview-item__data">

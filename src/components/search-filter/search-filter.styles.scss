@@ -1,0 +1,22 @@
+.search-filter {
+  &__input {
+    display: none;
+
+    &:checked ~ svg {
+      fill: #ac3434;
+    }
+  }
+  &__label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  & svg {
+    fill: var(--color-grey-dark-1);
+    width: 100%;
+  }
+}
