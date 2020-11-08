@@ -10,6 +10,7 @@ import {
 } from '../../redux/ads/ads.selectors';
 
 import AdsPreviewItem from '../ads-preview-item/ads-preview-item.component';
+import AdsPreviewMiniItem from '../ads-preview-mini-item/ads-preview-mini-item.component';
 
 import './ads-preview.styles.scss';
 
@@ -40,8 +41,8 @@ const AdsPreview = ({
       }`}</h3>
 
       {filteredWithResults
-        ? filteredAds.map(ad => <AdsPreviewItem key={ad.id} {...ad} />)
-        : allAds.map(ad => <AdsPreviewItem key={ad.id} {...ad} />)}
+        ? filteredAds.map(ad => <AdsPreviewMiniItem key={ad.id} {...ad} />)
+        : allAds.map(ad => <AdsPreviewMiniItem key={ad.id} {...ad} />)}
     </div>
   );
 };

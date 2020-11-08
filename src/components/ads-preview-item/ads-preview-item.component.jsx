@@ -10,7 +10,6 @@ const AdsPreviewItem = ({
   system,
   salary,
   currency,
-  info,
 }) => (
   <div className="ads-preview-item">
     <div className="ads-preview-item__header">
