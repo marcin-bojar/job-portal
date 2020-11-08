@@ -28,3 +28,7 @@ export const updateFiltersStatus = areFiltersApplied => ({
 export const clearFilteredAds = () => ({
   type: AdsActionTypes.CLEAR_FILTERED_ADS,
 });
+
+export const clearAllFilters = () => ({
+  type: AdsActionTypes.CLEAR_ALL_FILTERS,
+});

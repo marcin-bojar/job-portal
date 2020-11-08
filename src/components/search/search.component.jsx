@@ -14,14 +14,15 @@ import {
   filterAds,
   setAdsFilter,
   clearFilteredAds,
+  clearAllFilters,
 } from '../../redux/ads/ads.actions';
 
 import './search.styles.scss';
 
 class Search extends React.Component {
   componentWillUnmount() {
-    const { setAdsFilter } = this.props;
-    setAdsFilter('');
+    const { clearAllFilters } = this.props;
+    clearAllFilters();
   }
 
   handleChange = e => {
@@ -77,6 +78,7 @@ const mapDispatchToProps = dispatch => ({
   filterAds: filter => dispatch(filterAds(filter)),
   setAdsFilter: newFilter => dispatch(setAdsFilter(newFilter)),
   clearFilteredAds: () => dispatch(clearFilteredAds()),
+  clearAllFilters: () => dispatch(clearAllFilters()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Search);

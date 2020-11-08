@@ -41,7 +41,7 @@ const AdsPreview = ({
       }`}</h3>
 
       {filteredWithResults
-        ? filteredAds.map(ad => <AdsPreviewMiniItem key={ad.id} {...ad} />)
+        ? filteredAds.map(ad => <AdsPreviewItem key={ad.id} {...ad} />)
         : allAds.map(ad => <AdsPreviewMiniItem key={ad.id} {...ad} />)}
     </div>
   );

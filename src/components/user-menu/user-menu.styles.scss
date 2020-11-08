@@ -1,3 +1,5 @@
+@import '../../sass//animations';
+
 .user-menu {
   position: absolute;
   top: 8rem;
@@ -24,17 +26,5 @@
       font-weight: 700;
       font-size: 1.9rem;
     }
-  }
-}
-
-@keyframes rollout {
-  0% {
-    opacity: 0;
-    transform: scaleY(0);
-  }
-
-  100% {
-    opacity: 1;
-    transform: scaleY(1);
   }
 }

@@ -20,7 +20,7 @@ const adsReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case AdsActionTypes.FILTER_ADS:
       // if ads are already filtered then filter further only ads displayed in UI
-      if (state.filteredAds.length > 0) {
+      if (state.filteredAds.length > 0 || state.filtersApplied) {
         return {
           ...state,
           filteredAds: filterAds(state.filteredAds, action.payload),
@@ -42,7 +42,7 @@ const adsReducer = (state = INITIAL_STATE, action) => {
         return {
           ...state,
           filteredAds: mergeTwoAdsArrays(
-            state.filteredAds,
+            state.filteredAds.filter(ad => ad.id !== action.id),
             filterAdsByCategory(state.ads, action.payload)
           ),
           filteredByCheckedFilters: state.filteredByCheckedFilters.concat(
@@ -54,7 +54,8 @@ const adsReducer = (state = INITIAL_STATE, action) => {
       }
       return {
         ...state,
-        filteredAds: state.filteredAds.concat(
+        filteredAds: mergeTwoAdsArrays(
+          state.filteredAds,
           filterAdsByCategory(state.ads, action.payload)
         ),
         filteredByCheckedFilters: state.filteredByCheckedFilters.concat(
@@ -83,6 +84,15 @@ const adsReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         filteredAds: state.filteredByCheckedFilters,
+      };
+
+    case AdsActionTypes.CLEAR_ALL_FILTERS:
+      return {
+        ...state,
+        filteredAds: [],
+        filteredByCheckedFilters: [],
+        filtersApplied: false,
+        searchInput: '',
       };
 
     default:
