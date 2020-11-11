@@ -48,6 +48,23 @@ export const createUserDocumentFromUserAuth = async (
   return userRef;
 };
 
+export const createAdsCollectionsAndDocuments = adsArray => {
+  const batch = db.batch();
+  adsArray.forEach(ad => {
+    const docRef = db.collection('ads').doc(`${ad.category}-ads`);
+    batch.set(docRef, { category: ad.category });
+
+    const adRef = db
+      .collection('ads')
+      .doc(`${ad.category}-ads`)
+      .collection('items')
+      .doc();
+    batch.set(adRef, { ...ad, id: adRef.id, addedAt: new Date() });
+  });
+
+  batch.commit();
+};
+
 export const auth = firebase.auth();
 auth.useDeviceLanguage();
 

@@ -95,6 +95,12 @@ const adsReducer = (state = INITIAL_STATE, action) => {
         searchInput: '',
       };
 
+    case AdsActionTypes.FETCH_ADS_SUCCESS:
+      return {
+        ...state,
+        ads: action.payload,
+      };
+
     default:
       return state;
   }

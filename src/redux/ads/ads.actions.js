@@ -32,3 +32,8 @@ export const clearFilteredAds = () => ({
 export const clearAllFilters = () => ({
   type: AdsActionTypes.CLEAR_ALL_FILTERS,
 });
+
+export const fetchAdsSuccess = ads => ({
+  type: AdsActionTypes.FETCH_ADS_SUCCESS,
+  payload: ads,
+});
