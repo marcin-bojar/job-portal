@@ -1,4 +1,3 @@
-import ADS_DATA from '../../ADS_DATA';
 import AdsActionTypes from './ads.types';
 
 import {
@@ -9,11 +8,13 @@ import {
 } from './ads.utils';
 
 const INITIAL_STATE = {
-  ads: ADS_DATA,
+  ads: null,
   searchInput: '',
   filteredAds: [],
   filteredByCheckedFilters: [], // this property is needed to restore filtered ads when search input has been deleted
   filtersApplied: false,
+  error: null,
+  isFetching: true,
 };
 
 const adsReducer = (state = INITIAL_STATE, action) => {
@@ -99,6 +100,14 @@ const adsReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         ads: action.payload,
+        isFetching: false,
+      };
+
+    case AdsActionTypes.FETCH_ADS_FAILURE:
+      return {
+        ...state,
+        ads: [],
+        isFetching: false,
       };
 
     default:

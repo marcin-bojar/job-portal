@@ -4,12 +4,9 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { checkCurrentUser } from './redux/user/user.actions';
 
-import { fetchAdsSuccess } from './redux/ads/ads.actions';
-
 import { createStructuredSelector } from 'reselect';
 import { currentUserSelector } from './redux/user/user.selectors';
-
-import { db } from './firebase/firebase.utils';
+import { fetchAdsStart } from './redux/ads/ads.actions';
 
 import HomePage from './pages/homepage/homepage.component';
 import LoginPage from './pages/login-register/login-register.component';
@@ -23,26 +20,9 @@ class App extends React.Component {
   unsubscribe = null;
 
   async componentDidMount() {
-    const { checkCurrentUser, fetchAdsSuccess } = this.props;
+    const { checkCurrentUser, fetchAdsStart } = this.props;
     checkCurrentUser();
-
-    // const allAds = [];
-    // const adsSnapshot = await db.collection('ads').get();
-
-    // adsSnapshot.docs.forEach(async doc => {
-    //   const categorySnapshot = await db
-    //     .collection('ads')
-    //     .doc(doc.id)
-    //     .collection('items')
-    //     .get();
-    //   const categoryAds = categorySnapshot.docs;
-    //   categoryAds.forEach(ad => allAds.push(ad.data()));
-    // });
-    // fetchAdsSuccess(allAds);
-  }
-
-  componentWillUnmount() {
-    this.unsubscribe();
+    fetchAdsStart();
   }
 
   render() {
@@ -74,7 +54,7 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = dispatch => ({
   checkCurrentUser: () => dispatch(checkCurrentUser()),
-  fetchAdsSuccess: ads => dispatch(fetchAdsSuccess(ads)),
+  fetchAdsStart: () => dispatch(fetchAdsStart()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -33,7 +33,16 @@ export const clearAllFilters = () => ({
   type: AdsActionTypes.CLEAR_ALL_FILTERS,
 });
 
+export const fetchAdsStart = () => ({
+  type: AdsActionTypes.FETCH_ADS_START,
+});
+
 export const fetchAdsSuccess = ads => ({
   type: AdsActionTypes.FETCH_ADS_SUCCESS,
   payload: ads,
+});
+
+export const fetchAdsFailure = error => ({
+  type: AdsActionTypes.FETCH_ADS_FAILURE,
+  payload: error,
 });

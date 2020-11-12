@@ -65,6 +65,11 @@ export const createAdsCollectionsAndDocuments = adsArray => {
   batch.commit();
 };
 
+export const fetchAllAds = async () => {
+  const ads = await db.collectionGroup('items').get();
+  return ads.docs.map(ad => ad.data());
+};
+
 export const auth = firebase.auth();
 auth.useDeviceLanguage();
 

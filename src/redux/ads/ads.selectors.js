@@ -18,3 +18,8 @@ export const filtersAppliedSelector = createSelector(
   adsSelector,
   ads => ads.filtersApplied
 );
+
+export const isFetchingSelector = createSelector(
+  adsSelector,
+  ads => ads.isFetching
+);
