@@ -27,3 +27,36 @@ export const mergeTwoAdsArrays = (arr1, arr2) => {
 
   return arr1.concat(arr2);
 };
+
+export const formatDate = timestamp => {
+  const now = new Date();
+  const months = [
+    'Sty',
+    'Lut',
+    'Mar',
+    'Kwi',
+    'Maj',
+    'Cze',
+    'Lip',
+    'Sie',
+    'Wrz',
+    'Paź',
+    'Lis',
+    'Gru',
+  ];
+  const dateAdded = new Date(timestamp * 1000);
+  const day = dateAdded.getDate();
+  const month = dateAdded.getMonth();
+  const h = dateAdded.getHours();
+  const mins = dateAdded.getMinutes();
+
+  if (
+    now.getDate() === day &&
+    now.getMonth() === month &&
+    now.getFullYear() === dateAdded.getFullYear()
+  ) {
+    return `${h}:${mins}`;
+  }
+
+  return `${day} ${months[month]}`;
+};

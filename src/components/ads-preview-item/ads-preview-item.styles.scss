@@ -50,4 +50,18 @@
     font-weight: 700;
     margin-bottom: 1rem;
   }
+
+  &__block {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &--column {
+      flex-direction: column;
+    }
+  }
+
+  &__added {
+    align-self: flex-end;
+  }
 }

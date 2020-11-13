@@ -79,7 +79,7 @@ export const fetchTenLatestAdsFromEachCategory = async () => {
       .collection('ads')
       .doc(`${cat}-ads`)
       .collection('items')
-      .orderBy('addedAt')
+      .orderBy('addedAt', 'desc')
       .limit(10)
       .get();
     const firstTen = categoryAdsSnapshot.docs.map(ad => ad.data());
