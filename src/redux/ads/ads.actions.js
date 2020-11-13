@@ -37,6 +37,10 @@ export const fetchAdsStart = () => ({
   type: AdsActionTypes.FETCH_ADS_START,
 });
 
+export const fetchTenLatestAdsStart = () => ({
+  type: AdsActionTypes.FETCH_TEN_LATEST_ADS_START,
+});
+
 export const fetchAdsSuccess = ads => ({
   type: AdsActionTypes.FETCH_ADS_SUCCESS,
   payload: ads,

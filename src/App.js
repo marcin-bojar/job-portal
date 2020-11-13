@@ -6,7 +6,7 @@ import { checkCurrentUser } from './redux/user/user.actions';
 
 import { createStructuredSelector } from 'reselect';
 import { currentUserSelector } from './redux/user/user.selectors';
-import { fetchAdsStart } from './redux/ads/ads.actions';
+import { fetchAdsStart, fetchTenLatestAdsStart } from './redux/ads/ads.actions';
 
 import HomePage from './pages/homepage/homepage.component';
 import LoginPage from './pages/login-register/login-register.component';
@@ -19,10 +19,11 @@ import './App.css';
 class App extends React.Component {
   unsubscribe = null;
 
-  async componentDidMount() {
-    const { checkCurrentUser, fetchAdsStart } = this.props;
+  componentDidMount() {
+    const { checkCurrentUser, fetchAds, fetchTenLatestAds } = this.props;
     checkCurrentUser();
-    fetchAdsStart();
+    // fetchAdsStart();
+    fetchTenLatestAds();
   }
 
   render() {
@@ -54,7 +55,8 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = dispatch => ({
   checkCurrentUser: () => dispatch(checkCurrentUser()),
-  fetchAdsStart: () => dispatch(fetchAdsStart()),
+  fetchAds: () => dispatch(fetchAdsStart()),
+  fetchTenLatestAds: () => dispatch(fetchTenLatestAdsStart()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

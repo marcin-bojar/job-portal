@@ -52,7 +52,7 @@ export const createAdsCollectionsAndDocuments = adsArray => {
   const batch = db.batch();
   adsArray.forEach(ad => {
     const docRef = db.collection('ads').doc(`${ad.category}-ads`);
-    batch.set(docRef, { category: ad.category });
+    // batch.set(docRef, { category: ad.category });
 
     const adRef = db
       .collection('ads')
@@ -68,6 +68,25 @@ export const createAdsCollectionsAndDocuments = adsArray => {
 export const fetchAllAds = async () => {
   const ads = await db.collectionGroup('items').get();
   return ads.docs.map(ad => ad.data());
+};
+
+export const fetchTenLatestAdsFromEachCategory = async () => {
+  const categories = ['office', 'driver', 'forklift', 'warehouse'];
+  let ads = [];
+
+  for (const cat of categories) {
+    const categoryAdsSnapshot = await db
+      .collection('ads')
+      .doc(`${cat}-ads`)
+      .collection('items')
+      .orderBy('addedAt')
+      .limit(10)
+      .get();
+    const firstTen = categoryAdsSnapshot.docs.map(ad => ad.data());
+
+    ads = ads.concat(firstTen);
+  }
+  return ads;
 };
 
 export const auth = firebase.auth();

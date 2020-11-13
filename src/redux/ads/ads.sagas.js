@@ -2,7 +2,10 @@ import { put, call, takeLatest, all } from 'redux-saga/effects';
 
 import { fetchAdsSuccess, fetchAdsFailure } from './ads.actions';
 
-import { fetchAllAds } from '../../firebase/firebase.utils';
+import {
+  fetchAllAds,
+  fetchTenLatestAdsFromEachCategory,
+} from '../../firebase/firebase.utils';
 
 import AdsActionTypes from './ads.types';
 
@@ -15,10 +18,23 @@ function* fetchAds() {
   }
 }
 
+function* fetchTenAds() {
+  try {
+    const tenAds = yield call(fetchTenLatestAdsFromEachCategory);
+    yield put(fetchAdsSuccess(tenAds));
+  } catch (error) {
+    yield put(fetchAdsFailure(error));
+  }
+}
+
 export function* onFetchAdsStart() {
   yield takeLatest(AdsActionTypes.FETCH_ADS_START, fetchAds);
 }
 
+export function* onFetchTenLatestAdsStart() {
+  yield takeLatest(AdsActionTypes.FETCH_TEN_LATEST_ADS_START, fetchTenAds);
+}
+
 export function* adsSagas() {
-  yield all([call(onFetchAdsStart)]);
+  yield all([call(onFetchAdsStart), call(onFetchTenLatestAdsStart)]);
 }
