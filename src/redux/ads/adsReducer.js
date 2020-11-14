@@ -3,7 +3,6 @@ import AdsActionTypes from './ads.types';
 import {
   filterAds,
   filterAdsByCategory,
-  mergeTwoAdsArrays,
   removeCategoryFilter,
   mergeTwoAdsObjects,
 } from './ads.utils';
@@ -22,7 +21,7 @@ const adsReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case AdsActionTypes.FILTER_ADS:
       // if ads are already filtered then filter further only ads displayed in UI
-      if (state.filteredAds.length > 0 || state.filtersApplied) {
+      if (state.filtersApplied) {
         return {
           ...state,
           filteredAds: filterAds(state.filteredAds, action.payload),
@@ -40,42 +39,72 @@ const adsReducer = (state = INITIAL_STATE, action) => {
       };
 
     case AdsActionTypes.FILTER_ADS_BY_CATEGORY:
+      // if search input is entered filter all ads by category and then filter the result of this operation by search input
       if (state.searchInput.length > 0) {
         return {
           ...state,
-          filteredAds: mergeTwoAdsObjects(
-            state.filteredAds,
-            filterAdsByCategory(state.ads, action.payload)
-          ),
+          filteredAds: !state.filtersApplied
+            ? // no category filters are applied and search input is present meaning there are ads from all categories matching the query in the filteredAds object and they need to be filtered by newly applied category filter
+              mergeTwoAdsObjects(
+                filterAdsByCategory(state.filteredAds, action.payload.category),
+                filterAds(
+                  filterAdsByCategory(state.ads, action.payload.category),
+                  action.payload.searchInput
+                )
+              )
+            : // if there are category filters already applied then just merge the filteredAds object with newly added category filter results
+              mergeTwoAdsObjects(
+                state.filteredAds,
+                filterAds(
+                  filterAdsByCategory(state.ads, action.payload.category),
+                  action.payload.searchInput
+                )
+              ),
           filteredByCheckedFilters: mergeTwoAdsObjects(
             state.filteredByCheckedFilters,
-            filterAdsByCategory(state.ads, action.payload)
+            filterAdsByCategory(state.ads, action.payload.category)
           ),
-
-          searchInput: '',
         };
       }
       return {
         ...state,
         filteredAds: mergeTwoAdsObjects(
           state.filteredAds,
-          filterAdsByCategory(state.ads, action.payload)
+          filterAdsByCategory(state.ads, action.payload.category)
         ),
         filteredByCheckedFilters: mergeTwoAdsObjects(
           state.filteredByCheckedFilters,
-          filterAdsByCategory(state.ads, action.payload)
+          filterAdsByCategory(state.ads, action.payload.category)
         ),
       };
 
     case AdsActionTypes.REMOVE_CATEGORY_FILTER:
+      // if search input is entered update the category filters and filter the result of this operation by search input
+      const adsAfterCategoryUpdate = removeCategoryFilter(
+        state.filteredAds,
+        action.payload.category
+      );
+
+      if (
+        state.searchInput.length > 0 &&
+        Object.keys(adsAfterCategoryUpdate).length === 0
+      ) {
+        return {
+          ...state,
+          filteredAds: filterAds(state.ads, action.payload.searchInput),
+          filteredByCheckedFilters: removeCategoryFilter(
+            state.filteredByCheckedFilters,
+            action.payload.category
+          ),
+        };
+      }
       return {
         ...state,
         filteredAds: removeCategoryFilter(state.filteredAds, action.payload),
         filteredByCheckedFilters: removeCategoryFilter(
           state.filteredByCheckedFilters,
-          action.payload
+          action.payload.category
         ),
-        searchInput: '',
       };
 
     case AdsActionTypes.UPDATE_FILTERS_STATUS:
