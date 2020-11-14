@@ -44,7 +44,7 @@ const adsReducer = (state = INITIAL_STATE, action) => {
         return {
           ...state,
           filteredAds: !state.filtersApplied
-            ? // no category filters are applied and search input is present meaning there are ads from all categories matching the query in the filteredAds object and they need to be filtered by newly applied category filter
+            ? // no other category filters are applied and search input is present meaning there are ads from all categories matching the query in the filteredAds object and they need to be filtered by newly applied category filter
               mergeTwoAdsObjects(
                 filterAdsByCategory(state.filteredAds, action.payload.category),
                 filterAds(

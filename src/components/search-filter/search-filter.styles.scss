@@ -4,6 +4,7 @@
 
     &:checked ~ svg {
       fill: #ac3434;
+      transform: scale(1.05);
     }
   }
   &__label {
@@ -18,5 +19,6 @@
   & svg {
     fill: var(--color-grey-dark-1);
     width: 100%;
+    transition: all 0.3s;
   }
 }

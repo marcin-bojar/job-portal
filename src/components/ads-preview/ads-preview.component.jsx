@@ -24,6 +24,13 @@ const AdsPreview = ({
   const noResults = Object.keys(filteredAds).length === 0;
   const filteredWithResults = isFiltered && !noResults;
   let noResultsMessage;
+  let category;
+  const categoryMap = {
+    driver: 'Dla kierowców',
+    office: 'Praca biurowa',
+    forklift: 'Dla operatorów',
+    warehouse: 'Praca na magazynie',
+  };
 
   if (isFiltered && noResults) {
     noResultsMessage = (
@@ -43,10 +50,38 @@ const AdsPreview = ({
       {filteredWithResults
         ? Object.keys(filteredAds).map(key => {
             const ad = filteredAds[key];
+
+            if (category !== ad.category) {
+              category = ad.category;
+
+              return (
+                <div className="ads-preview__new-category" key={ad.id}>
+                  <h4 className={`ads-preview__category-title ${category} `}>
+                    {categoryMap[category]}
+                  </h4>
+                  <AdsPreviewItem {...ad} />
+                </div>
+              );
+            }
+
             return <AdsPreviewItem key={ad.id} {...ad} />;
           })
         : Object.keys(allAds).map(key => {
             const ad = allAds[key];
+
+            if (category !== ad.category) {
+              category = ad.category;
+
+              return (
+                <div className="ads-preview__new-category" key={ad.id}>
+                  <h4 className={`ads-preview__category-title ${category} `}>
+                    {categoryMap[category]}
+                  </h4>
+                  <AdsPreviewMiniItem {...ad} />
+                </div>
+              );
+            }
+
             return <AdsPreviewMiniItem key={ad.id} {...ad} />;
           })}
     </div>
