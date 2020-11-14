@@ -51,7 +51,7 @@ export const createUserDocumentFromUserAuth = async (
 export const createAdsCollectionsAndDocuments = adsArray => {
   const batch = db.batch();
   adsArray.forEach(ad => {
-    const docRef = db.collection('ads').doc(`${ad.category}-ads`);
+    // const docRef = db.collection('ads').doc(`${ad.category}-ads`);
     // batch.set(docRef, { category: ad.category });
 
     const adRef = db
@@ -67,12 +67,12 @@ export const createAdsCollectionsAndDocuments = adsArray => {
 
 export const fetchAllAds = async () => {
   const ads = await db.collectionGroup('items').get();
-  return ads.docs.map(ad => ad.data());
+  return Object.assign({}, convertCollectionSnapshotToMap(ads));
 };
 
 export const fetchTenLatestAdsFromEachCategory = async () => {
   const categories = ['office', 'driver', 'forklift', 'warehouse'];
-  let ads = [];
+  let ads = {};
 
   for (const cat of categories) {
     const categoryAdsSnapshot = await db
@@ -82,11 +82,20 @@ export const fetchTenLatestAdsFromEachCategory = async () => {
       .orderBy('addedAt', 'desc')
       .limit(10)
       .get();
-    const firstTen = categoryAdsSnapshot.docs.map(ad => ad.data());
 
-    ads = ads.concat(firstTen);
+    Object.assign(ads, convertCollectionSnapshotToMap(categoryAdsSnapshot));
   }
+
   return ads;
+};
+
+export const convertCollectionSnapshotToMap = collectionSnapshot => {
+  const collectionAds = collectionSnapshot.docs.map(ad => ad.data());
+
+  return collectionAds.reduce((acc, ad) => {
+    acc[ad.id] = ad;
+    return acc;
+  }, {});
 };
 
 export const auth = firebase.auth();

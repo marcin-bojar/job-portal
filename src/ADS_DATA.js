@@ -92,7 +92,7 @@ const ADS_DATA = [
 
 const categories = ['warehouse', 'office', 'driver', 'forklift'];
 
-for (let i = 0; i < 10; i++) {
+for (let i = 0; i < 15; i++) {
   let index = Math.floor(Math.random() * 4);
   ADS_DATA.push({
     id: i,
@@ -129,7 +129,7 @@ for (let i = 0; i < 15; i++) {
   });
 }
 
-for (let i = 0; i < 10; i++) {
+for (let i = 0; i < 20; i++) {
   let index = Math.floor(Math.random() * 4);
   ADS_DATA.push({
     id: i,

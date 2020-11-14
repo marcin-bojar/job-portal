@@ -13,9 +13,6 @@ const AdsPreviewMiniItem = ({ title, region, salary, currency, addedAt }) => {
         <p className="ads-preview-mini-item__region">{region.toUpperCase()}</p>
       </div>
       <div className="ads-preview-mini-item__block ads-preview-mini-item__block--column">
-        <p className="ads-preview-mini-item__added">
-          {formatDate(addedAt.seconds)}
-        </p>
         {salary ? (
           <p className="ads-preview-mini-item__salary">
             {fixed
@@ -25,6 +22,9 @@ const AdsPreviewMiniItem = ({ title, region, salary, currency, addedAt }) => {
               : null}
           </p>
         ) : null}
+        <p className="ads-preview-mini-item__added">
+          {formatDate(addedAt.seconds)}
+        </p>
       </div>
     </div>
   );

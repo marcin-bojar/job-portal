@@ -5,13 +5,14 @@ import {
   filterAdsByCategory,
   mergeTwoAdsArrays,
   removeCategoryFilter,
+  mergeTwoAdsObjects,
 } from './ads.utils';
 
 const INITIAL_STATE = {
   ads: null,
   searchInput: '',
-  filteredAds: [],
-  filteredByCheckedFilters: [], // this property is needed to restore filtered ads when search input has been deleted
+  filteredAds: {},
+  filteredByCheckedFilters: {}, // this property is needed to restore filtered ads when search input has been deleted
   filtersApplied: false,
   error: null,
   isFetching: true,
@@ -42,11 +43,12 @@ const adsReducer = (state = INITIAL_STATE, action) => {
       if (state.searchInput.length > 0) {
         return {
           ...state,
-          filteredAds: mergeTwoAdsArrays(
-            state.filteredAds.filter(ad => ad.id !== action.id),
+          filteredAds: mergeTwoAdsObjects(
+            state.filteredAds,
             filterAdsByCategory(state.ads, action.payload)
           ),
-          filteredByCheckedFilters: state.filteredByCheckedFilters.concat(
+          filteredByCheckedFilters: mergeTwoAdsObjects(
+            state.filteredByCheckedFilters,
             filterAdsByCategory(state.ads, action.payload)
           ),
 
@@ -55,11 +57,12 @@ const adsReducer = (state = INITIAL_STATE, action) => {
       }
       return {
         ...state,
-        filteredAds: mergeTwoAdsArrays(
+        filteredAds: mergeTwoAdsObjects(
           state.filteredAds,
           filterAdsByCategory(state.ads, action.payload)
         ),
-        filteredByCheckedFilters: state.filteredByCheckedFilters.concat(
+        filteredByCheckedFilters: mergeTwoAdsObjects(
+          state.filteredByCheckedFilters,
           filterAdsByCategory(state.ads, action.payload)
         ),
       };

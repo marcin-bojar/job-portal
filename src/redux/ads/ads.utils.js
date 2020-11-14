@@ -1,17 +1,44 @@
 export const filterAds = (ads, filter) => {
-  return ads.filter(
-    ad =>
+  const filtered = {};
+
+  Object.keys(ads).forEach(key => {
+    const ad = ads[key];
+
+    if (
       ad.title.toLowerCase().includes(filter.toLowerCase().trim()) ||
       ad.info.toLowerCase().includes(filter.toLowerCase().trim()) ||
       ad.region.toLowerCase().includes(filter.toLowerCase().trim())
-  );
+    ) {
+      filtered[key] = ad;
+    }
+  });
+
+  return filtered;
 };
 
-export const filterAdsByCategory = (ads, category) =>
-  ads.filter(ad => ad.category === category);
+export const filterAdsByCategory = (ads, category) => {
+  const filtered = {};
 
-export const removeCategoryFilter = (filteredAds, category) =>
-  filteredAds.filter(ad => ad.category !== category);
+  Object.keys(ads).forEach(key => {
+    const ad = ads[key];
+
+    if (ad.category === category) filtered[key] = ad;
+  });
+
+  return filtered;
+};
+
+export const removeCategoryFilter = (filteredAds, category) => {
+  Object.keys(filteredAds).forEach(key => {
+    const ad = filteredAds[key];
+
+    if (ad.category === category) delete filteredAds[key];
+  });
+
+  return Object.assign({}, filteredAds);
+};
+
+export const mergeTwoAdsObjects = (obj1, obj2) => Object.assign({}, obj1, obj2);
 
 export const mergeTwoAdsArrays = (arr1, arr2) => {
   // const t1 = performance.now();

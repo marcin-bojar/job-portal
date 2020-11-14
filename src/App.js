@@ -22,7 +22,7 @@ class App extends React.Component {
   componentDidMount() {
     const { checkCurrentUser, fetchAds, fetchTenLatestAds } = this.props;
     checkCurrentUser();
-    // fetchAdsStart();
+    // fetchAds();
     fetchTenLatestAds();
   }
 

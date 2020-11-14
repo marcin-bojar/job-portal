@@ -21,7 +21,7 @@ const AdsPreview = ({
   filtersApplied,
 }) => {
   const isFiltered = searchInputSelector.length || filtersApplied;
-  const noResults = filteredAds.length === 0;
+  const noResults = Object.keys(filteredAds).length === 0;
   const filteredWithResults = isFiltered && !noResults;
   let noResultsMessage;
 
@@ -41,8 +41,14 @@ const AdsPreview = ({
       }`}</h3>
 
       {filteredWithResults
-        ? filteredAds.map(ad => <AdsPreviewItem key={ad.id} {...ad} />)
-        : allAds.map(ad => <AdsPreviewMiniItem key={ad.id} {...ad} />)}
+        ? Object.keys(filteredAds).map(key => {
+            const ad = filteredAds[key];
+            return <AdsPreviewItem key={ad.id} {...ad} />;
+          })
+        : Object.keys(allAds).map(key => {
+            const ad = allAds[key];
+            return <AdsPreviewMiniItem key={ad.id} {...ad} />;
+          })}
     </div>
   );
 };
