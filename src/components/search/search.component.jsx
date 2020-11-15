@@ -8,6 +8,7 @@ import SearchFilterController from '../search-filters-controller/search-filters-
 import {
   searchInputSelector,
   filtersAppliedSelector,
+  isFetchingSelector,
 } from '../../redux/ads/ads.selectors';
 
 import {
@@ -49,12 +50,13 @@ class Search extends React.Component {
   };
 
   render() {
-    let { searchInput } = this.props;
+    let { searchInput, isFetching } = this.props;
 
     return (
       <div className="search">
         <h2 className="search__title">Wyszukaj ogłoszenia</h2>
         <FormInput
+          disabled={isFetching}
           value={searchInput}
           onChange={this.handleChange}
           width={60}
@@ -72,6 +74,7 @@ class Search extends React.Component {
 const mapStateToProps = createStructuredSelector({
   searchInput: searchInputSelector,
   filtersApplied: filtersAppliedSelector,
+  isFetching: isFetchingSelector,
 });
 
 const mapDispatchToProps = dispatch => ({

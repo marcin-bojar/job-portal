@@ -4,11 +4,12 @@ import Icon from '../icons/icon-index.component.js';
 
 import './search-filter.styles.scss';
 
-const SearchFilter = ({ category, handleChange, label, icon }) => (
+const SearchFilter = ({ category, handleChange, label, icon, disabled }) => (
   <div className="search-filter">
     <label className="search-filter__label">
       {label ? label : null}
       <input
+        disabled={disabled}
         className="search-filter__input"
         type="checkbox"
         value={category}

@@ -6,6 +6,11 @@
       fill: #ac3434;
       transform: scale(1.05);
     }
+
+    &:disabled ~ svg {
+      fill: var(--color-grey-light-1);
+      cursor: not-allowed;
+    }
   }
   &__label {
     display: flex;
