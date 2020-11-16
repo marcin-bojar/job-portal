@@ -16,7 +16,7 @@ const AdsPreviewItem = ({
 }) => {
   const { fixed, from, to } = salary;
   return (
-    <div className="ads-preview-item">
+    <div className={`ads-preview-item ads-preview-item--${category}`}>
       <div className="ads-preview-item__header">
         <h3 className="ads-preview-item__title">{title}</h3>
         <div className="ads-preview-item__block ads-preview-item__block--column">

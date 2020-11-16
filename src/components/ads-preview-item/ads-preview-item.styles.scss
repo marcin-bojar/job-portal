@@ -2,6 +2,7 @@
 @import '../../sass/mixins';
 
 .ads-preview-item {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -11,15 +12,12 @@
   padding: 1rem 2.5rem;
   margin-bottom: 2rem;
   border: 1px solid var(--color-black);
-  box-shadow: 0 1rem 1rem rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0.7rem 0.5rem rgba(0, 0, 0, 0.3);
   cursor: pointer;
   animation: rollout 0.5s 0.5s backwards;
 
   @include background-hover-effect;
-
-  &:hover {
-    border: 1px solid var(--color-primary);
-  }
+  @include ad-item-theme-color;
 
   &__header {
     display: flex;

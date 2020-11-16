@@ -74,13 +74,13 @@ class SearchFiltersController extends React.Component {
 
   render() {
     const { filters } = this.state;
-    const {isFetching} = this.props;
+    const { isFetching } = this.props;
 
     return (
       <div className="search-filter-controller">
         {filters.map(filter => (
           <SearchFilter
-            disabled = {isFetching}
+            disabled={isFetching}
             key={filter.id}
             handleChange={this.handleFilterChange}
             icon={filter.category}
