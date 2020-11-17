@@ -1,0 +1,68 @@
+@import '../../sass//animations';
+@import '../../sass/mixins';
+
+.search-results-list-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background-color: var(--color-white-cream);
+  width: 100%;
+  border-radius: 7px;
+  padding: 1rem 2.5rem;
+  margin-bottom: 2rem;
+  border: 1px solid var(--color-black);
+  box-shadow: 0 0.7rem 0.5rem rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  animation: rollout 0.5s 0.5s backwards;
+
+  @include background-hover-effect;
+  @include ad-item-theme-color;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+    width: 100%;
+  }
+
+  &__title {
+    font-size: 3rem;
+  }
+
+  &__salary {
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    align-self: flex-end;
+  }
+
+  &__data {
+    display: flex;
+    flex-direction: column;
+    // justify-content: space-between;
+    width: 100%;
+  }
+
+  &__license,
+  &__system,
+  &__region {
+    font-size: 1.7rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  &__block {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &--column {
+      flex-direction: column;
+    }
+  }
+
+  &__added {
+    align-self: flex-end;
+  }
+}

@@ -4,7 +4,7 @@ import { createStructuredSelector } from 'reselect';
 
 import { allAdsSelector } from '../../redux/ads/ads.selectors';
 
-import AdsPreviewMiniItem from '../ads-preview-mini-item/ads-preview-mini-item.component';
+import AdsPreviewMiniItem from '../ads-preview-item/ads-preview-item.component';
 
 import './ads-preview.styles.scss';
 
