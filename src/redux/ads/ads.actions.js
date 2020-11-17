@@ -10,9 +10,9 @@ export const filterAdsByCategory = filter => ({
   payload: filter,
 });
 
-export const removeCategoryFilter = category => ({
+export const removeCategoryFilter = filter => ({
   type: AdsActionTypes.REMOVE_CATEGORY_FILTER,
-  payload: category,
+  payload: filter,
 });
 
 export const setAdsFilter = newFilter => ({

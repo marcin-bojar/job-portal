@@ -10,6 +10,7 @@ import {
 
 import AdsPreview from '../../components/ads-preview/ads-preview.component';
 import Search from '../../components/search/search.component';
+import SearchResults from '../../components/search-results/search-results.component';
 import withLoader from '../../components/with-loader/with-loader.component';
 
 import './homepage.styles.scss';
@@ -30,7 +31,11 @@ const HomePage = ({ searchInput, filtersApplied, isFetching }) => {
       </div>
       <div className="data-container">
         <div className="data-container__ads">
-          <AdsPreviewWithLoader isLoading={isFetching} />
+          {hide ? (
+            <SearchResults />
+          ) : (
+            <AdsPreviewWithLoader isLoading={isFetching} />
+          )}
         </div>
         <div className="data-container__search">
           <Search />

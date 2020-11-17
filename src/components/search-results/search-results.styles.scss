@@ -1,0 +1,42 @@
+.search-results {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 45vh;
+  background-color: var(--color-white);
+  padding: 2rem;
+
+  &__title {
+    font-size: 2.25rem;
+    align-self: flex-start;
+    margin-bottom: 2rem;
+  }
+
+  &__no-results {
+    font-size: 2.5rem;
+    color: var(--color-red-error);
+    margin-bottom: 2rem;
+  }
+
+  &__new-category {
+    width: 100%;
+  }
+
+  &__category-title {
+    font-size: 2.25rem;
+    margin: 2rem 0;
+
+    &.office {
+      color: var(--color-primary);
+    }
+    &.driver {
+      color: var(--color-driver-theme);
+    }
+    &.forklift {
+      color: var(--color-forklift-theme);
+    }
+    &.warehouse {
+      color: var(--color-warehouse-theme);
+    }
+  }
+}

@@ -39,6 +39,16 @@ const adsReducer = (state = INITIAL_STATE, action) => {
       };
 
     case AdsActionTypes.FILTER_ADS_BY_CATEGORY:
+      const filteredByCheckedFiltersAfterCatAdd = mergeTwoAdsObjects(
+        state.filteredByCheckedFilters,
+        filterAdsByCategory(state.ads, action.payload.category)
+      );
+
+      const filteredByCatAndBySearchInput = filterAds(
+        filterAdsByCategory(state.ads, action.payload.category),
+        action.payload.searchInput
+      );
+
       // if search input is entered filter all ads by category and then filter the result of this operation by search input
       if (state.searchInput.length > 0) {
         return {
@@ -47,23 +57,14 @@ const adsReducer = (state = INITIAL_STATE, action) => {
             ? // no other category filters are applied and search input is present meaning there are ads from all categories matching the query in the filteredAds object and they need to be filtered by newly applied category filter
               mergeTwoAdsObjects(
                 filterAdsByCategory(state.filteredAds, action.payload.category),
-                filterAds(
-                  filterAdsByCategory(state.ads, action.payload.category),
-                  action.payload.searchInput
-                )
+                filteredByCatAndBySearchInput
               )
-            : // if there are category filters already applied then just merge the filteredAds object with newly added category filter results
+            : // if there are category filters already applied then just merge the filteredAds object with newly added category filter and search input results
               mergeTwoAdsObjects(
                 state.filteredAds,
-                filterAds(
-                  filterAdsByCategory(state.ads, action.payload.category),
-                  action.payload.searchInput
-                )
+                filteredByCatAndBySearchInput
               ),
-          filteredByCheckedFilters: mergeTwoAdsObjects(
-            state.filteredByCheckedFilters,
-            filterAdsByCategory(state.ads, action.payload.category)
-          ),
+          filteredByCheckedFilters: filteredByCheckedFiltersAfterCatAdd,
         };
       }
       return {
@@ -72,39 +73,35 @@ const adsReducer = (state = INITIAL_STATE, action) => {
           state.filteredAds,
           filterAdsByCategory(state.ads, action.payload.category)
         ),
-        filteredByCheckedFilters: mergeTwoAdsObjects(
-          state.filteredByCheckedFilters,
-          filterAdsByCategory(state.ads, action.payload.category)
-        ),
+        filteredByCheckedFilters: filteredByCheckedFiltersAfterCatAdd,
       };
 
     case AdsActionTypes.REMOVE_CATEGORY_FILTER:
       // if search input is entered update the category filters and filter the result of this operation by search input
-      const adsAfterCategoryUpdate = removeCategoryFilter(
+      const allFilteredAdsAfterCatRemove = removeCategoryFilter(
         state.filteredAds,
+        action.payload.category
+      );
+
+      const filteredByCheckedFiltersAfterCatRemove = removeCategoryFilter(
+        state.filteredByCheckedFilters,
         action.payload.category
       );
 
       if (
         state.searchInput.length > 0 &&
-        Object.keys(adsAfterCategoryUpdate).length === 0
+        Object.keys(allFilteredAdsAfterCatRemove).length === 0
       ) {
         return {
           ...state,
           filteredAds: filterAds(state.ads, action.payload.searchInput),
-          filteredByCheckedFilters: removeCategoryFilter(
-            state.filteredByCheckedFilters,
-            action.payload.category
-          ),
+          filteredByCheckedFilters: filteredByCheckedFiltersAfterCatRemove,
         };
       }
       return {
         ...state,
-        filteredAds: removeCategoryFilter(state.filteredAds, action.payload),
-        filteredByCheckedFilters: removeCategoryFilter(
-          state.filteredByCheckedFilters,
-          action.payload.category
-        ),
+        filteredAds: allFilteredAdsAfterCatRemove,
+        filteredByCheckedFilters: filteredByCheckedFiltersAfterCatRemove,
       };
 
     case AdsActionTypes.UPDATE_FILTERS_STATUS:
