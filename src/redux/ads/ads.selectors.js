@@ -9,6 +9,11 @@ export const filteredAdsSelector = createSelector(
   ads => ads.filteredAds
 );
 
+export const sortedAdsSelector = createSelector(
+  adsSelector,
+  ads => ads.sortedAds
+);
+
 export const searchInputSelector = createSelector(
   adsSelector,
   ads => ads.searchInput

@@ -78,15 +78,18 @@ class SearchFiltersController extends React.Component {
 
     return (
       <div className="search-filter-controller">
-        {filters.map(filter => (
-          <SearchFilter
-            disabled={isFetching}
-            key={filter.id}
-            handleChange={this.handleFilterChange}
-            icon={filter.category}
-            {...filter}
-          />
-        ))}
+        <h3 className="search-filter-controller__title">Kategorie</h3>
+        <div className="search-filter-controller__filters">
+          {filters.map(filter => (
+            <SearchFilter
+              disabled={isFetching}
+              key={filter.id}
+              handleChange={this.handleFilterChange}
+              icon={filter.category}
+              {...filter}
+            />
+          ))}
+        </div>
       </div>
     );
   }

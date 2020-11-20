@@ -1,6 +1,10 @@
 import { put, call, takeLatest, all } from 'redux-saga/effects';
 
-import { fetchAdsSuccess, fetchAdsFailure } from './ads.actions';
+import {
+  fetchAdsSuccess,
+  fetchAdsFailure,
+  sortAdsByDateAdded,
+} from './ads.actions';
 
 import {
   fetchAllAds,
@@ -13,6 +17,7 @@ function* fetchAds() {
   try {
     const allAds = yield call(fetchAllAds);
     yield put(fetchAdsSuccess(allAds));
+    yield put(sortAdsByDateAdded());
   } catch (error) {
     yield put(fetchAdsFailure(error));
   }
@@ -22,6 +27,7 @@ function* fetchTenAds() {
   try {
     const tenAds = yield call(fetchTenLatestAdsFromEachCategory);
     yield put(fetchAdsSuccess(tenAds));
+    yield put(sortAdsByDateAdded());
   } catch (error) {
     yield put(fetchAdsFailure(error));
   }

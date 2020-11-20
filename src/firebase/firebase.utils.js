@@ -66,8 +66,12 @@ export const createAdsCollectionsAndDocuments = adsArray => {
 };
 
 export const fetchAllAds = async () => {
-  const ads = await db.collectionGroup('items').get();
-  return Object.assign({}, convertCollectionSnapshotToMap(ads));
+  try {
+    const ads = await db.collectionGroup('items').get();
+    return Object.assign({}, convertCollectionSnapshotToMap(ads));
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const fetchTenLatestAdsFromEachCategory = async () => {
@@ -75,15 +79,19 @@ export const fetchTenLatestAdsFromEachCategory = async () => {
   let ads = {};
 
   for (const cat of categories) {
-    const categoryAdsSnapshot = await db
-      .collection('ads')
-      .doc(`${cat}-ads`)
-      .collection('items')
-      .orderBy('addedAt', 'desc')
-      .limit(10)
-      .get();
+    try {
+      const categoryAdsSnapshot = await db
+        .collection('ads')
+        .doc(`${cat}-ads`)
+        .collection('items')
+        .orderBy('addedAt', 'desc')
+        .limit(10)
+        .get();
 
-    Object.assign(ads, convertCollectionSnapshotToMap(categoryAdsSnapshot));
+      Object.assign(ads, convertCollectionSnapshotToMap(categoryAdsSnapshot));
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return ads;

@@ -2,28 +2,26 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
-import { allAdsSelector } from '../../redux/ads/ads.selectors';
+import { sortedAdsSelector } from '../../redux/ads/ads.selectors';
 
-import AdsPreviewMiniItem from '../ads-preview-item/ads-preview-item.component';
+import AdsPreviewItem from '../ads-preview-item/ads-preview-item.component';
 
 import './ads-preview.styles.scss';
 
-const AdsPreview = ({ allAds }) => {
+const AdsPreview = ({ sortedAds }) => {
   return (
     <div className="ads-preview">
       <h3 className="ads-preview__title">Najnowsze:</h3>
 
-      {Object.keys(allAds).map(key => {
-        const ad = allAds[key];
-
-        return <AdsPreviewMiniItem key={ad.id} {...ad} />;
-      })}
+      {sortedAds.map(ad => (
+        <AdsPreviewItem key={ad.id} {...ad} />
+      ))}
     </div>
   );
 };
 
 const mapStateToProps = createStructuredSelector({
-  allAds: allAdsSelector,
+  sortedAds: sortedAdsSelector,
 });
 
 export default connect(mapStateToProps)(AdsPreview);

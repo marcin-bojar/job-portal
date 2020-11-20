@@ -87,3 +87,9 @@ export const formatDate = timestamp => {
 
   return `${day} ${months[month]}`;
 };
+
+export const sortAdsByDateAdded = adsObject => {
+  return Object.entries(adsObject)
+    .sort((a, b) => b[1].addedAt - a[1].addedAt)
+    .map(el => el[1]);
+};

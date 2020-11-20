@@ -7,12 +7,15 @@ import {
   mergeTwoAdsObjects,
 } from './ads.utils';
 
+import { sortAdsByDateAdded } from '../ads/ads.utils';
+
 const INITIAL_STATE = {
   ads: null,
   searchInput: '',
   filteredAds: {},
   filteredByCheckedFilters: {}, // this property is needed to restore filtered ads when search input has been deleted
   filtersApplied: false,
+  sortedAds: [],
   error: null,
   isFetching: true,
 };
@@ -143,6 +146,12 @@ const adsReducer = (state = INITIAL_STATE, action) => {
         ...state,
         ads: [],
         isFetching: false,
+      };
+
+    case AdsActionTypes.SORT_ADS_BY_DATE_ADDED:
+      return {
+        ...state,
+        sortedAds: sortAdsByDateAdded(state.ads),
       };
 
     default:
