@@ -89,7 +89,9 @@ export const formatDate = timestamp => {
 };
 
 export const sortAdsByDateAdded = adsObject => {
-  return Object.entries(adsObject)
+  const sorted = {};
+  Object.entries(adsObject)
     .sort((a, b) => b[1].addedAt - a[1].addedAt)
-    .map(el => el[1]);
+    .forEach(el => (sorted[el[0]] = el[1]));
+  return sorted;
 };
