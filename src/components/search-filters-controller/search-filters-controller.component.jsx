@@ -6,6 +6,7 @@ import { createStructuredSelector } from 'reselect';
 import {
   searchInputSelector,
   isFetchingSelector,
+  filtersSelector,
 } from '../../redux/ads/ads.selectors';
 
 import SearchFilter from '../search-filter/search-filter.component';
@@ -13,25 +14,13 @@ import SearchFilter from '../search-filter/search-filter.component';
 import {
   filterAdsByCategory,
   removeCategoryFilter,
+  updateFilter,
   updateFiltersStatus,
 } from '../../redux/ads/ads.actions';
 
 import './search-filters-controller.styles.scss';
 
 class SearchFiltersController extends React.Component {
-  constructor() {
-    super();
-
-    this.state = {
-      filters: [
-        { id: 1, category: 'office', checked: false },
-        { id: 2, category: 'driver', checked: false },
-        { id: 3, category: 'forklift', checked: false },
-        { id: 4, category: 'warehouse', checked: false },
-      ],
-    };
-  }
-
   componentDidUpdate() {
     this.checkFiltersStatus();
   }
@@ -39,6 +28,7 @@ class SearchFiltersController extends React.Component {
   handleFilterChange = e => {
     const {
       filterAdsByCategory,
+      updateFilter,
       removeCategoryFilter,
       searchInput,
     } = this.props;
@@ -48,47 +38,45 @@ class SearchFiltersController extends React.Component {
     // filter by category and (if present) by search input at once
     const filter = { category, searchInput };
 
-    const stateUpdater = state =>
-      (state.filters = state.filters.map(filter =>
-        filter.category === category
-          ? { ...filter, checked: isChecked }
-          : filter
-      ));
-
     if (isChecked) {
       filterAdsByCategory(filter);
-      this.setState(stateUpdater);
+      updateFilter({ category, isChecked });
     } else {
       removeCategoryFilter(filter);
-      this.setState(stateUpdater);
+      updateFilter({ category, isChecked });
     }
   };
 
   checkFiltersStatus = () => {
-    const { filters } = this.state;
-    const { updateFiltersStatus } = this.props;
-    const isFiltered = filters.some(filter => filter.checked === true);
+    const { updateFiltersStatus, filters } = this.props;
+    const isFiltered = Object.keys(filters).some(
+      key => filters[key].checked === true
+    );
 
     updateFiltersStatus(isFiltered);
   };
 
   render() {
-    const { filters } = this.state;
-    const { isFetching } = this.props;
+    const { isFetching, filters } = this.props;
 
     return (
       <div className="search-filter-controller">
         <h3 className="search-filter-controller__title">Kategorie</h3>
         <div className="search-filter-controller__filters">
-          {filters.map(filter => (
-            <SearchFilter
-              disabled={isFetching}
-              key={filter.id}
-              handleChange={this.handleFilterChange}
-              icon={filter.category}
-              {...filter}
-            />
-          ))}
+          {Object.keys(filters).map(category => {
+            const filter = filters[category];
+
+            return (
+              <SearchFilter
+                disabled={isFetching}
+                key={filter.id}
+                handleChange={this.handleFilterChange}
+                icon={category}
+                category={category}
+                {...filter}
+              />
+            );
+          })}
         </div>
       </div>
     );
@@ -98,11 +86,13 @@ class SearchFiltersController extends React.Component {
 const mapStateToProps = createStructuredSelector({
   searchInput: searchInputSelector,
   isFetching: isFetchingSelector,
+  filters: filtersSelector,
 });
 
 const mapDispatchToProps = dispatch => ({
   filterAdsByCategory: category => dispatch(filterAdsByCategory(category)),
   removeCategoryFilter: category => dispatch(removeCategoryFilter(category)),
+  updateFilter: status => dispatch(updateFilter(status)),
   updateFiltersStatus: areFiltersApplied =>
     dispatch(updateFiltersStatus(areFiltersApplied)),
 });

@@ -74,8 +74,11 @@ export const formatDate = timestamp => {
   const dateAdded = new Date(timestamp * 1000);
   const day = dateAdded.getDate();
   const month = dateAdded.getMonth();
-  const h = dateAdded.getHours();
-  const mins = dateAdded.getMinutes();
+  let h = dateAdded.getHours();
+  let mins = dateAdded.getMinutes();
+
+  if (h < 10) h = '0' + h;
+  if (mins < 10) mins = '0' + mins;
 
   if (
     now.getDate() === day &&

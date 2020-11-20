@@ -20,6 +20,11 @@ export const setAdsFilter = newFilter => ({
   payload: newFilter,
 });
 
+export const updateFilter = filterData => ({
+  type: AdsActionTypes.UPDATE_FILTER,
+  payload: filterData,
+});
+
 export const updateFiltersStatus = areFiltersApplied => ({
   type: AdsActionTypes.UPDATE_FILTERS_STATUS,
   payload: areFiltersApplied,

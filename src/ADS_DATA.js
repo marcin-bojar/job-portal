@@ -92,7 +92,7 @@ const ADS_DATA = [
 
 const categories = ['warehouse', 'office', 'driver', 'forklift'];
 
-for (let i = 0; i < 15; i++) {
+for (let i = 0; i < 20; i++) {
   let index = Math.floor(Math.random() * 4);
   ADS_DATA.push({
     id: i,
@@ -107,10 +107,11 @@ for (let i = 0; i < 15; i++) {
     },
     currency: 'PLN',
     info: 'Praca na terenie EU, nowy tabor, wysokie wynagrodznie',
+    addedAt: new Date(1605872489563 - i * 1500000),
   });
 }
 
-for (let i = 0; i < 15; i++) {
+for (let i = 0; i < 30; i++) {
   let index = Math.floor(Math.random() * 4);
   ADS_DATA.push({
     id: i,
@@ -126,10 +127,11 @@ for (let i = 0; i < 15; i++) {
     currency: 'PLN',
     info:
       'Poszukujemy spedytorów z doświadczeniem oraz własną bazą kontrahentów oraz przewoźników. Gwarantujemy wysoką prowizję!',
+    addedAt: new Date(1605872489563 - i * 2200000),
   });
 }
 
-for (let i = 0; i < 20; i++) {
+for (let i = 0; i < 50; i++) {
   let index = Math.floor(Math.random() * 4);
   ADS_DATA.push({
     id: i,
@@ -145,6 +147,7 @@ for (let i = 0; i < 20; i++) {
     currency: 'PLN',
     info:
       'Szukamy kierowcy do pracy na terenie ślaska z dziennymi zjazdami na bazę w Chorzowie.',
+    addedAt: new Date(1605872489563 - i * 700000),
   });
 }
 

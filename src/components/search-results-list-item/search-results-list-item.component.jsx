@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import { formatDate } from '../../redux/ads/ads.utils';
 
@@ -13,10 +14,12 @@ const SearchResultsListItem = ({
   salary,
   currency,
   addedAt,
+  id,
 }) => {
   const { fixed, from, to } = salary;
   return (
-    <div
+    <Link
+      to={`/ads/${id}`}
       className={`search-results-list-item search-results-list-item--${category}`}
     >
       <div className="search-results-list-item__header">
@@ -50,7 +53,7 @@ const SearchResultsListItem = ({
           {region.toUpperCase()}
         </p>
       </div>
-    </div>
+    </Link>
   );
 };
 

@@ -59,7 +59,7 @@ export const createAdsCollectionsAndDocuments = adsArray => {
       .doc(`${ad.category}-ads`)
       .collection('items')
       .doc();
-    batch.set(adRef, { ...ad, id: adRef.id, addedAt: new Date() });
+    batch.set(adRef, { ...ad, id: adRef.id });
   });
 
   batch.commit();
@@ -67,7 +67,10 @@ export const createAdsCollectionsAndDocuments = adsArray => {
 
 export const fetchAllAds = async () => {
   try {
-    const ads = await db.collectionGroup('items').get();
+    const ads = await db
+      .collectionGroup('items')
+      .orderBy('addedAt', 'desc')
+      .get();
     return Object.assign({}, convertCollectionSnapshotToMap(ads));
   } catch (error) {
     console.log(error);

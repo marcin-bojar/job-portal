@@ -12,9 +12,16 @@ import { sortAdsByDateAdded } from '../ads/ads.utils';
 const INITIAL_STATE = {
   ads: null,
   searchInput: '',
+  filters: {
+    office: { id: 1, checked: false },
+    driver: { id: 2, checked: false },
+    forklift: { id: 3, checked: false },
+    warehouse: { id: 4, checked: false },
+  },
   filteredAds: {},
   filteredByCheckedFilters: {}, // this property is needed to restore filtered ads when search input has been deleted
   filtersApplied: false,
+  sortedAds: {},
   error: null,
   isFetching: true,
 };
@@ -106,6 +113,18 @@ const adsReducer = (state = INITIAL_STATE, action) => {
         filteredByCheckedFilters: filteredByCheckedFiltersAfterCatRemove,
       };
 
+    case AdsActionTypes.UPDATE_FILTER:
+      return {
+        ...state,
+        filters: {
+          ...state.filters,
+          [action.payload.category]: {
+            ...state.filters[action.payload.category],
+            checked: action.payload.isChecked,
+          },
+        },
+      };
+
     case AdsActionTypes.UPDATE_FILTERS_STATUS:
       return {
         ...state,
@@ -150,7 +169,7 @@ const adsReducer = (state = INITIAL_STATE, action) => {
     case AdsActionTypes.SORT_ADS_BY_DATE_ADDED:
       return {
         ...state,
-        ads: sortAdsByDateAdded(state.ads),
+        sortedAds: sortAdsByDateAdded(state.ads),
       };
 
     default:

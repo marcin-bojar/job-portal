@@ -1,13 +1,25 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import { formatDate } from '../../redux/ads/ads.utils';
 
 import './ads-preview-item.styles.scss';
 
-const AdsPreviewMiniItem = ({ title, region, salary, currency, addedAt, category }) => {
+const AdsPreviewItem = ({
+  title,
+  region,
+  salary,
+  currency,
+  addedAt,
+  category,
+  id,
+}) => {
   const { fixed, from, to } = salary;
   return (
-    <div className={`ads-preview-item ads-preview-item--${category}`}>
+    <Link
+      to={`/ads/${id}`}
+      className={`ads-preview-item ads-preview-item--${category}`}
+    >
       <div className="ads-preview-item__block">
         <h3 className="ads-preview-item__title">{title}</h3>
         <p className="ads-preview-item__region">{region.toUpperCase()}</p>
@@ -22,12 +34,10 @@ const AdsPreviewMiniItem = ({ title, region, salary, currency, addedAt, category
               : null}
           </p>
         ) : null}
-        <p className="ads-preview-item__added">
-          {formatDate(addedAt.seconds)}
-        </p>
+        <p className="ads-preview-item__added">{formatDate(addedAt.seconds)}</p>
       </div>
-    </div>
+    </Link>
   );
 };
 
-export default AdsPreviewMiniItem;
+export default AdsPreviewItem;

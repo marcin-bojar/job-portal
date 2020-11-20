@@ -19,6 +19,8 @@ export const searchInputSelector = createSelector(
   ads => ads.searchInput
 );
 
+export const filtersSelector = createSelector(adsSelector, ads => ads.filters);
+
 export const filtersAppliedSelector = createSelector(
   adsSelector,
   ads => ads.filtersApplied
