@@ -27,7 +27,7 @@ function* fetchTenAds() {
   try {
     const tenAds = yield call(fetchTenLatestAdsFromEachCategory);
     yield put(fetchAdsSuccess(tenAds));
-    // yield put(sortAdsByDateAdded());
+    yield put(sortAdsByDateAdded());
   } catch (error) {
     yield put(fetchAdsFailure(error));
   }

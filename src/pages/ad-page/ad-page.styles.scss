@@ -1,0 +1,68 @@
+.ad-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 85vh;
+
+  &__title {
+    font-size: 4rem;
+    letter-spacing: 1px;
+    background: linear-gradient(
+      to right bottom,
+      var(--color-forklift-theme),
+      var(--color-office-theme)
+    );
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    color: transparent;
+  }
+
+  &__content {
+    // display: flex;
+    // flex-direction: column;
+    // align-items: center;
+    width: 75%;
+    min-height: 55vh;
+    margin: 2rem;
+    padding: 2rem 2.5rem;
+    box-shadow: 0 0.5rem 0.2rem rgba(0, 0, 0, 0.2);
+    border: var(--border-light-1);
+  }
+
+  &__header {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    padding: 0 1rem 2rem 1rem;
+    font-size: 2.25rem;
+    font-weight: 700;
+    border-bottom: var(--border-light-1);
+
+    span {
+      color: var(--color-primary);
+      letter-spacing: 1px;
+      font-weight: 500;
+    }
+  }
+
+  &__details {
+    margin: 5rem auto;
+    width: 75%;
+    min-height: 20rem;
+    font-size: 1.9rem;
+    line-height: 1.4;
+  }
+
+  &__description-title {
+    margin-bottom: 1.5rem;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: space-around;
+    border-top: var(--border-light-1);
+    padding: 2rem 1rem 0 1rem;
+  }
+}

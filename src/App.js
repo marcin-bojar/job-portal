@@ -6,6 +6,7 @@ import { checkCurrentUser } from './redux/user/user.actions';
 
 import { createStructuredSelector } from 'reselect';
 import { currentUserSelector } from './redux/user/user.selectors';
+import { isFetchingSelector } from './redux/ads/ads.selectors';
 import { fetchAdsStart, fetchTenLatestAdsStart } from './redux/ads/ads.actions';
 
 import HomePage from './pages/homepage/homepage.component';
@@ -14,11 +15,14 @@ import Header from './components/header/header.component';
 import LoginFirst from './pages/login-first/login-first.component';
 import AddAd from './pages/add-ad/add-ad.component';
 import AdPage from './pages/ad-page/ad-page.component';
+import withLoader from './components/with-loader/with-loader.component';
 
-import ADS from './ADS_DATA';
-import { createAdsCollectionsAndDocuments } from './firebase/firebase.utils';
+// import ADS from './ADS_DATA';
+// import { createAdsCollectionsAndDocuments } from './firebase/firebase.utils';
 
 import './App.css';
+
+const AdPageWithLoader = withLoader(AdPage);
 
 class App extends React.Component {
   unsubscribe = null;
@@ -26,14 +30,14 @@ class App extends React.Component {
   componentDidMount() {
     const { checkCurrentUser, fetchAds, fetchTenLatestAds } = this.props;
     checkCurrentUser();
-    fetchAds();
-    // fetchTenLatestAds();
+    // fetchAds();
+    fetchTenLatestAds();
 
     // createAdsCollectionsAndDocuments(ADS);
   }
 
   render() {
-    const { currentUser } = this.props;
+    const { currentUser, isFetching } = this.props;
     return (
       <div>
         <Header />
@@ -49,7 +53,11 @@ class App extends React.Component {
             path="/add"
             render={() => (currentUser ? <AddAd /> : <LoginFirst />)}
           />
-          <Route exact path="/ads/:adId" component={AdPage} />
+          <Route
+            exact
+            path="/ads/:adId"
+            render={() => <AdPageWithLoader isLoading={isFetching} />}
+          />
         </Switch>
       </div>
     );
@@ -58,6 +66,7 @@ class App extends React.Component {
 
 const mapStateToProps = createStructuredSelector({
   currentUser: currentUserSelector,
+  isFetching: isFetchingSelector,
 });
 
 const mapDispatchToProps = dispatch => ({
