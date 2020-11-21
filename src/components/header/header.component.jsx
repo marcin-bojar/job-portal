@@ -28,7 +28,7 @@ const Header = ({ currentUser, toggleUserMenu, userMenuHidden }) => (
         Dodaj ogłoszenie
       </Link>
       {!currentUser ? (
-        <Link className="header__option" to="login">
+        <Link className="header__option" to="/login">
           Zaloguj się
         </Link>
       ) : (

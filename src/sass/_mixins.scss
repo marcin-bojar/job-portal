@@ -19,7 +19,7 @@
 
 @mixin ad-item-theme-color {
   &--office:hover {
-    border: 1px solid var(--color-primary);
+    border: 1px solid var(--color-office-theme);
   }
 
   &--driver:hover {
@@ -43,7 +43,7 @@
   }
 
   &--office::before {
-    background-color: var(--color-primary);
+    background-color: var(--color-office-theme);
   }
   &--driver::before {
     background-color: var(--color-driver-theme);
