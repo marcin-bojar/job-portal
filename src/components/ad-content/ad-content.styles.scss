@@ -69,26 +69,3 @@
     padding: 2rem 1rem 0 1rem;
   }
 }
-
-.highlight {
-  display: flex;
-  justify-content: center;
-  padding: 1.5rem 3rem;
-
-  &:not(:last-child) {
-    border-right: var(--border-dark-1);
-  }
-
-  &__text {
-    margin-left: 1rem;
-    align-self: flex-end;
-    font-size: 1.9rem;
-    font-weight: 500;
-  }
-
-  & svg {
-    width: 4rem;
-    height: 4rem;
-    fill: var(--color-primary);
-  }
-}

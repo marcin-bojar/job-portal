@@ -8,9 +8,9 @@ import { allAdsSelector } from '../../redux/ads/ads.selectors';
 import { formatDate } from '../../redux/ads/ads.utils';
 
 import CustomButton from '../../components/custom-button/custom-button.component';
-import Icon from '../../components/icons/icon-index.component.js';
 
 import './ad-content.styles.scss';
+import AdHighlight from '../ad-highlight/ad-highlight.component';
 
 const AdContent = ({ allAds, match }) => {
   const adId = match.params.adId;
@@ -37,22 +37,10 @@ const AdContent = ({ allAds, match }) => {
         </div>
       </div>
       <div className="ad-content__highlights">
-        <div className="highlight">
-          <Icon name="pin" />
-          <p className="highlight__text">{region}</p>
-        </div>
-        <div className="highlight">
-          <Icon name="clock" />
-          <p className="highlight__text">{system}</p>
-        </div>
-        <div className="highlight">
-          <Icon name="contract" />
-          <p className="highlight__text">Umowa o pracę</p>
-        </div>
-        <div className="highlight">
-          <Icon name="licence" />
-          <p className="highlight__text">C+E</p>
-        </div>
+        <AdHighlight icon="pin">{region}</AdHighlight>
+        <AdHighlight icon="clock">{system}</AdHighlight>
+        <AdHighlight icon="contract">Umowa o pracę</AdHighlight>
+        <AdHighlight icon="licence">C+E</AdHighlight>
       </div>
       <div className="ad-content__details">
         <h3 className="ad-content__description-title">Opis stanowiska:</h3>
