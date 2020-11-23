@@ -92,63 +92,113 @@ const ADS_DATA = [
 
 const categories = ['warehouse', 'office', 'driver', 'forklift'];
 
-for (let i = 0; i < 20; i++) {
-  let index = Math.floor(Math.random() * 4);
-  ADS_DATA.push({
-    id: i,
-    category: categories[index],
-    title: categories[index],
-    region: 'Mikołów',
-    system: '8-16',
-    salary: {
-      fixed: null,
-      from: 2500,
-      to: 3100,
-    },
-    currency: 'PLN',
-    info: 'Praca na terenie EU, nowy tabor, wysokie wynagrodznie',
-    addedAt: new Date(1605872489563 - i * 1500000),
-  });
-}
+// for (let i = 0; i < 20; i++) {
+//   let index = Math.floor(Math.random() * 4);
+//   ADS_DATA.push({
+//     id: i,
+//     category: categories[index],
+//     title: categories[index],
+//     region: 'Mikołów',
+//     system: '8-16',
+//     salary: {
+//       fixed: null,
+//       from: 2500,
+//       to: 3100,
+//       currency: 'PLN',
+//     },
 
-for (let i = 0; i < 30; i++) {
-  let index = Math.floor(Math.random() * 4);
-  ADS_DATA.push({
-    id: i,
-    category: categories[index],
-    title: categories[index],
-    region: 'Warszawa',
-    system: '8-16',
-    salary: {
-      fixed: 4500,
-      from: null,
-      to: null,
-    },
-    currency: 'PLN',
-    info:
-      'Poszukujemy spedytorów z doświadczeniem oraz własną bazą kontrahentów oraz przewoźników. Gwarantujemy wysoką prowizję!',
-    addedAt: new Date(1605872489563 - i * 2200000),
-  });
-}
+//     info: 'Praca na terenie EU, nowy tabor, wysokie wynagrodznie',
+//     addedAt: new Date(1605872489563 - i * 2500000),
+//   });
+// }
+
+// for (let i = 0; i < 30; i++) {
+//   let index = Math.floor(Math.random() * 4);
+//   ADS_DATA.push({
+//     id: i,
+//     category: categories[index],
+//     title: categories[index],
+//     region: 'Warszawa',
+//     system: '8-16',
+//     salary: {
+//       fixed: 4500,
+//       from: null,
+//       to: null,
+//       currency: 'PLN',
+//     },
+
+//     info:
+//       'Poszukujemy spedytorów z doświadczeniem oraz własną bazą kontrahentów oraz przewoźników. Gwarantujemy wysoką prowizję!',
+//     addedAt: new Date(1605872489563 - i * 3200000),
+//   });
+// }
 
 for (let i = 0; i < 50; i++) {
   let index = Math.floor(Math.random() * 4);
   ADS_DATA.push({
     id: i,
+    addedAt: new Date(1605872489563 - i * 7000000),
+    addedBy: {
+      id: '',
+      displayName: '',
+      email: '',
+      phone: 12345678,
+    },
     category: categories[index],
     title: categories[index],
-    region: 'Chorzów',
-    system: '8-16',
+    highlights: {
+      region: 'EU',
+      system: '3/1',
+      contract: 'UoP',
+      license: 'C/E',
+    },
     salary: {
       fixed: null,
-      from: null,
-      to: null,
+      from: 5600,
+      to: 8500,
+      currency: 'PLN',
     },
-    currency: 'PLN',
-    info:
-      'Szukamy kierowcy do pracy na terenie ślaska z dziennymi zjazdami na bazę w Chorzowie.',
-    addedAt: new Date(1605872489563 - i * 700000),
+    adSections: {
+      info:
+        'Szukamy kierowcy do pracy na terenie ślaska z dziennymi zjazdami na bazę w Chorzowie.',
+      requirements: 'requirements',
+      offer: 'offer',
+      benefits: 'benefits',
+      aboutEmployer: 'aboutEmployer',
+    },
   });
 }
+
+const ad = {
+  id: 1,
+  addedAt: new Date(),
+  addedBy: {
+    id: '',
+    displayName: '',
+    email: '',
+    phone: 12345678,
+  },
+  category: 'driver',
+  title: 'Kierowca C+E',
+  highlights: {
+    region: 'eu',
+    system: '3/1',
+    contract: 'UoP',
+    license: 'C/E',
+  },
+  salary: {
+    fixed: null,
+    from: null,
+    to: null,
+    currency: 'PLN',
+  },
+  adSections: {
+    info: 'Praca na terenie EU, nowy tabor, wysokie wynagrodznie',
+    requirements: '',
+    offer: '',
+    benefits: '',
+    aboutEmployer: '',
+  },
+};
 
 export default ADS_DATA;

@@ -34,6 +34,7 @@
     border-bottom: var(--border-dark-1);
 
     span {
+      display: inline-block;
       color: var(--color-primary);
       letter-spacing: 1px;
       font-weight: 500;

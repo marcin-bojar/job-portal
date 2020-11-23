@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import SalaryAmount from '../salary-amount/salary-amount-component';
+
 import { formatDate } from '../../redux/ads/ads.utils';
 
 import './search-results-list-item.styles.scss';
@@ -8,15 +10,12 @@ import './search-results-list-item.styles.scss';
 const SearchResultsListItem = ({
   category,
   title,
-  license,
-  region,
-  system,
+  highlights,
   salary,
-  currency,
   addedAt,
   id,
 }) => {
-  const { fixed, from, to } = salary;
+  const { region, system, license } = highlights;
   return (
     <Link
       to={`/ads/${id}`}
@@ -25,13 +24,9 @@ const SearchResultsListItem = ({
       <div className="search-results-list-item__header">
         <h3 className="search-results-list-item__title">{title}</h3>
         <div className="search-results-list-item__block search-results-list-item__block--column">
-          <p className="search-results-list-item__salary">
-            {fixed
-              ? `${fixed} ${currency}`
-              : from && to
-              ? `${from} - ${to} ${currency}`
-              : null}
-          </p>
+          <div className="search-results-list-item__salary">
+            <SalaryAmount salary={salary} notProvidedText={null} />
+          </div>
           <p className="search-results-list-item__added">
             {formatDate(addedAt.seconds)}
           </p>
