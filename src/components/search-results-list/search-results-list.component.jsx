@@ -22,24 +22,6 @@ const SearchResultsList = ({ filteredAds }) => {
       {Object.keys(filteredAds).map(key => {
         const ad = filteredAds[key];
 
-        // start ads from each category with category title
-        if (category !== ad.category) {
-          category = ad.category;
-
-          return (
-            <div className="search-results-list__new-category" key={ad.id}>
-              <h4
-                className={`search-results-list__category-title ${category} `}
-              >
-                {categoryMap[category]}
-              </h4>
-              <li className="search-results-list__item">
-                <SearchResultsListItem {...ad} />
-              </li>
-            </div>
-          );
-        }
-
         return (
           <li className="search-results-list__item" key={ad.id}>
             <SearchResultsListItem {...ad} />

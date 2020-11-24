@@ -133,7 +133,7 @@ const categories = ['warehouse', 'office', 'driver', 'forklift'];
 //   });
 // }
 
-for (let i = 0; i < 50; i++) {
+for (let i = 0; i < 20; i++) {
   let index = Math.floor(Math.random() * 4);
   ADS_DATA.push({
     id: i,
@@ -147,20 +147,20 @@ for (let i = 0; i < 50; i++) {
     category: categories[index],
     title: categories[index],
     highlights: {
-      region: 'EU',
-      system: '3/1',
+      region: 'Chorzów',
+      system: '2 zmiany',
       contract: 'UoP',
-      license: 'C/E',
+      license: '-',
     },
     salary: {
       fixed: null,
-      from: 5600,
-      to: 8500,
+      from: null,
+      to: null,
       currency: 'PLN',
     },
     adSections: {
       info:
-        'Szukamy kierowcy do pracy na terenie ślaska z dziennymi zjazdami na bazę w Chorzowie.',
+        'Wymagane doświadczenie na podobnym stanowisku minimum 3 lata, dobra organizajca pracy, umiejętność zarządzania zespołem. Oferujemy konkurencyjne wynagrodzenie, kartę Multisport, możliwość awansu, ciekawe projekty',
       requirements: 'requirements',
       offer: 'offer',
       benefits: 'benefits',

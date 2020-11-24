@@ -3,11 +3,16 @@ export const filterAds = (ads, filter) => {
 
   Object.keys(ads).forEach(key => {
     const ad = ads[key];
+    const {
+      adSections: { info },
+      highlights: { region },
+      title,
+    } = ad;
 
     if (
-      ad.title.toLowerCase().includes(filter.toLowerCase().trim()) ||
-      ad.info.toLowerCase().includes(filter.toLowerCase().trim()) ||
-      ad.region.toLowerCase().includes(filter.toLowerCase().trim())
+      title.toLowerCase().includes(filter.toLowerCase().trim()) ||
+      info.toLowerCase().includes(filter.toLowerCase().trim()) ||
+      region.toLowerCase().includes(filter.toLowerCase().trim())
     ) {
       filtered[key] = ad;
     }

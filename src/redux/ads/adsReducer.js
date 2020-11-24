@@ -85,20 +85,19 @@ const adsReducer = (state = INITIAL_STATE, action) => {
       };
 
     case AdsActionTypes.REMOVE_CATEGORY_FILTER:
-      // if search input is entered update the category filters and filter the result of this operation by search input
       const allFilteredAdsAfterCatRemove = removeCategoryFilter(
         state.filteredAds,
         action.payload.category
       );
-
       const filteredByCheckedFiltersAfterCatRemove = removeCategoryFilter(
         state.filteredByCheckedFilters,
         action.payload.category
       );
 
+      // if search input is entered and none of the category filters are applied anymore (last filter has been removed) then filter all ads by search input
       if (
         state.searchInput.length > 0 &&
-        Object.keys(allFilteredAdsAfterCatRemove).length === 0
+        Object.keys(filteredByCheckedFiltersAfterCatRemove).length === 0
       ) {
         return {
           ...state,
