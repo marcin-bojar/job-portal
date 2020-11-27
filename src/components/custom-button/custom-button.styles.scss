@@ -40,4 +40,11 @@
     background-color: var(--color-white);
     color: var(--color-primary);
   }
+
+  &:disabled {
+    background-color: var(--color-white);
+    color: var(--color-grey-light-1);
+    border: var(--border-light-1);
+    cursor: not-allowed;
+  }
 }

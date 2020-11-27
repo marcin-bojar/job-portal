@@ -9,13 +9,13 @@ import SearchResultsListItem from '../search-results-list-item/search-results-li
 import './search-results-list.styles.scss';
 
 const SearchResultsList = ({ filteredAds }) => {
-  let category = null;
-  const categoryMap = {
-    driver: 'Dla kierowców',
-    office: 'Praca biurowa',
-    forklift: 'Dla operatorów',
-    warehouse: 'Praca na magazynie',
-  };
+  // let category = null;
+  // const categoryMap = {
+  //   driver: 'Dla kierowców',
+  //   office: 'Praca biurowa',
+  //   forklift: 'Dla operatorów',
+  //   warehouse: 'Praca na magazynie',
+  // };
 
   return (
     <ul className="search-results-list">
