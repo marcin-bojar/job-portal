@@ -19,7 +19,7 @@ const INITIAL_STATE = {
     warehouse: { id: 4, checked: false },
   },
   filteredAds: {},
-  filteredByCheckedFilters: {}, // this property is needed to restore filtered ads when search input has been deleted
+  filteredByCheckedFilters: {}, // this property is needed to restore filtered ads when search query has been deleted
   filtersApplied: false,
   error: null,
   isFetching: true,
@@ -57,7 +57,7 @@ const adsReducer = (state = INITIAL_STATE, action) => {
         action.payload.searchInput
       );
 
-      // if search input is entered filter all ads by category and then filter the result of this operation by search input
+      // if search query is entered filter all ads by category and then filter the result of this operation by search input
       if (state.searchInput.length > 0) {
         return {
           ...state,

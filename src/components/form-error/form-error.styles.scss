@@ -1,0 +1,10 @@
+.form-error {
+  position: absolute;
+  top: 30%;
+  right: 4rem;
+  width: 100%;
+  text-align: right;
+  font-size: 1.6rem;
+  color: var(--color-red-error);
+  pointer-events: none;
+}

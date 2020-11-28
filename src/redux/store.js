@@ -8,6 +8,7 @@ import rootSaga from './rootSaga';
 
 const sagaMiddleware = createSagaMiddleware();
 const reduxPromiseListener = createReduxPromiseListener();
+console.log(reduxPromiseListener);
 
 const middlewares = [sagaMiddleware, reduxPromiseListener.middleware];
 
