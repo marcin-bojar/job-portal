@@ -68,6 +68,7 @@ const SignUpFormik = () => (
                 <Field
                   name="email"
                   label="Email"
+                  type="email"
                   disabled={isSubmitting}
                   error={errors.email && touched.email}
                   component={FormInputFormik}

@@ -38,13 +38,11 @@ class SearchFiltersController extends React.Component {
     // filter by category and (if present) by search input at once
     const filter = { category, searchInput };
 
-    if (isChecked) {
-      filterAdsByCategory(filter);
-      updateFilter({ category, isChecked });
-    } else {
-      removeCategoryFilter(filter);
-      updateFilter({ category, isChecked });
-    }
+    if (isChecked) filterAdsByCategory(filter);
+    else removeCategoryFilter(filter);
+
+    // update filter status
+    updateFilter({ category, isChecked });
   };
 
   checkFiltersStatus = () => {
@@ -68,11 +66,11 @@ class SearchFiltersController extends React.Component {
 
             return (
               <SearchFilter
-                disabled={isFetching}
                 key={filter.id}
-                handleChange={this.handleFilterChange}
-                icon={category}
+                disabled={isFetching}
                 category={category}
+                icon={category}
+                handleChange={this.handleFilterChange}
                 {...filter}
               />
             );

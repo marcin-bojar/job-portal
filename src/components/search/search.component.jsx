@@ -59,7 +59,7 @@ class Search extends React.Component {
           disabled={isFetching}
           value={searchInput}
           onChange={this.handleChange}
-          width={60}
+          width={80}
           handleKeyPress={this.handleKeyPress}
         ></FormInput>
 
