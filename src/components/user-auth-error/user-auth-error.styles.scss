@@ -1,0 +1,35 @@
+.user-auth-error {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 85vh;
+  z-index: 10;
+
+  &__overlay {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.75);
+    width: 100%;
+    height: 100%;
+  }
+
+  &__content {
+    background-color: white;
+    width: 80%;
+    margin: 0 auto;
+    padding: 7.5rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__msg {
+    color: black;
+    font-size: 2rem;
+    font-weight: 500;
+    margin-bottom: 7rem;
+  }
+}

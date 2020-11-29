@@ -29,7 +29,8 @@ const SignUpSchema = yup.object().shape({
     .required('Pole obowiązkowe'),
   confirmPassword: yup
     .string()
-    .oneOf([yup.ref('password')], 'Hasła nie są takie same'),
+    .oneOf([yup.ref('password')], 'Hasła nie są takie same')
+    .required('Pole obowiązkowe'),
 });
 
 const SignUpFormik = () => (

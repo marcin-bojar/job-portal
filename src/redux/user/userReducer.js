@@ -40,6 +40,11 @@ const userReducer = (state = INITIAL_STATE, action) => {
         currentUser: null,
         error: action.payload,
       };
+    case UserActionTypes.CLEAR_USER_ERROR:
+      return {
+        ...state,
+        error: null,
+      };
     default:
       return state;
   }

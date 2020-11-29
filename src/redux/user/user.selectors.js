@@ -11,3 +11,8 @@ export const userMenuHiddenSelector = createSelector(
   userSelector,
   user => user.userMenuHidden
 );
+
+export const userErrorSelector = createSelector(
+  userSelector,
+  user => user.error
+);
