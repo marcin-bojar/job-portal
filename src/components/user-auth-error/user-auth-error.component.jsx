@@ -16,6 +16,9 @@ const UserAuthError = ({ error, clearUserError }) => {
       <div className="user-auth-error">
         <div className="user-auth-error__overlay">
           <div className="user-auth-error__content">
+            <h2 className="user-auth-error__title">
+              Ups... coś poszło nie tak
+            </h2>
             <p className="user-auth-error__msg">{error.message}</p>
             <CustomButton handleClick={clearUserError}>Ok</CustomButton>
           </div>

@@ -9,6 +9,7 @@ import {
 import {
   fetchAllAds,
   fetchTenLatestAdsFromEachCategory,
+  createAdDocument,
 } from '../../firebase/firebase.utils';
 
 import AdsActionTypes from './ads.types';
@@ -33,6 +34,14 @@ function* fetchTenAds() {
   }
 }
 
+function* createAd({ payload }) {
+  try {
+    yield call(createAdDocument, payload);
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 export function* onFetchAdsStart() {
   yield takeLatest(AdsActionTypes.FETCH_ADS_START, fetchAds);
 }
@@ -41,6 +50,14 @@ export function* onFetchTenLatestAdsStart() {
   yield takeLatest(AdsActionTypes.FETCH_TEN_LATEST_ADS_START, fetchTenAds);
 }
 
+export function* onCreateAdStart() {
+  yield takeLatest(AdsActionTypes.CREATE_AD_START, createAd);
+}
+
 export function* adsSagas() {
-  yield all([call(onFetchAdsStart), call(onFetchTenLatestAdsStart)]);
+  yield all([
+    call(onFetchAdsStart),
+    call(onFetchTenLatestAdsStart),
+    call(onCreateAdStart),
+  ]);
 }

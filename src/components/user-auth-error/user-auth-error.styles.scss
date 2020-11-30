@@ -17,7 +17,7 @@
 
   &__content {
     background-color: white;
-    width: 80%;
+    max-width: 80%;
     margin: 0 auto;
     padding: 7.5rem 2.5rem;
     display: flex;
@@ -26,10 +26,16 @@
     align-items: center;
   }
 
+  &__title {
+    margin-bottom: 3.5rem;
+    font-size: 3rem;
+  }
+
   &__msg {
     color: black;
     font-size: 2rem;
-    font-weight: 500;
+    font-weight: 400;
+    text-align: center;
     margin-bottom: 7rem;
   }
 }

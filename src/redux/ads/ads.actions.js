@@ -59,3 +59,8 @@ export const fetchAdsFailure = error => ({
 export const sortAdsByDateAdded = () => ({
   type: AdsActionTypes.SORT_ADS_BY_DATE_ADDED,
 });
+
+export const createAdStart = adData => ({
+  type: AdsActionTypes.CREATE_AD_START,
+  payload: adData,
+});

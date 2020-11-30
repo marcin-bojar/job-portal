@@ -65,6 +65,29 @@ export const createAdsCollectionsAndDocuments = adsArray => {
   batch.commit();
 };
 
+export const createAdDocument = async adData => {
+  const { category, title, description } = adData;
+  const adRef = db
+    .collection('ads')
+    .doc(`${category}-ads`)
+    .collection('items')
+    .doc();
+
+  try {
+    await adRef.set({
+      category,
+      title,
+      description,
+      addedAt: new Date(),
+    });
+  } catch (err) {
+    console.log(err);
+  }
+  console.log(adRef);
+  // adRef.delete();
+  return adRef;
+};
+
 export const fetchAllAds = async () => {
   try {
     const ads = await db
