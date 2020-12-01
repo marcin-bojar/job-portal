@@ -66,24 +66,45 @@ export const createAdsCollectionsAndDocuments = adsArray => {
 };
 
 export const createAdDocument = async adData => {
-  const { category, title, description } = adData;
+  const {
+    category,
+    title,
+    info,
+    region,
+    salary,
+    license,
+    contract,
+    system,
+  } = adData;
+
   const adRef = db
     .collection('ads')
     .doc(`${category}-ads`)
     .collection('items')
     .doc();
+  const id = adRef.id;
 
   try {
     await adRef.set({
       category,
       title,
-      description,
+      highlights: {
+        region,
+        license,
+        contract,
+        system,
+      },
+      adSections: {
+        info,
+      },
       addedAt: new Date(),
+      salary,
+      id,
     });
   } catch (err) {
     console.log(err);
   }
-  console.log(adRef);
+  console.log((await adRef.get()).data());
   // adRef.delete();
   return adRef;
 };

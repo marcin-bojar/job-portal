@@ -15,13 +15,18 @@ const AddAd = ({ createAd }) => (
     <h2 className="add-ad__title">Dodaj ogłoszenie</h2>
     <Formik
       initialValues={{
-        category: 'office',
+        category: '',
         title: '',
-        description: '',
+        info: '',
         region: '',
-        license: 'B',
+        license: '',
         contract: '',
         system: '',
+        salary: {
+          fixed: null,
+          from: null,
+          to: null,
+        },
       }}
       onSubmit={createAd}
     >
@@ -35,89 +40,106 @@ const AddAd = ({ createAd }) => (
               as="select"
               value={values.category}
             >
-              <option
-                value="office"
-                style={{ backgroundColor: 'var(--color-office-theme' }}
-              >
-                Praca biurowa
-              </option>
-              <option
-                value="driver"
-                style={{ backgroundColor: 'var(--color-driver-theme' }}
-              >
-                Kierowca
-              </option>
-              <option
-                value="forklift"
-                style={{ backgroundColor: 'var(--color-forklift-theme' }}
-              >
-                Operator
-              </option>
-              <option
-                value="warehouse"
-                style={{ backgroundColor: 'var(--color-warehouse-theme' }}
-              >
-                Praca na magazynie
-              </option>
+              <option value={null}></option>
+              <option value="office">Praca biurowa</option>
+              <option value="driver">Kierowca</option>
+              <option value="forklift">Operator</option>
+              <option value="warehouse">Praca na magazynie</option>
             </Field>
           </div>
-          <div className="add-ad__highlights">
-            <h3 className="add-ad__highlights-title">Podstawowe informacje</h3>
-            <div className="add-ad__highlights-items">
-              <div className="add-ad__group">
-                <label htmlFor="license">Prawo jazdy: </label>
-                <Field
-                  id="license"
-                  name="license"
-                  as="select"
-                  value={values.license}
-                >
-                  <option value={null}>nie wymagane</option>
-                  <option value="B">B</option>
-                  <option value="B+E">B+E</option>
-                  <option value="C">C</option>
-                  <option value="C+E">C+E</option>
-                  <option value="D">D</option>
-                  <option value="D+E">D+E</option>
-                </Field>
-              </div>
-              <div className="add-ad__group">
-                <Field
-                  name="region"
-                  label="Miejsce pracy"
-                  component={FormInputFormik}
-                />
-              </div>
-              <div className="add-ad__group">
-                <Field
-                  name="contract"
-                  label="Rodzaj umowy"
-                  component={FormInputFormik}
-                />
-              </div>
-              <div className="add-ad__group">
-                <Field
-                  name="system"
-                  label="System pracy"
-                  component={FormInputFormik}
-                />
+          {values.category && (
+            <div className="add-ad__highlights">
+              <h3 className="add-ad__highlights-title">
+                Podstawowe informacje
+              </h3>
+              <div className="add-ad__highlights-items">
+                <div className="add-ad__group">
+                  <Field
+                    name="region"
+                    label="Miejsce pracy"
+                    component={FormInputFormik}
+                  />
+                </div>
+                <div className="add-ad__group">
+                  <Field
+                    name="contract"
+                    label="Rodzaj umowy"
+                    component={FormInputFormik}
+                  />
+                </div>
+                <div className="add-ad__group">
+                  <Field
+                    name="system"
+                    label="System pracy"
+                    component={FormInputFormik}
+                  />
+                </div>
+                <div className="add-ad__group add-ad__group--grid">
+                  <div className="add-ad__group">
+                    <Field name="license" type="checkbox" id="B" value="B" />
+                    <label htmlFor="B">B</label>
+                  </div>
+                  <div className="add-ad__group">
+                    <Field
+                      name="license"
+                      type="checkbox"
+                      id="B+E"
+                      value="B+E"
+                    />
+                    <label htmlFor="B+E">B+E</label>
+                  </div>
+                  <div className="add-ad__group">
+                    <Field name="license" type="checkbox" id="C" value="C" />
+                    <label htmlFor="C">C</label>
+                  </div>
+                  <p className="grid-title">Wymagane prawo jazdy</p>
+                  <div className="add-ad__group">
+                    <Field
+                      name="license"
+                      type="checkbox"
+                      id="C+E"
+                      value="C+E"
+                    />
+                    <label htmlFor="C+E">C+E</label>
+                  </div>
+                  <div className="add-ad__group">
+                    <Field name="license" type="checkbox" id="D" value="D" />
+                    <label htmlFor="D">D</label>
+                  </div>
+                  <div className="add-ad__group">
+                    <Field
+                      name="license"
+                      type="checkbox"
+                      id="D+E"
+                      value="D+E"
+                    />
+                    <label htmlFor="D+E">D+E</label>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-          <Field
-            name="title"
-            label="Tytuł"
-            autoComplete="off"
-            width={60}
-            component={FormInputFormik}
-          />
-          <Field
-            name="description"
-            placeholder="Treść ogłoszenia"
-            autoComplete="off"
-            component={CustomTextarea}
-          />
-          <CustomButton type="submit">Dodaj</CustomButton>
+          )}
+          {values.category &&
+            values.region &&
+            values.contract &&
+            values.system && (
+              <div className="add-add__content">
+                <Field
+                  name="title"
+                  label="Tytuł"
+                  autoComplete="off"
+                  width={60}
+                  component={FormInputFormik}
+                />
+                <Field
+                  name="info"
+                  placeholder="Treść ogłoszenia"
+                  autoComplete="off"
+                  component={CustomTextarea}
+                />
+                <CustomButton type="submit">Dodaj</CustomButton>
+              </div>
+            )}
         </Form>
       )}
     </Formik>
