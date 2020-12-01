@@ -1,4 +1,5 @@
 :root {
+  /* Colors */
   --color-primary: #206ada;
   --color-primary-rgb: 32, 106, 218;
   --color-black: #000;
@@ -14,6 +15,18 @@
   --color-driver-theme: #ee9714;
   --color-warehouse-theme: #c2249a;
 
+  /* Borders */
+  --border-primary-color: 1px solid var(--color-primary);
   --border-light-1: 1px solid var(--color-grey-light-1);
   --border-dark-1: 1px solid var(--color-grey-dark-1);
+  --border-black: 1px solid var(--color-black);
+
+  /* Shadows 
+    --shadow-{size}-{color}
+  */
+
+  --shadow-big-dark: 0 0.7rem 0.5rem rgba(0, 0, 0, 0.3);
+  --shadow-medium-dark: 0 0.5rem 0.5rem rgba(0, 0, 0, 0.3);
+  --shadow-sharp-dark: 0 0.5rem 0.2rem rgba(0, 0, 0, 0.25);
+  --shadow-huge-medium: 0 1rem 1rem rgba(0, 0, 0, 0.2);
 }

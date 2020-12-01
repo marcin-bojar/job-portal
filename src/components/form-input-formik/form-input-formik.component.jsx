@@ -2,10 +2,13 @@ import React from 'react';
 
 import './form-input-formik.styles.scss';
 
-const FormInputFormik = ({ field, label, error, ...props }) => {
+const FormInputFormik = ({ field, label, error, width, ...props }) => {
   const { value } = field;
   return (
-    <div className={`${error ? 'error' : ''} form-group`}>
+    <div
+      className={`${error ? 'error' : ''} form-group`}
+      style={{ width: `${width}%` }}
+    >
       <input className="form-input" {...field} {...props} />
       {label ? (
         <label

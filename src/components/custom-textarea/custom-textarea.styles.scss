@@ -1,0 +1,23 @@
+.custom-textarea {
+  margin: 2.5rem auto;
+  display: flex;
+  justify-content: center;
+
+  &__input {
+    width: 60vw;
+    height: 40rem;
+    resize: none;
+    font-family: inherit;
+    font-size: 1.8rem;
+    color: inherit;
+    padding: 0.5rem 1rem;
+    border: var(--border-black);
+    background-color: var(--color-white-cream);
+    box-shadow: var(--shadow-big-dark);
+
+    &:focus {
+      outline: none;
+      border: var(--border-primary-color);
+    }
+  }
+}
