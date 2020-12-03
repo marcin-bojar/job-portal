@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { createStructuredSelector } from 'reselect';
+import parseHTMLString from 'html-react-parser';
 
 import { allAdsSelector } from '../../redux/ads/ads.selectors';
 
@@ -47,7 +48,7 @@ const AdContent = ({ allAds, match }) => {
       </div>
       <div className="ad-content__details">
         <h3 className="ad-content__description-title">Opis stanowiska:</h3>
-        {info}
+        <div className="ad-content__description">{parseHTMLString(info)}</div>
       </div>
       <div className="ad-content__buttons">
         <CustomButton>Zadzwoń</CustomButton>

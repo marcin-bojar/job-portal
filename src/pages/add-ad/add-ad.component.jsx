@@ -1,12 +1,12 @@
 import React from 'react';
 import { Formik, Form, Field } from 'formik';
 import { connect } from 'react-redux';
+import { Editor } from '@tinymce/tinymce-react';
 
 import { createAdStart } from '../../redux/ads/ads.actions';
 
 import FormInputFormik from '../../components/form-input-formik/form-input-formik.component';
 import CustomButton from '../../components/custom-button/custom-button.component';
-import CustomTextarea from '../../components/custom-textarea/custom-textarea.component';
 
 import './add-ad.styles.scss';
 
@@ -30,7 +30,7 @@ const AddAd = ({ createAd }) => (
       }}
       onSubmit={createAd}
     >
-      {({ values }) => (
+      {({ values, setFieldValue }) => (
         <Form>
           <div className="add-ad__category">
             <label htmlFor="category">Wybierz kategorię: </label>
@@ -123,7 +123,7 @@ const AddAd = ({ createAd }) => (
             values.region &&
             values.contract &&
             values.system && (
-              <div className="add-add__content">
+              <div className="add-ad__content">
                 <Field
                   name="title"
                   label="Tytuł"
@@ -131,12 +131,19 @@ const AddAd = ({ createAd }) => (
                   width={60}
                   component={FormInputFormik}
                 />
-                <Field
-                  name="info"
-                  placeholder="Treść ogłoszenia"
-                  autoComplete="off"
-                  component={CustomTextarea}
-                />
+                <div className="add-ad__text-editor">
+                  <Editor
+                    init={{
+                      width: '100%',
+                      height: '40rem',
+                      margin: '0 auto',
+                      placeholder: 'Treść ogłoszenia',
+                    }}
+                    onEditorChange={content => {
+                      setFieldValue('info', content);
+                    }}
+                  />
+                </div>
                 <CustomButton type="submit">Dodaj</CustomButton>
               </div>
             )}
