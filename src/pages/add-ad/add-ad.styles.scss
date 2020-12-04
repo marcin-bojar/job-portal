@@ -45,8 +45,18 @@
     }
   }
 
+  &__ad-title {
+    position: relative;
+    width: 60%;
+    margin: 0 auto;
+  }
+
   &__group {
     position: relative;
+  }
+
+  &__group:not(:last-of-type) {
+    margin-right: 3rem;
   }
 
   &__group--grid {
@@ -60,14 +70,5 @@
       grid-row: 2/2;
       // text-align: center;
     }
-  }
-
-  &__group:not(:last-of-type) {
-    margin-right: 3rem;
-  }
-
-  &__text-editor {
-    width: 75%;
-    margin: 0 auto;
   }
 }

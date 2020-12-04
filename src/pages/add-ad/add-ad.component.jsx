@@ -45,23 +45,25 @@ const AddAd = ({ createAd }) => (
       onSubmit={createAd}
       validationSchema={AddAdSchema}
     >
-      {({ values, setFieldValue }) => (
+      {({ values }) => (
         <Form>
           <div className="add-ad__category">
-            <label htmlFor="category">Wybierz kategorię: </label>
-            <Field
-              id="category"
-              name="category"
-              as="select"
-              value={values.category}
-            >
-              <option value={null}></option>
-              <option value="office">Praca biurowa</option>
-              <option value="driver">Kierowca</option>
-              <option value="forklift">Operator</option>
-              <option value="warehouse">Praca na magazynie</option>
-            </Field>
-            <ErrorMessage name="category" component={FormError} />
+            <div className="add-ad__group">
+              <label htmlFor="category">Wybierz kategorię: </label>
+              <Field
+                id="category"
+                name="category"
+                as="select"
+                value={values.category}
+              >
+                <option value={null}></option>
+                <option value="office">Praca biurowa</option>
+                <option value="driver">Kierowca</option>
+                <option value="forklift">Operator</option>
+                <option value="warehouse">Praca na magazynie</option>
+              </Field>
+              <ErrorMessage name="category" selectInput component={FormError} />
+            </div>
           </div>
           {values.category && (
             <div className="add-ad__highlights">
@@ -75,7 +77,11 @@ const AddAd = ({ createAd }) => (
                     label="Miejsce pracy"
                     component={FormInputFormik}
                   />
-                  <ErrorMessage name="region" component={FormError} />
+                  <ErrorMessage
+                    name="region"
+                    shortInput
+                    component={FormError}
+                  />
                 </div>
                 <div className="add-ad__group">
                   <Field
@@ -83,7 +89,11 @@ const AddAd = ({ createAd }) => (
                     label="Rodzaj umowy"
                     component={FormInputFormik}
                   />
-                  <ErrorMessage name="contract" component={FormError} />
+                  <ErrorMessage
+                    name="contract"
+                    shortInput
+                    component={FormError}
+                  />
                 </div>
                 <div className="add-ad__group">
                   <Field
@@ -91,7 +101,11 @@ const AddAd = ({ createAd }) => (
                     label="System pracy"
                     component={FormInputFormik}
                   />
-                  <ErrorMessage name="system" component={FormError} />
+                  <ErrorMessage
+                    name="system"
+                    shortInput
+                    component={FormError}
+                  />
                 </div>
                 <div className="add-ad__group add-ad__group--grid">
                   <div className="add-ad__group">
@@ -143,24 +157,27 @@ const AddAd = ({ createAd }) => (
             values.contract &&
             values.system && (
               <div className="add-ad__content">
-                <div className="add-ad__group">
+                <div className="add-ad__ad-title">
                   <Field
                     name="title"
                     label="Tytuł"
                     autoComplete="off"
-                    width={60}
                     component={FormInputFormik}
                   />
                   <ErrorMessage name="title" component={FormError} />
                 </div>
-                <div className="add-ad__text-editor">
+                <div className="add-ad__group">
                   <Field
                     name="info"
                     autoComplete="off"
                     placeholder="Treść ogłoszenia"
                     component={CustomTextarea}
                   />
-                  <ErrorMessage name="info" component={FormError} />
+                  <ErrorMessage
+                    name="info"
+                    textareaInput
+                    component={FormError}
+                  />
                 </div>
                 <CustomButton type="submit">Dodaj</CustomButton>
               </div>
