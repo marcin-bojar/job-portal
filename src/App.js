@@ -28,7 +28,7 @@ class App extends React.Component {
   unsubscribe = null;
 
   componentDidMount() {
-    const { checkCurrentUser, fetchAds, fetchTenLatestAds } = this.props;
+    const { checkCurrentUser, fetchTenLatestAds /*fetchAds*/ } = this.props;
     checkCurrentUser();
     // fetchAds();
     fetchTenLatestAds();

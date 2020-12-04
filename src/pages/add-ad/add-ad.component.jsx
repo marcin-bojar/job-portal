@@ -1,14 +1,28 @@
 import React from 'react';
-import { Formik, Form, Field } from 'formik';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { connect } from 'react-redux';
-import { Editor } from '@tinymce/tinymce-react';
+import * as yup from 'yup';
 
 import { createAdStart } from '../../redux/ads/ads.actions';
 
 import FormInputFormik from '../../components/form-input-formik/form-input-formik.component';
 import CustomButton from '../../components/custom-button/custom-button.component';
+import CustomTextarea from '../../components/custom-textarea/custom-textarea.component';
+import FormError from '../../components/form-error/form-error.component';
 
 import './add-ad.styles.scss';
+
+const AddAdSchema = yup.object().shape({
+  category: yup
+    .string()
+    .oneOf(['office', 'driver', 'forklift', 'warehouse'])
+    .required('Pole obowiązkowe'),
+  region: yup.string().required('Pole obowiązkowe'),
+  system: yup.string().required('Pole obowiązkowe'),
+  contract: yup.string().required('Pole obowiązkowe'),
+  title: yup.string().min(5, 'Minimum 5 znaków').required('Pole obowiązkowe'),
+  info: yup.string().required('Pole obowiązkowe'),
+});
 
 const AddAd = ({ createAd }) => (
   <div className="add-ad">
@@ -29,6 +43,7 @@ const AddAd = ({ createAd }) => (
         },
       }}
       onSubmit={createAd}
+      validationSchema={AddAdSchema}
     >
       {({ values, setFieldValue }) => (
         <Form>
@@ -46,6 +61,7 @@ const AddAd = ({ createAd }) => (
               <option value="forklift">Operator</option>
               <option value="warehouse">Praca na magazynie</option>
             </Field>
+            <ErrorMessage name="category" component={FormError} />
           </div>
           {values.category && (
             <div className="add-ad__highlights">
@@ -59,6 +75,7 @@ const AddAd = ({ createAd }) => (
                     label="Miejsce pracy"
                     component={FormInputFormik}
                   />
+                  <ErrorMessage name="region" component={FormError} />
                 </div>
                 <div className="add-ad__group">
                   <Field
@@ -66,6 +83,7 @@ const AddAd = ({ createAd }) => (
                     label="Rodzaj umowy"
                     component={FormInputFormik}
                   />
+                  <ErrorMessage name="contract" component={FormError} />
                 </div>
                 <div className="add-ad__group">
                   <Field
@@ -73,6 +91,7 @@ const AddAd = ({ createAd }) => (
                     label="System pracy"
                     component={FormInputFormik}
                   />
+                  <ErrorMessage name="system" component={FormError} />
                 </div>
                 <div className="add-ad__group add-ad__group--grid">
                   <div className="add-ad__group">
@@ -124,25 +143,24 @@ const AddAd = ({ createAd }) => (
             values.contract &&
             values.system && (
               <div className="add-ad__content">
-                <Field
-                  name="title"
-                  label="Tytuł"
-                  autoComplete="off"
-                  width={60}
-                  component={FormInputFormik}
-                />
-                <div className="add-ad__text-editor">
-                  <Editor
-                    init={{
-                      width: '100%',
-                      height: '40rem',
-                      margin: '0 auto',
-                      placeholder: 'Treść ogłoszenia',
-                    }}
-                    onEditorChange={content => {
-                      setFieldValue('info', content);
-                    }}
+                <div className="add-ad__group">
+                  <Field
+                    name="title"
+                    label="Tytuł"
+                    autoComplete="off"
+                    width={60}
+                    component={FormInputFormik}
                   />
+                  <ErrorMessage name="title" component={FormError} />
+                </div>
+                <div className="add-ad__text-editor">
+                  <Field
+                    name="info"
+                    autoComplete="off"
+                    placeholder="Treść ogłoszenia"
+                    component={CustomTextarea}
+                  />
+                  <ErrorMessage name="info" component={FormError} />
                 </div>
                 <CustomButton type="submit">Dodaj</CustomButton>
               </div>

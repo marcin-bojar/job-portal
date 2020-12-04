@@ -61,6 +61,14 @@
     margin-bottom: 1.5rem;
   }
 
+  &__description {
+    & pre {
+      white-space: pre-wrap;
+      font-family: inherit;
+      font-size: inherit;
+    }
+  }
+
   &__buttons {
     display: flex;
     justify-content: space-around;

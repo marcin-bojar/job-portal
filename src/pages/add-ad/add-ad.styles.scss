@@ -45,6 +45,10 @@
     }
   }
 
+  &__group {
+    position: relative;
+  }
+
   &__group--grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
