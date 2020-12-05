@@ -24,7 +24,6 @@ const AdContent = ({ allAds, match }) => {
     highlights: { region, system, contract, license },
     adSections: { info },
   } = ad;
-
   return (
     <div className="ad-content">
       <h2 className="ad-content__title">{title}</h2>
@@ -42,8 +41,22 @@ const AdContent = ({ allAds, match }) => {
       <div className="ad-content__highlights">
         <AdHighlight icon="pin">{region}</AdHighlight>
         <AdHighlight icon="clock">{system}</AdHighlight>
-        <AdHighlight icon="contract">{contract}</AdHighlight>
-        <AdHighlight icon="licence">{license}</AdHighlight>
+        <AdHighlight icon="contract">
+          {contract.length
+            ? contract.map((el, i) => {
+                const newEl = i !== contract.length - 1 ? el + ', ' : el;
+                return newEl;
+              })
+            : null}
+        </AdHighlight>
+        <AdHighlight icon="licence">
+          {license.length
+            ? license.map((el, i) => {
+                const newEl = i !== license.length - 1 ? el + ', ' : el;
+                return newEl;
+              })
+            : null}
+        </AdHighlight>
       </div>
       <div className="ad-content__details">
         <h3 className="ad-content__description-title">Opis stanowiska:</h3>

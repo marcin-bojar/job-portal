@@ -11,6 +11,7 @@ import CustomTextarea from '../../components/custom-textarea/custom-textarea.com
 import CustomSelect from '../../components/custom-select/custom-select.component';
 import FormError from '../../components/form-error/form-error.component';
 import Dropdown from '../../components/dropdown/dropdown.component';
+import FormikDropdownItem from '../../components/formik-dropdown-item/formik-dropdown-item.component';
 
 import './add-ad.styles.scss';
 
@@ -21,8 +22,8 @@ const AddAdSchema = yup.object().shape({
     .required('Pole obowiązkowe'),
   region: yup.string().required('Pole obowiązkowe'),
   system: yup.string().required('Pole obowiązkowe'),
-  contract: yup.string().required('Pole obowiązkowe'),
-  license: yup.string().oneOf(['none', 'B', 'B+E', 'C', 'C+E', 'D', 'D+E']),
+  contract: yup.array().min(1, 'Podaj min jedną opcję'),
+  license: yup.array().min(1, 'Podaj min jedną opcję'),
   title: yup.string().min(5, 'Minimum 5 znaków').required('Pole obowiązkowe'),
   info: yup.string().required('Pole obowiązkowe'),
 });
@@ -34,35 +35,22 @@ const categoryOptionsMap = {
   warehouse: 'Praca na magazynie',
 };
 
+const contractDropdownOptions = [
+  <FormikDropdownItem name="contract" label="Umowa o pracę" />,
+  <FormikDropdownItem name="contract" label="B2B" />,
+  <FormikDropdownItem name="contract" label="Umowa zlecenie" />,
+  <FormikDropdownItem name="contract" label="Umowa o dzieło" />,
+  <FormikDropdownItem name="contract" label="Inna" />,
+];
+
 const licenseDropdownOptions = [
-  <div className="add-ad__group">
-    <Field name="license" type="checkbox" id="null" value="none" />
-    <label htmlFor="null">brak wymagań</label>
-  </div>,
-  <div className="add-ad__group">
-    <Field name="license" type="checkbox" id="B" value="B" />
-    <label htmlFor="B">B</label>
-  </div>,
-  <div className="add-ad__group">
-    <Field name="license" type="checkbox" id="B+E" value="B+E" />
-    <label htmlFor="B+E">B+E</label>
-  </div>,
-  <div className="add-ad__group">
-    <Field name="license" type="checkbox" id="C" value="C" />
-    <label htmlFor="C">C</label>
-  </div>,
-  <div className="add-ad__group">
-    <Field name="license" type="checkbox" id="C+E" value="C+E" />
-    <label htmlFor="C+E">C+E</label>
-  </div>,
-  <div className="add-ad__group">
-    <Field name="license" type="checkbox" id="D" value="D" />
-    <label htmlFor="D">D</label>
-  </div>,
-  <div className="add-ad__group">
-    <Field name="license" type="checkbox" id="D+E" value="D+E" />
-    <label htmlFor="D+E">D+E</label>
-  </div>,
+  <FormikDropdownItem name="license" label="brak wymagań" />,
+  <FormikDropdownItem name="license" label="B" />,
+  <FormikDropdownItem name="license" label="B+E" />,
+  <FormikDropdownItem name="license" label="C" />,
+  <FormikDropdownItem name="license" label="C+E" />,
+  <FormikDropdownItem name="license" label="D" />,
+  <FormikDropdownItem name="license" label="D+E" />,
 ];
 
 const AddAd = ({ createAd }) => (
@@ -121,19 +109,6 @@ const AddAd = ({ createAd }) => (
                 </div>
                 <div className="add-ad__group">
                   <Field
-                    name="contract"
-                    label="Rodzaj umowy"
-                    autoComplete="off"
-                    component={FormInputFormik}
-                  />
-                  <ErrorMessage
-                    name="contract"
-                    shortInput
-                    component={FormError}
-                  />
-                </div>
-                <div className="add-ad__group">
-                  <Field
                     name="system"
                     label="System pracy"
                     autoComplete="off"
@@ -145,16 +120,34 @@ const AddAd = ({ createAd }) => (
                     component={FormError}
                   />
                 </div>
-                <Dropdown items={licenseDropdownOptions}>
-                  Wymagane prawo jazdy
-                </Dropdown>
+                <div className="add-ad__group">
+                  <Dropdown items={contractDropdownOptions}>
+                    Rodzaj umowy
+                  </Dropdown>
+                  <ErrorMessage
+                    name="contract"
+                    dropdownInput
+                    component={FormError}
+                  />
+                </div>
+                <div className="add-ad__group">
+                  <Dropdown items={licenseDropdownOptions}>
+                    Wymagane prawo jazdy
+                  </Dropdown>
+                  <ErrorMessage
+                    name="license"
+                    dropdownInput
+                    component={FormError}
+                  />
+                </div>
               </div>
             </div>
           )}
           {values.category &&
             values.region &&
             values.contract &&
-            values.system && (
+            values.system &&
+            values.license && (
               <div className="add-ad__content">
                 <div className="add-ad__ad-title">
                   <Field

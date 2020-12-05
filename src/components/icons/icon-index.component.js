@@ -7,7 +7,7 @@ import Office from './office-icon.component';
 import Pin from './pin-icon.component';
 import Clock from './clock-icon.component';
 import Contract from './contract-icon.component';
-import Licence from './licence-icon.component';
+import License from './license-icon.component';
 import ArrowDown from './arrow-down-icon.component';
 import ArrowUp from './arrow-up-icon.component';
 
@@ -28,7 +28,7 @@ const Icon = props => {
     case 'contract':
       return <Contract {...props} />;
     case 'licence':
-      return <Licence {...props} />;
+      return <License {...props} />;
     case 'arrow-down':
       return <ArrowDown {...props} />;
     case 'arrow-up':
