@@ -8,6 +8,8 @@ import Pin from './pin-icon.component';
 import Clock from './clock-icon.component';
 import Contract from './contract-icon.component';
 import Licence from './licence-icon.component';
+import ArrowDown from './arrow-down-icon.component';
+import ArrowUp from './arrow-up-icon.component';
 
 const Icon = props => {
   switch (props.name) {
@@ -20,13 +22,17 @@ const Icon = props => {
     case 'office':
       return <Office width={'70%'} {...props} />;
     case 'pin':
-      return <Pin />;
+      return <Pin {...props} />;
     case 'clock':
-      return <Clock />;
+      return <Clock {...props} />;
     case 'contract':
-      return <Contract />;
+      return <Contract {...props} />;
     case 'licence':
-      return <Licence />;
+      return <Licence {...props} />;
+    case 'arrow-down':
+      return <ArrowDown {...props} />;
+    case 'arrow-up':
+      return <ArrowUp {...props} />;
     default:
       return null;
   }

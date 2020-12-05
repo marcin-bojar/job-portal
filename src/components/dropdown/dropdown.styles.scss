@@ -1,0 +1,40 @@
+.dropdown {
+  display: block;
+  position: relative;
+  border: var(--border-black);
+  background-color: var(--color-white-cream);
+  cursor: pointer;
+
+  &__label {
+    display: flex;
+    justify-content: space-between;
+    // max-width: 35rem;
+    padding: 1rem 2rem;
+    font-size: 1.7rem;
+  }
+
+  &__arrow {
+    margin-left: 1rem;
+  }
+
+  &__items {
+    display: block;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    max-height: 15rem;
+    overflow-y: scroll;
+    background-color: var(--color-white-cream);
+    border: var(--border-black);
+    z-index: 10;
+  }
+
+  &__items-list {
+    list-style: none;
+  }
+
+  &__item {
+    padding: 0.5rem 1rem;
+  }
+}

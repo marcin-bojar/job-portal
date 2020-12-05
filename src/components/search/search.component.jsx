@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
-import FormInput from '../form-input/form-input.component';
+import FormInputFormik from '../form-input-formik/form-input-formik.component';
 import SearchFilterController from '../search-filters-controller/search-filters-controller.component';
 
 import {
@@ -39,7 +39,7 @@ class Search extends React.Component {
     }
   };
 
-  handleKeyPress = e => {
+  backspacePress = e => {
     const { setAdsFilter, clearFilteredAds } = this.props;
 
     // Deleting whole input with one backspace hit
@@ -55,13 +55,13 @@ class Search extends React.Component {
     return (
       <div className="search">
         <h2 className="search__title">Wyszukaj ogłoszenia</h2>
-        <FormInput
+        <FormInputFormik
           disabled={isFetching}
           value={searchInput}
           onChange={this.handleChange}
-          width={80}
-          handleKeyPress={this.handleKeyPress}
-        ></FormInput>
+          width={40}
+          handleKeyPress={this.backspacePress}
+        ></FormInputFormik>
 
         <div className="search__filters">
           <SearchFilterController />

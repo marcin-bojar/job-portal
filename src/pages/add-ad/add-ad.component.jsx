@@ -8,7 +8,9 @@ import { createAdStart } from '../../redux/ads/ads.actions';
 import FormInputFormik from '../../components/form-input-formik/form-input-formik.component';
 import CustomButton from '../../components/custom-button/custom-button.component';
 import CustomTextarea from '../../components/custom-textarea/custom-textarea.component';
+import CustomSelect from '../../components/custom-select/custom-select.component';
 import FormError from '../../components/form-error/form-error.component';
+import Dropdown from '../../components/dropdown/dropdown.component';
 
 import './add-ad.styles.scss';
 
@@ -20,9 +22,48 @@ const AddAdSchema = yup.object().shape({
   region: yup.string().required('Pole obowiązkowe'),
   system: yup.string().required('Pole obowiązkowe'),
   contract: yup.string().required('Pole obowiązkowe'),
+  license: yup.string().oneOf(['none', 'B', 'B+E', 'C', 'C+E', 'D', 'D+E']),
   title: yup.string().min(5, 'Minimum 5 znaków').required('Pole obowiązkowe'),
   info: yup.string().required('Pole obowiązkowe'),
 });
+
+const categoryOptionsMap = {
+  office: 'Praca biurowa',
+  driver: 'Kierowca',
+  forklift: 'Operator',
+  warehouse: 'Praca na magazynie',
+};
+
+const licenseDropdownOptions = [
+  <div className="add-ad__group">
+    <Field name="license" type="checkbox" id="null" value="none" />
+    <label htmlFor="null">brak wymagań</label>
+  </div>,
+  <div className="add-ad__group">
+    <Field name="license" type="checkbox" id="B" value="B" />
+    <label htmlFor="B">B</label>
+  </div>,
+  <div className="add-ad__group">
+    <Field name="license" type="checkbox" id="B+E" value="B+E" />
+    <label htmlFor="B+E">B+E</label>
+  </div>,
+  <div className="add-ad__group">
+    <Field name="license" type="checkbox" id="C" value="C" />
+    <label htmlFor="C">C</label>
+  </div>,
+  <div className="add-ad__group">
+    <Field name="license" type="checkbox" id="C+E" value="C+E" />
+    <label htmlFor="C+E">C+E</label>
+  </div>,
+  <div className="add-ad__group">
+    <Field name="license" type="checkbox" id="D" value="D" />
+    <label htmlFor="D">D</label>
+  </div>,
+  <div className="add-ad__group">
+    <Field name="license" type="checkbox" id="D+E" value="D+E" />
+    <label htmlFor="D+E">D+E</label>
+  </div>,
+];
 
 const AddAd = ({ createAd }) => (
   <div className="add-ad">
@@ -53,15 +94,9 @@ const AddAd = ({ createAd }) => (
               <Field
                 id="category"
                 name="category"
-                as="select"
-                value={values.category}
-              >
-                <option value={null}></option>
-                <option value="office">Praca biurowa</option>
-                <option value="driver">Kierowca</option>
-                <option value="forklift">Operator</option>
-                <option value="warehouse">Praca na magazynie</option>
-              </Field>
+                optionsMap={categoryOptionsMap}
+                component={CustomSelect}
+              />
               <ErrorMessage name="category" selectInput component={FormError} />
             </div>
           </div>
@@ -75,6 +110,7 @@ const AddAd = ({ createAd }) => (
                   <Field
                     name="region"
                     label="Miejsce pracy"
+                    autoComplete="off"
                     component={FormInputFormik}
                   />
                   <ErrorMessage
@@ -87,6 +123,7 @@ const AddAd = ({ createAd }) => (
                   <Field
                     name="contract"
                     label="Rodzaj umowy"
+                    autoComplete="off"
                     component={FormInputFormik}
                   />
                   <ErrorMessage
@@ -99,6 +136,7 @@ const AddAd = ({ createAd }) => (
                   <Field
                     name="system"
                     label="System pracy"
+                    autoComplete="off"
                     component={FormInputFormik}
                   />
                   <ErrorMessage
@@ -107,48 +145,9 @@ const AddAd = ({ createAd }) => (
                     component={FormError}
                   />
                 </div>
-                <div className="add-ad__group add-ad__group--grid">
-                  <div className="add-ad__group">
-                    <Field name="license" type="checkbox" id="B" value="B" />
-                    <label htmlFor="B">B</label>
-                  </div>
-                  <div className="add-ad__group">
-                    <Field
-                      name="license"
-                      type="checkbox"
-                      id="B+E"
-                      value="B+E"
-                    />
-                    <label htmlFor="B+E">B+E</label>
-                  </div>
-                  <div className="add-ad__group">
-                    <Field name="license" type="checkbox" id="C" value="C" />
-                    <label htmlFor="C">C</label>
-                  </div>
-                  <p className="grid-title">Wymagane prawo jazdy</p>
-                  <div className="add-ad__group">
-                    <Field
-                      name="license"
-                      type="checkbox"
-                      id="C+E"
-                      value="C+E"
-                    />
-                    <label htmlFor="C+E">C+E</label>
-                  </div>
-                  <div className="add-ad__group">
-                    <Field name="license" type="checkbox" id="D" value="D" />
-                    <label htmlFor="D">D</label>
-                  </div>
-                  <div className="add-ad__group">
-                    <Field
-                      name="license"
-                      type="checkbox"
-                      id="D+E"
-                      value="D+E"
-                    />
-                    <label htmlFor="D+E">D+E</label>
-                  </div>
-                </div>
+                <Dropdown items={licenseDropdownOptions}>
+                  Wymagane prawo jazdy
+                </Dropdown>
               </div>
             </div>
           )}
