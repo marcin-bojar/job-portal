@@ -3,7 +3,13 @@
   position: relative;
   border: var(--border-black);
   background-color: var(--color-white-cream);
+  box-shadow: var(--shadow-medium-dark);
   cursor: pointer;
+
+  &:focus {
+    outline: none;
+    border: var(--border-primary-color);
+  }
 
   &__label {
     display: flex;
@@ -28,6 +34,11 @@
     background-color: var(--color-white-cream);
     border: var(--border-black);
     z-index: 10;
+
+    &:focus {
+      outline: none;
+      border: var(--border-primary-color);
+    }
   }
 
   &__items-list {
@@ -36,5 +47,10 @@
 
   &__item {
     padding: 0.5rem 1rem;
+
+    &.active {
+      background-color: var(--color-primary);
+      color: var(--color-white);
+    }
   }
 }

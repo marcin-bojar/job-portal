@@ -43,9 +43,16 @@ class Search extends React.Component {
     const { setAdsFilter, clearFilteredAds } = this.props;
 
     // Deleting whole input with one backspace hit
-    if (e.keyCode === 8) {
-      setAdsFilter('');
-      clearFilteredAds();
+    if (e.key !== undefined) {
+      if (e.key === 'Backspace') {
+        setAdsFilter('');
+        clearFilteredAds();
+      }
+    } else if (e.keyCode !== undefined || e.which !== undefined) {
+      if (e.keyCode === 8 || e.which === 8) {
+        setAdsFilter('');
+        clearFilteredAds();
+      }
     }
   };
 
