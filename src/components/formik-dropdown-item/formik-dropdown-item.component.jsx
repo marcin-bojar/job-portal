@@ -14,6 +14,7 @@ const FormikDropdownItem = ({ name, label }) => (
       type="checkbox"
       id={label}
       value={label}
+      tabIndex="-1"
     />
   </div>
 );

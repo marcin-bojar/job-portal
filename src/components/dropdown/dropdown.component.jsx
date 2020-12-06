@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
 import Icon from '../icons/icon-index.component';
 
@@ -7,13 +7,22 @@ import './dropdown.styles.scss';
 const Dropdown = ({ items, children }) => {
   const [isShown, setIsShown] = useState(false);
   const [selected, setSelected] = useState(0);
+  const itemsRef = useRef([]);
+
+  // Focus on input of newly selected dropdown item if input is present
+  useEffect(() => {
+    if (itemsRef.current[selected]) {
+      const input = itemsRef.current[selected].querySelector('input');
+      if (input) input.focus();
+    }
+  }, [selected]);
 
   const toggle = () => setIsShown(!isShown);
   const hide = () => setIsShown(false);
 
   const handleKeyUp = e => {
-    // console.log(e.keyCode);
     // console.log(e.key);
+    // console.log(e.keyCode);
     // console.log(e.which);
 
     if (e.key !== undefined) {
@@ -57,8 +66,12 @@ const Dropdown = ({ items, children }) => {
             {items.map((item, i) => (
               <li
                 key={i}
+                ref={el => (itemsRef.current[i] = el)}
                 className={`dropdown__item ${selected === i ? 'active' : ''}`}
-                onMouseEnter={() => setSelected(i)}
+                onMouseEnter={() => {
+                  setSelected(i);
+                  itemsRef.current[i].querySelector('input').focus();
+                }}
               >
                 {item}
               </li>

@@ -14,7 +14,8 @@
   }
 
   &__field {
-    &:checked {
+    &:focus {
+      outline: none;
     }
   }
 }
