@@ -7,9 +7,10 @@ import './dropdown.styles.scss';
 const Dropdown = ({ items, children }) => {
   const [isShown, setIsShown] = useState(false);
   const [selected, setSelected] = useState(0);
+  const dropdownRef = useRef(null);
   const itemsRef = useRef([]);
 
-  // Focus on input of newly selected dropdown item if input is present
+  // Focus on input of selected dropdown item if input is present
   useEffect(() => {
     if (itemsRef.current[selected]) {
       const input = itemsRef.current[selected].querySelector('input');
@@ -17,6 +18,19 @@ const Dropdown = ({ items, children }) => {
     }
   }, [selected]);
 
+  useEffect(() => {
+    document.addEventListener('click', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  });
+
+  const handleClickOutside = e => {
+    if (dropdownRef && !dropdownRef.current.contains(e.target)) {
+      hide();
+    }
+  };
   const toggle = () => setIsShown(!isShown);
   const hide = () => setIsShown(false);
 
@@ -53,7 +67,12 @@ const Dropdown = ({ items, children }) => {
   };
 
   return (
-    <div className="dropdown" tabIndex="0" onKeyUp={handleKeyUp}>
+    <div
+      className="dropdown"
+      ref={dropdownRef}
+      tabIndex="0"
+      onKeyUp={handleKeyUp}
+    >
       <div className="dropdown__label" onClick={toggle}>
         {children}
         <div className="dropdown__arrow">
@@ -61,7 +80,7 @@ const Dropdown = ({ items, children }) => {
         </div>
       </div>
       {isShown && (
-        <div className="dropdown__items" tabIndex="0">
+        <div className="dropdown__items">
           <ul className="dropdown__items-list">
             {items.map((item, i) => (
               <li
