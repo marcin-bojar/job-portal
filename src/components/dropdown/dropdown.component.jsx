@@ -6,7 +6,7 @@ import './dropdown.styles.scss';
 
 const Dropdown = ({ items, children }) => {
   const [isShown, setIsShown] = useState(false);
-  const [selected, setSelected] = useState(0);
+  const [selected, setSelected] = useState(null);
   const dropdownRef = useRef(null);
   const itemsRef = useRef([]);
 
@@ -24,7 +24,12 @@ const Dropdown = ({ items, children }) => {
     return () => {
       document.removeEventListener('click', handleClickOutside);
     };
-  });
+  }, []);
+
+  useEffect(() => {
+    if (isShown) setSelected(0);
+    else setSelected(null);
+  }, [isShown]);
 
   const handleClickOutside = e => {
     if (dropdownRef && !dropdownRef.current.contains(e.target)) {
