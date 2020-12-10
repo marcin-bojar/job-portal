@@ -62,8 +62,8 @@ const AddAd = ({ createAd }) => (
         title: '',
         info: '',
         region: '',
-        license: '',
-        contract: '',
+        license: [],
+        contract: [],
         system: '',
         salary: {
           fixed: null,
@@ -74,108 +74,126 @@ const AddAd = ({ createAd }) => (
       onSubmit={createAd}
       validationSchema={AddAdSchema}
     >
-      {({ values }) => (
-        <Form>
-          <div className="add-ad__category">
-            <div className="add-ad__group">
-              <label htmlFor="category">Wybierz kategorię: </label>
-              <Field
-                id="category"
-                name="category"
-                optionsMap={categoryOptionsMap}
-                component={CustomSelect}
-              />
-              <ErrorMessage name="category" selectInput component={FormError} />
-            </div>
-          </div>
-          {values.category && (
-            <div className="add-ad__highlights">
-              <h3 className="add-ad__highlights-title">
-                Podstawowe informacje
-              </h3>
-              <div className="add-ad__highlights-items">
-                <div className="add-ad__group">
-                  <Field
-                    name="region"
-                    label="Miejsce pracy"
-                    autoComplete="off"
-                    component={FormInputFormik}
-                  />
-                  <ErrorMessage
-                    name="region"
-                    shortInput
-                    component={FormError}
-                  />
-                </div>
-                <div className="add-ad__group">
-                  <Field
-                    name="system"
-                    label="System pracy"
-                    autoComplete="off"
-                    component={FormInputFormik}
-                  />
-                  <ErrorMessage
-                    name="system"
-                    shortInput
-                    component={FormError}
-                  />
-                </div>
-                <div className="add-ad__group">
-                  <Dropdown items={contractDropdownOptions}>
-                    Rodzaj umowy
-                  </Dropdown>
-                  <ErrorMessage
-                    name="contract"
-                    dropdownInput
-                    component={FormError}
-                  />
-                </div>
-                <div className="add-ad__group">
-                  <Dropdown items={licenseDropdownOptions}>
-                    Wymagane prawo jazdy
-                  </Dropdown>
-                  <ErrorMessage
-                    name="license"
-                    dropdownInput
-                    component={FormError}
-                  />
-                </div>
+      {({ values, validateField, setFieldTouched }) => {
+        const validateOnBlur = fieldName => {
+          setFieldTouched(fieldName, true);
+          validateField(fieldName);
+        };
+
+        return (
+          <Form>
+            <div className="add-ad__category">
+              <div className="add-ad__group">
+                <label htmlFor="category">Wybierz kategorię: </label>
+                <Field
+                  id="category"
+                  name="category"
+                  optionsMap={categoryOptionsMap}
+                  component={CustomSelect}
+                />
+                <ErrorMessage
+                  name="category"
+                  selectInput
+                  component={FormError}
+                />
               </div>
             </div>
-          )}
-          {values.category &&
-            values.region &&
-            values.contract &&
-            values.system &&
-            values.license && (
-              <div className="add-ad__content">
-                <div className="add-ad__ad-title">
-                  <Field
-                    name="title"
-                    label="Tytuł"
-                    autoComplete="off"
-                    component={FormInputFormik}
-                  />
-                  <ErrorMessage name="title" component={FormError} />
+            {values.category && (
+              <div className="add-ad__highlights">
+                <h3 className="add-ad__highlights-title">
+                  Podstawowe informacje
+                </h3>
+                <div className="add-ad__highlights-items">
+                  <div className="add-ad__group">
+                    <Field
+                      name="region"
+                      label="Miejsce pracy"
+                      autoComplete="off"
+                      component={FormInputFormik}
+                    />
+                    <ErrorMessage
+                      name="region"
+                      shortInput
+                      component={FormError}
+                    />
+                  </div>
+                  <div className="add-ad__group">
+                    <Field
+                      name="system"
+                      label="System pracy"
+                      autoComplete="off"
+                      component={FormInputFormik}
+                    />
+                    <ErrorMessage
+                      name="system"
+                      shortInput
+                      component={FormError}
+                    />
+                  </div>
+                  <div
+                    className="add-ad__group"
+                    onBlur={validateOnBlur.bind(null, 'contract')}
+                  >
+                    <Dropdown items={contractDropdownOptions}>
+                      Rodzaj umowy
+                    </Dropdown>
+
+                    <ErrorMessage
+                      name="contract"
+                      dropdownInput
+                      component={FormError}
+                    />
+                  </div>
+                  <div
+                    className="add-ad__group"
+                    onBlur={validateOnBlur.bind(null, 'license')}
+                  >
+                    <Dropdown items={licenseDropdownOptions}>
+                      Wymagane prawo jazdy
+                    </Dropdown>
+                    <ErrorMessage
+                      name="license"
+                      dropdownInput
+                      component={FormError}
+                    />
+                  </div>
                 </div>
-                <div className="add-ad__group">
-                  <Field
-                    name="info"
-                    autoComplete="off"
-                    placeholder="Treść ogłoszenia"
-                    component={CustomTextarea}
-                  />
-                  <ErrorMessage
-                    name="info"
-                    textareaInput
-                    component={FormError}
-                  />
-                </div>
-                <CustomButton type="submit">Dodaj</CustomButton>
               </div>
             )}
-        </Form>
-      )}
+            {values.category &&
+              values.region &&
+              values.system &&
+              values.contract.length !== 0 &&
+              values.license.length !== 0 && (
+                <div className="add-ad__content">
+                  <div className="add-ad__ad-title">
+                    <Field
+                      name="title"
+                      label="Tytuł"
+                      autoComplete="off"
+                      component={FormInputFormik}
+                    />
+                    <ErrorMessage name="title" component={FormError} />
+                  </div>
+                  <div className="add-ad__group">
+                    <Field
+                      name="info"
+                      autoComplete="off"
+                      placeholder="Treść ogłoszenia"
+                      component={CustomTextarea}
+                    />
+                    <ErrorMessage
+                      name="info"
+                      textareaInput
+                      component={FormError}
+                    />
+                  </div>
+                  <CustomButton type="submit">Dodaj</CustomButton>
+                </div>
+              )}
+          </Form>
+        );
+      }}
     </Formik>
   </div>
 );
