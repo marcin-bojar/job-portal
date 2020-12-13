@@ -84,4 +84,30 @@
       // text-align: center;
     }
   }
+
+  &__salary-container {
+    width: 80%;
+    margin: 0 auto;
+  }
+
+  &__salary-decision {
+    width: 50%;
+    margin: 4rem auto;
+    text-align: center;
+  }
+
+  &__salary-q {
+    margin-bottom: 3rem;
+  }
+
+  &__salary-buttons {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__salary-inputs {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 4rem;
+  }
 }

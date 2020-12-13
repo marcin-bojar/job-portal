@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { connect } from 'react-redux';
 import * as yup from 'yup';
@@ -53,118 +53,200 @@ const licenseDropdownOptions = [
   <FormikDropdownItem name="license" label="D+E" />,
 ];
 
-const AddAd = ({ createAd }) => (
-  <div className="add-ad">
-    <h2 className="add-ad__title">Dodaj ogłoszenie</h2>
-    <Formik
-      initialValues={{
-        category: '',
-        title: '',
-        info: '',
-        region: '',
-        license: [],
-        contract: [],
-        system: '',
-        salary: {
-          fixed: null,
-          from: null,
-          to: null,
-        },
-      }}
-      onSubmit={createAd}
-      validationSchema={AddAdSchema}
-    >
-      {({ values, validateField, setFieldTouched }) => {
-        const validateOnBlur = fieldName => {
-          setFieldTouched(fieldName, true);
-          validateField(fieldName);
-        };
+const AddAd = ({ createAd }) => {
+  const [isSalaryProvided, setIsSalaryProvided] = useState(null);
 
-        return (
-          <Form>
-            <div className="add-ad__category">
-              <div className="add-ad__group">
-                <label htmlFor="category">Wybierz kategorię: </label>
-                <Field
-                  id="category"
-                  name="category"
-                  optionsMap={categoryOptionsMap}
-                  component={CustomSelect}
-                />
-                <ErrorMessage
-                  name="category"
-                  selectInput
-                  component={FormError}
-                />
-              </div>
-            </div>
-            {values.category && (
-              <div className="add-ad__highlights">
-                <h3 className="add-ad__highlights-title">
-                  Podstawowe informacje
-                </h3>
-                <div className="add-ad__highlights-items">
-                  <div className="add-ad__group">
-                    <Field
-                      name="region"
-                      label="Miejsce pracy"
-                      autoComplete="off"
-                      component={FormInputFormik}
-                    />
-                    <ErrorMessage
-                      name="region"
-                      shortInput
-                      component={FormError}
-                    />
-                  </div>
-                  <div className="add-ad__group">
-                    <Field
-                      name="system"
-                      label="System pracy"
-                      autoComplete="off"
-                      component={FormInputFormik}
-                    />
-                    <ErrorMessage
-                      name="system"
-                      shortInput
-                      component={FormError}
-                    />
-                  </div>
-                  <div
-                    className="add-ad__group"
-                    onBlur={validateOnBlur.bind(null, 'contract')}
-                  >
-                    <Dropdown items={contractDropdownOptions}>
-                      Rodzaj umowy
-                    </Dropdown>
+  return (
+    <div className="add-ad">
+      <h2 className="add-ad__title">Dodaj ogłoszenie</h2>
+      <Formik
+        initialValues={{
+          category: '',
+          title: '',
+          info: '',
+          region: '',
+          license: [],
+          contract: [],
+          system: '',
+          salary: {
+            fixed: '',
+            from: '',
+            to: '',
+          },
+        }}
+        onSubmit={createAd}
+        validationSchema={AddAdSchema}
+      >
+        {({ values, validateField, setFieldTouched, setValues }) => {
+          const validateOnBlur = fieldName => {
+            setFieldTouched(fieldName, true);
+            validateField(fieldName);
+          };
 
-                    <ErrorMessage
-                      name="contract"
-                      dropdownInput
-                      component={FormError}
-                    />
-                  </div>
-                  <div
-                    className="add-ad__group"
-                    onBlur={validateOnBlur.bind(null, 'license')}
-                  >
-                    <Dropdown items={licenseDropdownOptions}>
-                      Wymagane prawo jazdy
-                    </Dropdown>
-                    <ErrorMessage
-                      name="license"
-                      dropdownInput
-                      component={FormError}
-                    />
-                  </div>
+          return (
+            <Form>
+              <div className="add-ad__category">
+                <div className="add-ad__group">
+                  <label htmlFor="category">Wybierz kategorię: </label>
+                  <Field
+                    id="category"
+                    name="category"
+                    optionsMap={categoryOptionsMap}
+                    component={CustomSelect}
+                  />
+                  <ErrorMessage
+                    name="category"
+                    selectInput
+                    component={FormError}
+                  />
                 </div>
               </div>
-            )}
-            {values.category &&
-              values.region &&
-              values.system &&
-              values.contract.length !== 0 &&
-              values.license.length !== 0 && (
+              {values.category && (
+                <div className="add-ad__highlights">
+                  <h3 className="add-ad__highlights-title">
+                    Podstawowe informacje
+                  </h3>
+                  <div className="add-ad__highlights-items">
+                    <div className="add-ad__group">
+                      <Field
+                        name="region"
+                        label="Miejsce pracy"
+                        autoComplete="off"
+                        component={FormInputFormik}
+                      />
+                      <ErrorMessage
+                        name="region"
+                        shortInput
+                        component={FormError}
+                      />
+                    </div>
+                    <div className="add-ad__group">
+                      <Field
+                        name="system"
+                        label="System pracy"
+                        autoComplete="off"
+                        component={FormInputFormik}
+                      />
+                      <ErrorMessage
+                        name="system"
+                        shortInput
+                        component={FormError}
+                      />
+                    </div>
+                    <div
+                      className="add-ad__group"
+                      onBlur={validateOnBlur.bind(null, 'contract')}
+                    >
+                      <Dropdown items={contractDropdownOptions}>
+                        Rodzaj umowy
+                      </Dropdown>
+
+                      <ErrorMessage
+                        name="contract"
+                        dropdownInput
+                        component={FormError}
+                      />
+                    </div>
+                    <div
+                      className="add-ad__group"
+                      onBlur={validateOnBlur.bind(null, 'license')}
+                    >
+                      <Dropdown items={licenseDropdownOptions}>
+                        Wymagane prawo jazdy
+                      </Dropdown>
+                      <ErrorMessage
+                        name="license"
+                        dropdownInput
+                        component={FormError}
+                      />
+                    </div>
+                  </div>
+                </div>
+              )}
+              {values.category &&
+                values.region &&
+                values.system &&
+                values.contract.length !== 0 &&
+                values.license.length !== 0 && (
+                  <div className="add-ad__salary-container">
+                    <h3 className="add-ad__highlights-title">Wynagrodzenie</h3>
+                    <div className="add-ad__salary-decision">
+                      <h4 className="add-ad__salary-q">
+                        Czy chcesz podać wynagrodzenie?
+                      </h4>
+                      <div className="add-ad__salary-buttons">
+                        <CustomButton
+                          inverted={
+                            isSalaryProvided === null || !isSalaryProvided
+                          }
+                          type="button"
+                          onClick={() => setIsSalaryProvided(true)}
+                        >
+                          Tak
+                        </CustomButton>
+                        <CustomButton
+                          inverted={
+                            isSalaryProvided === null || isSalaryProvided
+                          }
+                          type="button"
+                          onClick={() => {
+                            setIsSalaryProvided(false);
+                            setValues({
+                              ...values,
+                              salary: { fixed: null, from: null, to: null },
+                            });
+                          }}
+                        >
+                          Nie
+                        </CustomButton>
+                      </div>
+                    </div>
+                    {isSalaryProvided === true && (
+                      <div className="add-ad__salary-inputs">
+                        <div className="add-ad__group">
+                          <Field
+                            name="salary.fixed"
+                            label="Wartość wynagrodzenia"
+                            autoComplete="off"
+                            component={FormInputFormik}
+                          />
+                          <ErrorMessage
+                            name="salary.fixed"
+                            shortInput
+                            component={FormError}
+                          />
+                        </div>
+                        <div className="add-ad__group">
+                          <Field
+                            name="salary.from"
+                            label="Od"
+                            autoComplete="off"
+                            component={FormInputFormik}
+                          />
+                          <ErrorMessage
+                            name="salary.from"
+                            shortInput
+                            component={FormError}
+                          />
+                        </div>
+                        <div className="add-ad__group">
+                          <Field
+                            name="salary.to"
+                            label="Do"
+                            autoComplete="off"
+                            component={FormInputFormik}
+                          />
+                          <ErrorMessage
+                            name="salary.to"
+                            shortInput
+                            component={FormError}
+                          />
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                )}
+              {isSalaryProvided !== null && (
                 <div className="add-ad__content">
                   <div className="add-ad__ad-title">
                     <Field
@@ -191,12 +273,13 @@ const AddAd = ({ createAd }) => (
                   <CustomButton type="submit">Dodaj</CustomButton>
                 </div>
               )}
-          </Form>
-        );
-      }}
-    </Formik>
-  </div>
-);
+            </Form>
+          );
+        }}
+      </Formik>
+    </div>
+  );
+};
 
 const mapDispatchToProps = dispatch => ({
   createAd: adData => dispatch(createAdStart(adData)),
