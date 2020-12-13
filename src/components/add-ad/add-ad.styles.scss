@@ -1,37 +1,12 @@
 .add-ad {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  width: 100%;
   min-height: 85vh;
   padding: 2.5rem;
-  background: radial-gradient(
-      circle at 0 0,
-      var(--color-office-theme) 0%,
-      var(--color-office-theme) 25%,
-      transparent 25.1%,
-      transparent 100%
-    ),
-    radial-gradient(
-      circle at 35% 90%,
-      var(--color-warehouse-theme) 0%,
-      var(--color-warehouse-theme) 4%,
-      transparent 4.1%,
-      transparent 100%
-    ),
-    radial-gradient(
-      circle at 80% 22%,
-      var(--color-driver-theme) 0%,
-      var(--color-driver-theme) 7%,
-      transparent 7.1%,
-      transparent 100%
-    );
-  background-size: cover;
-  background-repeat: no-repeat;
 
   &__title {
     font-size: 3rem;
     margin-bottom: 5rem;
+    text-align: center;
   }
 
   &__category {

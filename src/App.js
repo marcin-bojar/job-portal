@@ -13,7 +13,7 @@ import HomePage from './pages/homepage/homepage.component';
 import LoginPage from './pages/login-register/login-register.component';
 import Header from './components/header/header.component';
 import LoginFirst from './pages/login-first/login-first.component';
-import AddAd from './pages/add-ad/add-ad.component';
+import AddAdPage from './pages/add-ad-page/add-ad-page.component';
 import AdPage from './pages/ad-page/ad-page.component';
 import withLoader from './components/with-loader/with-loader.component';
 
@@ -51,7 +51,7 @@ class App extends React.Component {
           <Route
             exact
             path="/add"
-            render={() => (currentUser ? <AddAd /> : <LoginFirst />)}
+            render={() => (currentUser ? <AddAdPage /> : <LoginFirst />)}
           />
           <Route
             exact

@@ -180,7 +180,13 @@ const AddAd = ({ createAd }) => {
                             isSalaryProvided === null || !isSalaryProvided
                           }
                           type="button"
-                          onClick={() => setIsSalaryProvided(true)}
+                          onClick={() => {
+                            setIsSalaryProvided(true);
+                            setValues({
+                              ...values,
+                              salary: { fixed: '', from: '', to: '' },
+                            });
+                          }}
                         >
                           Tak
                         </CustomButton>
