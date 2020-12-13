@@ -9,44 +9,44 @@
   &.driver {
     background: linear-gradient(
       45deg,
-      var(--color-white) 0%,
-      var(--color-white) 15%,
+      var(--color-white-cream) 0%,
+      var(--color-white-cream) 15%,
       var(--color-driver-theme) 15%,
       var(--color-driver-theme) 35%,
-      var(--color-white) 35%
+      var(--color-white-cream) 35%
     );
   }
 
   &.office {
     background: linear-gradient(
       45deg,
-      var(--color-white) 0%,
-      var(--color-white) 15%,
+      var(--color-white-cream) 0%,
+      var(--color-white-cream) 15%,
       var(--color-office-theme) 15%,
       var(--color-office-theme) 35%,
-      var(--color-white) 35%
+      var(--color-white-cream) 35%
     );
   }
 
   &.forklift {
     background: linear-gradient(
       45deg,
-      var(--color-white) 0%,
-      var(--color-white) 15%,
+      var(--color-white-cream) 0%,
+      var(--color-white-cream) 15%,
       var(--color-forklift-theme) 15%,
       var(--color-forklift-theme) 35%,
-      var(--color-white) 35%
+      var(--color-white-cream) 35%
     );
   }
 
   &.warehouse {
     background: linear-gradient(
       45deg,
-      var(--color-white) 0%,
-      var(--color-white) 15%,
+      var(--color-white-cream) 0%,
+      var(--color-white-cream) 15%,
       var(--color-warehouse-theme) 15%,
       var(--color-warehouse-theme) 35%,
-      var(--color-white) 35%
+      var(--color-white-cream) 35%
     );
   }
 }

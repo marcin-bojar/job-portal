@@ -1,11 +1,9 @@
 .highlight {
   display: flex;
-  justify-content: center;
-  padding: 1.5rem 3rem;
-
-  &:not(:last-child) {
-    border-right: var(--border-dark-1);
-  }
+  justify-content: flex-start;
+  justify-self: center;
+  width: 100%;
+  padding: 1.5rem 0;
 
   &__text {
     margin-left: 1rem;
