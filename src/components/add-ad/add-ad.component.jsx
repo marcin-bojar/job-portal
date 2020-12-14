@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { connect } from 'react-redux';
 import * as yup from 'yup';
@@ -55,6 +55,13 @@ const licenseDropdownOptions = [
 
 const AddAd = ({ createAd }) => {
   const [isSalaryProvided, setIsSalaryProvided] = useState(null);
+  const salaryRef = useRef(null);
+
+  useEffect(() => {
+    if (isSalaryProvided === true || isSalaryProvided === false) {
+      salaryRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [isSalaryProvided]);
 
   return (
     <div className="add-ad">
@@ -168,7 +175,7 @@ const AddAd = ({ createAd }) => {
                 values.system &&
                 values.contract.length !== 0 &&
                 values.license.length !== 0 && (
-                  <div className="add-ad__salary-container">
+                  <div className="add-ad__salary-container" ref={salaryRef}>
                     <h3 className="add-ad__highlights-title">Wynagrodzenie</h3>
                     <div className="add-ad__salary-decision">
                       <h4 className="add-ad__salary-q">
