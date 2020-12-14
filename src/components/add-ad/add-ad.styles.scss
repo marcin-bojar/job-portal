@@ -1,7 +1,10 @@
+@import '../../sass/mixins';
+
 .add-ad {
   width: 100%;
   min-height: 85vh;
   padding: 2.5rem;
+  @include background-circles;
 
   &__title {
     font-size: 3rem;
@@ -86,5 +89,12 @@
     display: flex;
     justify-content: space-between;
     margin-bottom: 4rem;
+  }
+
+  &__buttons-wrapper {
+    display: flex;
+    justify-content: space-between;
+    width: 50%;
+    margin: 0 auto;
   }
 }

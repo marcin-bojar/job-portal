@@ -60,3 +60,29 @@
     background-color: var(--color-warehouse-theme);
   }
 }
+
+@mixin background-circles {
+  background: radial-gradient(
+      circle at 0 0,
+      var(--color-driver-theme) 0%,
+      var(--color-driver-theme) 17%,
+      transparent 17.1%,
+      transparent 100%
+    ),
+    radial-gradient(
+      circle at 17% 85%,
+      var(--color-office-theme) 0%,
+      var(--color-office-theme) 4%,
+      transparent 4.1%,
+      transparent 100%
+    ),
+    radial-gradient(
+      circle at 80% 22%,
+      var(--color-warehouse-theme) 0%,
+      var(--color-warehouse-theme) 7%,
+      transparent 7.1%,
+      transparent 100%
+    );
+  background-size: cover;
+  background-repeat: no-repeat;
+}

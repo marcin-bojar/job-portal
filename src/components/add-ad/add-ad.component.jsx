@@ -259,33 +259,40 @@ const AddAd = ({ createAd }) => {
                     )}
                   </div>
                 )}
-              {isSalaryProvided !== null && (
-                <div className="add-ad__content">
-                  <div className="add-ad__ad-title">
-                    <Field
-                      name="title"
-                      label="Tytuł"
-                      autoComplete="off"
-                      component={FormInputFormik}
-                    />
-                    <ErrorMessage name="title" component={FormError} />
+              {values.category &&
+                values.region &&
+                values.system &&
+                values.contract.length !== 0 &&
+                values.license.length !== 0 &&
+                isSalaryProvided !== null && (
+                  <div className="add-ad__content">
+                    <div className="add-ad__ad-title">
+                      <Field
+                        name="title"
+                        label="Tytuł"
+                        autoComplete="off"
+                        component={FormInputFormik}
+                      />
+                      <ErrorMessage name="title" component={FormError} />
+                    </div>
+                    <div className="add-ad__group">
+                      <Field
+                        name="info"
+                        autoComplete="off"
+                        placeholder="Treść ogłoszenia"
+                        component={CustomTextarea}
+                      />
+                      <ErrorMessage
+                        name="info"
+                        textareaInput
+                        component={FormError}
+                      />
+                    </div>
+                    <div className="add-ad__buttons-wrapper">
+                      <CustomButton type="submit">Dodaj</CustomButton>
+                    </div>
                   </div>
-                  <div className="add-ad__group">
-                    <Field
-                      name="info"
-                      autoComplete="off"
-                      placeholder="Treść ogłoszenia"
-                      component={CustomTextarea}
-                    />
-                    <ErrorMessage
-                      name="info"
-                      textareaInput
-                      component={FormError}
-                    />
-                  </div>
-                  <CustomButton type="submit">Dodaj</CustomButton>
-                </div>
-              )}
+                )}
             </Form>
           );
         }}
