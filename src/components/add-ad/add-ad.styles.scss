@@ -19,6 +19,8 @@
 
   &__highlights {
     margin-bottom: 5rem;
+    width: 75%;
+    margin: 0 auto;
 
     &-title {
       font-size: 2.25rem;
@@ -35,7 +37,7 @@
 
   &__ad-title {
     position: relative;
-    width: 60%;
+    width: 40%;
     margin: 0 auto;
   }
 
@@ -61,8 +63,8 @@
   }
 
   &__salary-container {
-    width: 80%;
-    margin: 0 auto;
+    width: 75%;
+    margin: 4rem auto;
   }
 
   &__salary-decision {

@@ -66,7 +66,7 @@ const AdContent = ({ allAds, match }) => {
       </div>
       <div className="ad-content__buttons">
         <CustomButton>Zadzwoń</CustomButton>
-        <CustomButton inverted>Napisz wiadomość</CustomButton>
+        <CustomButton secondary>Napisz wiadomość</CustomButton>
       </div>
     </div>
   );
