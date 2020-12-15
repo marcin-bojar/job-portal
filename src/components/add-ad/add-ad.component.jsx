@@ -76,9 +76,11 @@ const AddAd = ({ createAd }) => {
           contract: [],
           system: '',
           salary: {
+            value: '',
             fixed: '',
             from: '',
             to: '',
+            currency: '',
           },
         }}
         onSubmit={createAd}
@@ -214,44 +216,84 @@ const AddAd = ({ createAd }) => {
                         </CustomButton>
                       </div>
                     </div>
-                    {isSalaryProvided === true && (
+                    {isSalaryProvided && (
                       <div className="add-ad__salary-inputs">
-                        <div className="add-ad__group">
+                        <div className="add-ad__salary-value-select">
+                          <label htmlFor="salary.value">
+                            Rodzaj wynagrodzenia:{' '}
+                          </label>
                           <Field
-                            name="salary.fixed"
-                            label="Wartość wynagrodzenia"
-                            autoComplete="off"
-                            component={FormInputFormik}
+                            id="salary.value"
+                            name="salary.value"
+                            optionsMap={{
+                              fixed: 'Stała wartość',
+                              range: 'Widełki',
+                            }}
+                            component={CustomSelect}
                           />
                           <ErrorMessage
-                            name="salary.fixed"
-                            shortInput
+                            name="salary.value"
+                            selectInput
                             component={FormError}
                           />
                         </div>
+
+                        {values.salary.value === 'fixed' && (
+                          <div className="add-ad__group">
+                            <Field
+                              name="salary.fixed"
+                              label="Wartość wynagrodzenia"
+                              autoComplete="off"
+                              component={FormInputFormik}
+                            />
+                            <ErrorMessage
+                              name="salary.fixed"
+                              shortInput
+                              component={FormError}
+                            />
+                          </div>
+                        )}
+                        {values.salary.value === 'range' && (
+                          <div className="add-ad__range">
+                            <div className="add-ad__group">
+                              <Field
+                                name="salary.from"
+                                label="Od"
+                                autoComplete="off"
+                                component={FormInputFormik}
+                              />
+                              <ErrorMessage
+                                name="salary.from"
+                                shortInput
+                                component={FormError}
+                              />
+                            </div>
+                            <div className="add-ad__group">
+                              <Field
+                                name="salary.to"
+                                label="Do"
+                                autoComplete="off"
+                                component={FormInputFormik}
+                              />
+                              <ErrorMessage
+                                name="salary.to"
+                                shortInput
+                                component={FormError}
+                              />
+                            </div>
+                          </div>
+                        )}
                         <div className="add-ad__group">
+                          <label htmlFor="salary.currency">Waluta: </label>
                           <Field
-                            name="salary.from"
-                            label="Od"
+                            name="salary.currency"
+                            optionsMap={{ PLN: 'PLN', EUR: 'EUR' }}
                             autoComplete="off"
-                            component={FormInputFormik}
+                            component={CustomSelect}
                           />
                           <ErrorMessage
-                            name="salary.from"
-                            shortInput
-                            component={FormError}
-                          />
-                        </div>
-                        <div className="add-ad__group">
-                          <Field
                             name="salary.to"
-                            label="Do"
-                            autoComplete="off"
-                            component={FormInputFormik}
-                          />
-                          <ErrorMessage
-                            name="salary.to"
-                            shortInput
+                            selectInput
                             component={FormError}
                           />
                         </div>

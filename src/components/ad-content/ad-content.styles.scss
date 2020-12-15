@@ -37,6 +37,7 @@
       display: inline-block;
       color: var(--color-primary);
       letter-spacing: 1px;
+      font-size: 2.5rem;
       font-weight: 500;
     }
   }
@@ -47,6 +48,7 @@
     width: 100%;
     padding: 2rem 1rem 2rem 15rem;
     border-bottom: var(--border-dark-1);
+    background-color: var(--color-white-cream);
   }
 
   &__details {
