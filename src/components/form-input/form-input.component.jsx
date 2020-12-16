@@ -6,7 +6,7 @@ const FormInput = ({
   handleChange,
   handleKeyPress,
   label,
-  disabled,
+
   ...otherProps
 }) => {
   const { value, width } = otherProps;
@@ -16,10 +16,8 @@ const FormInput = ({
       <input
         className="form-input"
         onChange={handleChange}
-        {...otherProps}
-        style={{ width: `${width}%` }}
-        disabled={disabled}
         onKeyDown={handleKeyPress}
+        {...otherProps}
       />
       {label ? (
         <label

@@ -66,7 +66,6 @@ class Search extends React.Component {
           disabled={isFetching}
           value={searchInput}
           onChange={this.handleChange}
-          width={40}
           handleKeyPress={this.backspacePress}
         ></FormInputFormik>
 

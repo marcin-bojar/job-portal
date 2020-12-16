@@ -255,7 +255,10 @@ const AddAd = ({ createAd }) => {
                         )}
                         {values.salary.value === 'range' && (
                           <div className="add-ad__range">
-                            <div className="add-ad__group">
+                            <div
+                              className="add-ad__group"
+                              style={{ margin: '0' }}
+                            >
                               <Field
                                 name="salary.from"
                                 label="Od"
