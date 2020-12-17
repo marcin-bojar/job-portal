@@ -11,7 +11,12 @@ import CustomTextarea from '../../components/custom-textarea/custom-textarea.com
 import CustomSelect from '../../components/custom-select/custom-select.component';
 import FormError from '../../components/form-error/form-error.component';
 import Dropdown from '../../components/dropdown/dropdown.component';
-import FormikDropdownItem from '../../components/formik-dropdown-item/formik-dropdown-item.component';
+
+import {
+  categoryOptionsMap,
+  contractDropdownOptions,
+  licenseDropdownOptions,
+} from '../../ads-config/ads.config';
 
 import './add-ad.styles.scss';
 
@@ -27,31 +32,6 @@ const AddAdSchema = yup.object().shape({
   title: yup.string().min(5, 'Minimum 5 znaków').required('Pole obowiązkowe'),
   info: yup.string().required('Pole obowiązkowe'),
 });
-
-const categoryOptionsMap = {
-  office: 'Praca biurowa',
-  driver: 'Kierowca',
-  forklift: 'Operator',
-  warehouse: 'Praca na magazynie',
-};
-
-const contractDropdownOptions = [
-  <FormikDropdownItem name="contract" label="Umowa o pracę" />,
-  <FormikDropdownItem name="contract" label="B2B" />,
-  <FormikDropdownItem name="contract" label="Umowa zlecenie" />,
-  <FormikDropdownItem name="contract" label="Umowa o dzieło" />,
-  <FormikDropdownItem name="contract" label="Inna" />,
-];
-
-const licenseDropdownOptions = [
-  <FormikDropdownItem name="license" label="brak wymagań" />,
-  <FormikDropdownItem name="license" label="B" />,
-  <FormikDropdownItem name="license" label="B+E" />,
-  <FormikDropdownItem name="license" label="C" />,
-  <FormikDropdownItem name="license" label="C+E" />,
-  <FormikDropdownItem name="license" label="D" />,
-  <FormikDropdownItem name="license" label="D+E" />,
-];
 
 const AddAd = ({ createAd }) => {
   const [isSalaryProvided, setIsSalaryProvided] = useState(null);
