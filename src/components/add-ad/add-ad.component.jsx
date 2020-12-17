@@ -14,6 +14,7 @@ import Dropdown from '../../components/dropdown/dropdown.component';
 
 import {
   categoryOptionsMap,
+  currencyOptionsMap,
   contractDropdownOptions,
   licenseDropdownOptions,
 } from '../../ads-config/ads.config';
@@ -33,22 +34,36 @@ const AddAdSchema = yup.object().shape({
   salary: yup.object().when('salaryProvided', {
     is: true,
     then: yup.object().shape({
-      value: yup.string().oneOf(['fixed', 'range']).required('Wybierz rodzaj'),
-      fixed: yup
-        .number()
-        .typeError('Podaj liczbę')
-        .integer('Podaj liczbę całkowitą')
-        .required('Pole obowiązkowe'),
-      from: yup
-        .number()
-        .typeError('Podaj liczbę')
-        .integer('Podaj liczbę całkowitą')
-        .required('Pole obowiązkowe'),
-      to: yup
-        .number()
-        .typeError('Podaj liczbę')
-        .integer('Podaj liczbę całkowitą')
-        .required('Pole obowiązkowe'),
+      value: yup.string().required('Wybierz rodzaj'),
+
+      fixed: yup.number().when('value', {
+        is: 'fixed',
+        then: yup
+          .number()
+          .typeError('Podaj liczbę')
+          .integer('Podaj liczbę całkowitą')
+          .required('Pole obowiązkowe'),
+      }),
+
+      from: yup.number().when('value', {
+        is: 'range',
+        then: yup
+          .number()
+          .typeError('Podaj liczbę')
+          .integer('Podaj liczbę całkowitą')
+          .required('Pole obowiązkowe'),
+      }),
+
+      to: yup.number().when('value', {
+        is: 'range',
+        then: yup
+          .number()
+          .typeError('Podaj liczbę')
+          .integer('Podaj liczbę całkowitą')
+          .required('Pole obowiązkowe'),
+      }),
+
+      currency: yup.string().required('Wybierz walutę'),
     }),
   }),
   title: yup.string().min(5, 'Minimum 5 znaków').required('Pole obowiązkowe'),
@@ -198,10 +213,11 @@ const AddAd = ({ createAd }) => {
                               ...values,
                               salaryProvided: true,
                               salary: {
+                                value: '',
                                 fixed: '',
                                 from: '',
                                 to: '',
-                                value: '',
+                                currency: '',
                               },
                             });
                           }}
@@ -219,10 +235,11 @@ const AddAd = ({ createAd }) => {
                               ...values,
                               salaryProvided: false,
                               salary: {
+                                value: '',
                                 fixed: null,
                                 from: null,
                                 to: null,
-                                value: '',
+                                currency: '',
                               },
                             });
                           }}
@@ -234,7 +251,10 @@ const AddAd = ({ createAd }) => {
                     {isSalaryProvided && (
                       <div className="add-ad__salary-inputs">
                         <div className="add-ad__salary-value-select">
-                          <label htmlFor="salary.value">
+                          <label
+                            className="add-ad__salary-label"
+                            htmlFor="salary.value"
+                          >
                             Rodzaj wynagrodzenia:{' '}
                           </label>
                           <Field
@@ -302,10 +322,16 @@ const AddAd = ({ createAd }) => {
                           </div>
                         )}
                         <div className="add-ad__group">
-                          <label htmlFor="salary.currency">Waluta: </label>
+                          <label
+                            className="add-ad__salary-label"
+                            htmlFor="salary.currency"
+                          >
+                            Waluta:{' '}
+                          </label>
                           <Field
+                            id="salary.currency"
                             name="salary.currency"
-                            optionsMap={{ PLN: 'PLN', EUR: 'EUR' }}
+                            optionsMap={currencyOptionsMap}
                             autoComplete="off"
                             component={CustomSelect}
                           />

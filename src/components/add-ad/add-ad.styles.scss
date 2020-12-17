@@ -66,7 +66,7 @@
   }
 
   &__salary-container {
-    width: 75%;
+    width: 65%;
     margin: 4rem auto;
   }
 
@@ -89,11 +89,16 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    min-height: 15rem;
   }
 
   &__salary-value-select {
     position: relative;
     align-self: center;
+  }
+
+  &__salary-label {
+    font-size: 1.9rem;
   }
 
   &__buttons-wrapper {

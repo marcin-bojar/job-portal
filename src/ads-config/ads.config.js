@@ -9,6 +9,18 @@ export const categoryOptionsMap = {
   warehouse: 'Praca na magazynie',
 };
 
+export const currencyOptionsMap = {
+  PLN: 'PLN',
+  EUR: 'EUR',
+  CZK: 'CZK',
+  GBP: 'GBP',
+  HUF: 'HUF',
+  NOK: 'NOK',
+  SEK: 'SEK',
+  DKK: 'DKK',
+  USD: 'USD',
+};
+
 export const contractDropdownOptions = [
   <FormikDropdownItem name="contract" label="Umowa o pracę" />,
   <FormikDropdownItem name="contract" label="B2B" />,
