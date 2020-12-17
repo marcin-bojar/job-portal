@@ -21,6 +21,7 @@ import {
 import './add-ad.styles.scss';
 
 const AddAdSchema = yup.object().shape({
+  salaryProvided: yup.boolean(),
   category: yup
     .string()
     .oneOf(['office', 'driver', 'forklift', 'warehouse'])
@@ -29,6 +30,27 @@ const AddAdSchema = yup.object().shape({
   system: yup.string().required('Pole obowiązkowe'),
   contract: yup.array().min(1, 'Podaj min jedną opcję'),
   license: yup.array().min(1, 'Podaj min jedną opcję'),
+  salary: yup.object().when('salaryProvided', {
+    is: true,
+    then: yup.object().shape({
+      value: yup.string().oneOf(['fixed', 'range']).required('Wybierz rodzaj'),
+      fixed: yup
+        .number()
+        .typeError('Podaj liczbę')
+        .integer('Podaj liczbę całkowitą')
+        .required('Pole obowiązkowe'),
+      from: yup
+        .number()
+        .typeError('Podaj liczbę')
+        .integer('Podaj liczbę całkowitą')
+        .required('Pole obowiązkowe'),
+      to: yup
+        .number()
+        .typeError('Podaj liczbę')
+        .integer('Podaj liczbę całkowitą')
+        .required('Pole obowiązkowe'),
+    }),
+  }),
   title: yup.string().min(5, 'Minimum 5 znaków').required('Pole obowiązkowe'),
   info: yup.string().required('Pole obowiązkowe'),
 });
@@ -48,6 +70,7 @@ const AddAd = ({ createAd }) => {
       <h2 className="add-ad__title">Dodaj ogłoszenie</h2>
       <Formik
         initialValues={{
+          salaryProvided: false,
           category: '',
           title: '',
           info: '',
@@ -173,7 +196,13 @@ const AddAd = ({ createAd }) => {
                             setIsSalaryProvided(true);
                             setValues({
                               ...values,
-                              salary: { fixed: '', from: '', to: '' },
+                              salaryProvided: true,
+                              salary: {
+                                fixed: '',
+                                from: '',
+                                to: '',
+                                value: '',
+                              },
                             });
                           }}
                         >
@@ -188,7 +217,13 @@ const AddAd = ({ createAd }) => {
                             setIsSalaryProvided(false);
                             setValues({
                               ...values,
-                              salary: { fixed: null, from: null, to: null },
+                              salaryProvided: false,
+                              salary: {
+                                fixed: null,
+                                from: null,
+                                to: null,
+                                value: '',
+                              },
                             });
                           }}
                         >
@@ -275,7 +310,7 @@ const AddAd = ({ createAd }) => {
                             component={CustomSelect}
                           />
                           <ErrorMessage
-                            name="salary.to"
+                            name="salary.currency"
                             selectInput
                             component={FormError}
                           />
