@@ -23,7 +23,6 @@ const INITIAL_STATE = {
   filtersApplied: false,
   error: null,
   isFetching: true,
-  isAdding: false,
 };
 
 const adsReducer = (state = INITIAL_STATE, action) => {
@@ -172,12 +171,6 @@ const adsReducer = (state = INITIAL_STATE, action) => {
         ads: sortAdsByDateAdded(state.ads),
       };
 
-    case AdsActionTypes.CREATE_AD_START:
-      return {
-        ...state,
-        isAdding: true,
-      };
-
     case AdsActionTypes.CREATE_AD_SUCCESS:
       return {
         ...state,
@@ -185,13 +178,12 @@ const adsReducer = (state = INITIAL_STATE, action) => {
           ...state.ads,
           [action.payload.id]: action.payload,
         }),
-        isAdding: false,
+        error: null,
       };
 
     case AdsActionTypes.CREATE_AD_FAILURE:
       return {
         ...state,
-        isAdding: false,
         error: action.payload,
       };
 

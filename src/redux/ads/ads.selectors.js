@@ -31,7 +31,4 @@ export const isFetchingSelector = createSelector(
   ads => ads.isFetching
 );
 
-export const isAddingSelector = createSelector(
-  adsSelector,
-  ads => ads.isAdding
-);
+export const errorSelector = createSelector(adsSelector, ads => ads.error);

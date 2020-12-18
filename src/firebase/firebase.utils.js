@@ -42,7 +42,7 @@ export const createUserDocumentFromUserAuth = async (
         ...additionalData,
       });
     } catch (error) {
-      console.log(error);
+      throw new Error(error);
     }
   }
   return userRef;
@@ -102,9 +102,9 @@ export const createAdDocument = async adData => {
       id,
     });
   } catch (err) {
-    console.log(err);
+    throw new Error(err);
   }
-  
+
   return adRef;
 };
 
@@ -116,7 +116,7 @@ export const fetchAllAds = async () => {
       .get();
     return Object.assign({}, convertCollectionSnapshotToMap(ads));
   } catch (error) {
-    console.log(error);
+    throw new Error(error);
   }
 };
 
@@ -136,7 +136,7 @@ export const fetchTenLatestAdsFromEachCategory = async () => {
 
       Object.assign(ads, convertCollectionSnapshotToMap(categoryAdsSnapshot));
     } catch (error) {
-      console.log(error);
+      throw new Error(error);
     }
   }
 

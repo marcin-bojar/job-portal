@@ -1,4 +1,5 @@
 import React from 'react';
+import * as yup from 'yup';
 
 import FormikDropdownItem from '../components/formik-dropdown-item/formik-dropdown-item.component';
 
@@ -38,3 +39,70 @@ export const licenseDropdownOptions = [
   <FormikDropdownItem name="license" label="D" />,
   <FormikDropdownItem name="license" label="D+E" />,
 ];
+
+export const formikInitialValues = {
+  salaryProvided: false,
+  category: '',
+  title: '',
+  info: '',
+  region: '',
+  license: [],
+  contract: [],
+  system: '',
+  salary: {
+    value: '',
+    fixed: '',
+    from: '',
+    to: '',
+    currency: '',
+  },
+};
+
+export const AddAdSchema = yup.object().shape({
+  salaryProvided: yup.boolean(),
+  category: yup
+    .string()
+    .oneOf(['office', 'driver', 'forklift', 'warehouse'])
+    .required('Pole obowiązkowe'),
+  region: yup.string().required('Pole obowiązkowe'),
+  system: yup.string().required('Pole obowiązkowe'),
+  contract: yup.array().min(1, 'Podaj min jedną opcję'),
+  license: yup.array().min(1, 'Podaj min jedną opcję'),
+  salary: yup.object().when('salaryProvided', {
+    is: true,
+    then: yup.object().shape({
+      value: yup.string().required('Wybierz rodzaj'),
+
+      fixed: yup.number().when('value', {
+        is: 'fixed',
+        then: yup
+          .number()
+          .typeError('Podaj liczbę')
+          .integer('Podaj liczbę całkowitą')
+          .required('Pole obowiązkowe'),
+      }),
+
+      from: yup.number().when('value', {
+        is: 'range',
+        then: yup
+          .number()
+          .typeError('Podaj liczbę')
+          .integer('Podaj liczbę całkowitą')
+          .required('Pole obowiązkowe'),
+      }),
+
+      to: yup.number().when('value', {
+        is: 'range',
+        then: yup
+          .number()
+          .typeError('Podaj liczbę')
+          .integer('Podaj liczbę całkowitą')
+          .required('Pole obowiązkowe'),
+      }),
+
+      currency: yup.string().required('Wybierz walutę'),
+    }),
+  }),
+  title: yup.string().min(5, 'Minimum 5 znaków').required('Pole obowiązkowe'),
+  info: yup.string().required('Pole obowiązkowe'),
+});

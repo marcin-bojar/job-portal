@@ -1,7 +1,10 @@
+@import '../../sass/mixins';
+
 .add-ad-page {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   min-height: 85vh;
+  @include background-circles;
 }

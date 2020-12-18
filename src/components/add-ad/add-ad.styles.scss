@@ -1,10 +1,7 @@
-@import '../../sass/mixins';
-
 .add-ad {
   width: 100%;
   min-height: 85vh;
   padding: 2.5rem;
-  @include background-circles;
 
   &__title {
     font-size: 3rem;
