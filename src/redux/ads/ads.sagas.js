@@ -1,6 +1,8 @@
 import { put, call, takeLatest, all } from 'redux-saga/effects';
 
 import {
+  createAdSuccess,
+  createAdFailure,
   fetchAdsSuccess,
   fetchAdsFailure,
   sortAdsByDateAdded,
@@ -36,9 +38,12 @@ function* fetchTenAds() {
 
 function* createAd({ payload }) {
   try {
-    yield call(createAdDocument, payload);
-  } catch (err) {
-    console.log(err);
+    const adRef = yield call(createAdDocument, payload);
+    const adSnapshot = yield adRef.get();
+    const ad = yield adSnapshot.data();
+    yield put(createAdSuccess(ad));
+  } catch (error) {
+    yield put(createAdFailure(error));
   }
 }
 

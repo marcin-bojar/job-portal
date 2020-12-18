@@ -104,8 +104,7 @@ export const createAdDocument = async adData => {
   } catch (err) {
     console.log(err);
   }
-  console.log((await adRef.get()).data());
-  // adRef.delete();
+  
   return adRef;
 };
 

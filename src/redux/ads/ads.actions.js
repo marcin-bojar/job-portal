@@ -64,3 +64,13 @@ export const createAdStart = adData => ({
   type: AdsActionTypes.CREATE_AD_START,
   payload: adData,
 });
+
+export const createAdSuccess = ad => ({
+  type: AdsActionTypes.CREATE_AD_SUCCESS,
+  payload: ad,
+});
+
+export const createAdFailure = error => ({
+  type: AdsActionTypes.CREATE_AD_FAILURE,
+  payload: error,
+});

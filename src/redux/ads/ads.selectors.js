@@ -30,3 +30,8 @@ export const isFetchingSelector = createSelector(
   adsSelector,
   ads => ads.isFetching
 );
+
+export const isAddingSelector = createSelector(
+  adsSelector,
+  ads => ads.isAdding
+);

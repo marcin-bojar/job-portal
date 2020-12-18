@@ -1,9 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as yup from 'yup';
 
 import { createAdStart } from '../../redux/ads/ads.actions';
+import { isAddingSelector } from '../../redux/ads/ads.selectors';
 
 import FormInputFormik from '../../components/form-input-formik/form-input-formik.component';
 import CustomButton from '../../components/custom-button/custom-button.component';
@@ -70,7 +72,7 @@ const AddAdSchema = yup.object().shape({
   info: yup.string().required('Pole obowiązkowe'),
 });
 
-const AddAd = ({ createAd }) => {
+const AddAd = ({ createAd, isAdding }) => {
   const [isSalaryProvided, setIsSalaryProvided] = useState(null);
   const salaryRef = useRef(null);
 
@@ -375,7 +377,9 @@ const AddAd = ({ createAd }) => {
                       />
                     </div>
                     <div className="add-ad__buttons-wrapper">
-                      <CustomButton type="submit">Dodaj</CustomButton>
+                      <CustomButton type="submit" disabled={isAdding}>
+                        Dodaj
+                      </CustomButton>
                     </div>
                   </div>
                 )}
@@ -387,8 +391,12 @@ const AddAd = ({ createAd }) => {
   );
 };
 
+const mapStateToProps = createStructuredSelector({
+  isAdding: isAddingSelector,
+});
+
 const mapDispatchToProps = dispatch => ({
   createAd: adData => dispatch(createAdStart(adData)),
 });
 
-export default connect(null, mapDispatchToProps)(AddAd);
+export default connect(mapStateToProps, mapDispatchToProps)(AddAd);
