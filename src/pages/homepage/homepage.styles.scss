@@ -17,7 +17,6 @@
 .hero-header {
   display: flex;
   flex-direction: column;
-  height: 45vh;
   justify-content: center;
   align-items: flex-end;
   padding-right: 7rem;
@@ -26,7 +25,6 @@
   background-image: url('../../assets/header.jpg');
   background-size: cover;
   background-position: 0% 75%;
-  transition: all 0.5s 0.2s;
 
   &__color-letter {
     color: var(--color-primary);
@@ -44,4 +42,19 @@
     width: 50%;
     overflow-y: scroll;
   }
+}
+
+.black {
+  background-color: black;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9999;
+  color: white;
+  font-size: 6rem;
 }
