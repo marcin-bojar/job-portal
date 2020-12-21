@@ -21,10 +21,20 @@ const AdsPreviewWithLoader = withLoader(AdsPreview);
 const HomePage = ({ searchInput, filtersApplied, isFetching }) => {
   const show = !searchInput.length > 0 && !filtersApplied;
 
+  const dataVariants = {
+    divided: { height: '40vh' },
+    fullscreen: { height: '85vh' },
+  };
+
+  const transitions = {
+    duration: 0.5,
+    ease: [0.18, 1.0, 1, 0.99],
+  };
+
   return (
     <div className={`homepage`}>
       <AnimatePresence initial={false}>
-        {/* {isFetching && (
+        {isFetching && (
           <motion.div
             key="loading"
             exit={{ scaleY: 0 }}
@@ -33,13 +43,13 @@ const HomePage = ({ searchInput, filtersApplied, isFetching }) => {
           >
             <motion.span>Loading</motion.span>
           </motion.div>
-        )} */}
+        )}
         {show && (
           <motion.div
             key="header"
             initial={{ height: 0 }}
             animate={{ height: '45vh' }}
-            transition={{ duration: 0.5, ease: 0 }}
+            transition={transitions}
             exit={{ height: 0 }}
             className="hero-header"
           >
@@ -50,19 +60,26 @@ const HomePage = ({ searchInput, filtersApplied, isFetching }) => {
             <h2>Praca w logistyce</h2>
           </motion.div>
         )}
-        <motion.div key="data" className="data-container">
-          <div className="data-container__ads">
-            {!show ? (
-              <SearchResults />
-            ) : (
-              <AdsPreviewWithLoader isLoading={isFetching} />
-            )}
-          </div>
-          <div className="data-container__search">
-            <Search />
-          </div>
-        </motion.div>
       </AnimatePresence>
+      <motion.div
+        key="data"
+        variants={dataVariants}
+        initial="divided"
+        animate={show ? 'divided' : 'fullscreen'}
+        transition={transitions}
+        className="data-container"
+      >
+        <div className="data-container__ads">
+          {!show ? (
+            <SearchResults />
+          ) : (
+            <AdsPreviewWithLoader isLoading={isFetching} />
+          )}
+        </div>
+        <div className="data-container__search">
+          <Search />
+        </div>
+      </motion.div>
     </div>
   );
 };
