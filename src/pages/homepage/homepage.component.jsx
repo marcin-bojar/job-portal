@@ -3,11 +3,9 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { motion, AnimatePresence } from 'framer-motion';
 
-import {
-  searchInputSelector,
-  filtersAppliedSelector,
-  isFetchingSelector,
-} from '../../redux/ads/ads.selectors';
+import { isFetchingSelector } from '../../redux/ads/ads.selectors';
+
+import { showHeaderSelector } from '../../redux/ui/ui.selectors';
 
 import AdsPreview from '../../components/ads-preview/ads-preview.component';
 import Search from '../../components/search/search.component';
@@ -18,9 +16,7 @@ import './homepage.styles.scss';
 
 const AdsPreviewWithLoader = withLoader(AdsPreview);
 
-const HomePage = ({ searchInput, filtersApplied, isFetching }) => {
-  const show = !searchInput.length > 0 && !filtersApplied;
-
+const HomePage = ({ isFetching, showHeader }) => {
   const dataVariants = {
     divided: { height: '40vh' },
     fullscreen: { height: '85vh' },
@@ -44,7 +40,7 @@ const HomePage = ({ searchInput, filtersApplied, isFetching }) => {
             <motion.span>Loading</motion.span>
           </motion.div>
         )}
-        {show && (
+        {showHeader && (
           <motion.div
             key="header"
             initial={{ height: 0 }}
@@ -60,34 +56,33 @@ const HomePage = ({ searchInput, filtersApplied, isFetching }) => {
             <h2>Praca w logistyce</h2>
           </motion.div>
         )}
+        <motion.div
+          key="data"
+          variants={dataVariants}
+          initial="divided"
+          animate={showHeader ? 'divided' : 'fullscreen'}
+          transition={transitions}
+          className="data-container"
+        >
+          <div className="data-container__ads">
+            {!showHeader ? (
+              <SearchResults />
+            ) : (
+              <AdsPreviewWithLoader isLoading={isFetching} />
+            )}
+          </div>
+          <div className="data-container__search">
+            <Search />
+          </div>
+        </motion.div>
       </AnimatePresence>
-      <motion.div
-        key="data"
-        variants={dataVariants}
-        initial="divided"
-        animate={show ? 'divided' : 'fullscreen'}
-        transition={transitions}
-        className="data-container"
-      >
-        <div className="data-container__ads">
-          {!show ? (
-            <SearchResults />
-          ) : (
-            <AdsPreviewWithLoader isLoading={isFetching} />
-          )}
-        </div>
-        <div className="data-container__search">
-          <Search />
-        </div>
-      </motion.div>
     </div>
   );
 };
 
 const mapStateToProps = createStructuredSelector({
-  searchInput: searchInputSelector,
-  filtersApplied: filtersAppliedSelector,
   isFetching: isFetchingSelector,
+  showHeader: showHeaderSelector,
 });
 
 export default connect(mapStateToProps)(HomePage);

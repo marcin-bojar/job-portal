@@ -9,6 +9,8 @@ import {
   filtersSelector,
 } from '../../redux/ads/ads.selectors';
 
+import { shouldShowHeader } from '../../redux/ui/ui.actions';
+
 import SearchFilter from '../search-filter/search-filter.component';
 
 import {
@@ -46,12 +48,18 @@ class SearchFiltersController extends React.Component {
   };
 
   checkFiltersStatus = () => {
-    const { updateFiltersStatus, filters } = this.props;
+    const {
+      updateFiltersStatus,
+      shouldShowHeader,
+      filters,
+      searchInput,
+    } = this.props;
     const isFiltered = Object.keys(filters).some(
       key => filters[key].checked === true
     );
 
     updateFiltersStatus(isFiltered);
+    shouldShowHeader(!isFiltered && !searchInput.length);
   };
 
   render() {
@@ -93,6 +101,7 @@ const mapDispatchToProps = dispatch => ({
   updateFilter: status => dispatch(updateFilter(status)),
   updateFiltersStatus: areFiltersApplied =>
     dispatch(updateFiltersStatus(areFiltersApplied)),
+  shouldShowHeader: shouldShow => dispatch(shouldShowHeader(shouldShow)),
 });
 
 export default connect(

@@ -21,11 +21,6 @@ import {
 import './search.styles.scss';
 
 class Search extends React.Component {
-  // componentWillUnmount() {
-  //   const { clearAllFilters } = this.props;
-  //   clearAllFilters();
-  // }
-
   handleChange = e => {
     const { value } = e.target;
     const { setAdsFilter, filterAds, clearFilteredAds } = this.props;
