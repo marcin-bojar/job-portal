@@ -15,7 +15,7 @@
   border: 1px solid transparent;
   box-shadow: var(--shadow-medium-dark);
   cursor: pointer;
-  animation: rollout 0.5s 0.5s backwards;
+  // animation: rollout 0.5s 0.5s backwards;
 
   @include background-hover-effect;
   @include ad-item-theme-color;

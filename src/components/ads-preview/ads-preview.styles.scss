@@ -12,4 +12,9 @@
     align-self: flex-start;
     margin-bottom: 2rem;
   }
+
+  &__list {
+    list-style: none;
+    width: 100%;
+  }
 }
