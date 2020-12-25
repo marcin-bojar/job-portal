@@ -21,8 +21,8 @@ const AdsPreviewItem = ({
 }) => (
   <motion.li
     variants={slideInAdItem}
-    animate={'visible'}
-    initial={'hidden'}
+    animate="visible"
+    initial="hidden"
     custom={custom}
     className="ads-preview__list-item"
   >
