@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { motion, AnimatePresence } from 'framer-motion';
 
+import transitions from '../../framer-motion/transitions/roll-in';
+
 import { isFetchingSelector } from '../../redux/ads/ads.selectors';
 
 import { showHeaderSelector } from '../../redux/ui/ui.selectors';
@@ -22,11 +24,6 @@ const HomePage = ({ isFetching, showHeader }) => {
     fullscreen: { height: '85vh' },
   };
 
-  const transitions = {
-    duration: 0.5,
-    ease: [0.18, 1.0, 1, 0.99],
-  };
-
   return (
     <div className={`homepage`}>
       <AnimatePresence initial={false}>
@@ -34,7 +31,7 @@ const HomePage = ({ isFetching, showHeader }) => {
           <motion.div
             key="loading"
             exit={{ scaleY: 0 }}
-            transition={{ ease: 'easeIn' }}
+            transition={transitions}
             className="black"
           >
             <motion.span>Loading</motion.span>

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { AnimatePresence } from 'framer-motion';
 
 import { connect } from 'react-redux';
 
@@ -36,7 +37,7 @@ const Header = ({ currentUser, toggleUserMenu, userMenuHidden }) => (
           {currentUser.displayName}
         </div>
       )}
-      {userMenuHidden ? null : <UserMenu />}
+      <AnimatePresence>{userMenuHidden ? null : <UserMenu />}</AnimatePresence>
     </div>
   </div>
 );
