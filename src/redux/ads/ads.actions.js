@@ -74,3 +74,8 @@ export const createAdFailure = error => ({
   type: AdsActionTypes.CREATE_AD_FAILURE,
   payload: error,
 });
+
+export const setReadyToDisplay = isReady => ({
+  type: AdsActionTypes.SET_READY_TO_DISPLAY,
+  payload: isReady,
+});

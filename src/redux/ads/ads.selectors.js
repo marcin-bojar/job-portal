@@ -9,11 +9,6 @@ export const filteredAdsSelector = createSelector(
   ads => ads.filteredAds
 );
 
-export const sortedAdsSelector = createSelector(
-  adsSelector,
-  ads => ads.sortedAds
-);
-
 export const searchInputSelector = createSelector(
   adsSelector,
   ads => ads.searchInput
@@ -32,3 +27,8 @@ export const isFetchingSelector = createSelector(
 );
 
 export const errorSelector = createSelector(adsSelector, ads => ads.error);
+
+export const readyToDisplaySelector = createSelector(
+  adsSelector,
+  ads => ads.readyToDisplay
+);

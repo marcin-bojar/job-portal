@@ -23,6 +23,7 @@ const INITIAL_STATE = {
   filtersApplied: false,
   error: null,
   isFetching: true,
+  readyToDisplay: false,
 };
 
 const adsReducer = (state = INITIAL_STATE, action) => {
@@ -185,6 +186,12 @@ const adsReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         error: action.payload,
+      };
+
+    case AdsActionTypes.SET_READY_TO_DISPLAY:
+      return {
+        ...state,
+        readyToDisplay: action.payload,
       };
 
     default:

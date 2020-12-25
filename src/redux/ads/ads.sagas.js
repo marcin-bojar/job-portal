@@ -6,6 +6,7 @@ import {
   fetchAdsSuccess,
   fetchAdsFailure,
   sortAdsByDateAdded,
+  setReadyToDisplay,
 } from './ads.actions';
 
 import {
@@ -31,6 +32,7 @@ function* fetchTenAds() {
     const tenAds = yield call(fetchTenLatestAdsFromEachCategory);
     yield put(fetchAdsSuccess(tenAds));
     yield put(sortAdsByDateAdded());
+    yield put(setReadyToDisplay(true));
   } catch (error) {
     yield put(fetchAdsFailure(error));
   }
